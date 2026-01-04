@@ -28,23 +28,25 @@ class DataPath:
         rs2 = decoded.get('rs2_bits', [0, 0, 0])[:3]
         opname = decoded.get('opcode_name', 'NOP')
 
+        # Get 8-bit address for memory/jump operations
+        addr_bits = decoded.get('rs2_bits', [0] * 8)[:8]
+        # Pad to 8 bits if needed
+        while len(addr_bits) < 8:
+            addr_bits.append(0)
+
         # Read registers
         a_val = self.reg_file.read(rs1)
         b_val = self.reg_file.read(rs2)
 
         if signals.mem_read and signals.mem_to_reg:
-            # LOAD instruction
-            addr = [0] * 8
-            addr[:4] = decoded.get('rs2_bits', [0, 0, 0, 0])
-            data = self.memory.read(addr)
+            # LOAD instruction - use full 8-bit address
+            data = self.memory.read(addr_bits)
             self.reg_file.write(rd, data, 1, 1)
 
         elif signals.mem_write:
-            # STORE instruction
-            addr = [0] * 8
-            addr[:4] = decoded.get('rs2_bits', [0, 0, 0, 0])
+            # STORE instruction - use full 8-bit address
             data = self.reg_file.read(rd)
-            self.memory.write(addr, data, 1)
+            self.memory.write(addr_bits, data, 1)
 
         elif signals.reg_write and not signals.mem_to_reg:
             # ALU operation or MOV
@@ -56,10 +58,8 @@ class DataPath:
 
         # Handle PC
         if signals.pc_load:
-            # Jump - load address from instruction
-            addr = [0] * 8
-            addr[:4] = decoded.get('rs2_bits', [0, 0, 0, 0])
-            self.pc.clock(load=1, load_value=addr, increment=0, reset=0, clk=1)
+            # Jump - use full 8-bit address
+            self.pc.clock(load=1, load_value=addr_bits, increment=0, reset=0, clk=1)
         elif signals.pc_inc:
             self.pc.clock(load=0, load_value=[0]*8, increment=1, reset=0, clk=1)
 
@@ -67,8 +67,10 @@ class DataPath:
         pc_val = self.pc.read()
         # Fetch two bytes for 16-bit instruction
         low_byte = self.memory.read(pc_val)
-        # Increment PC for high byte
-        pc_plus = [(pc_val[i] if i > 0 else 1 - pc_val[0]) for i in range(8)]
+        # Calculate PC+1 for high byte (proper increment with carry)
+        pc_int = sum(bit << i for i, bit in enumerate(pc_val))
+        pc_plus_int = (pc_int + 1) & 0xFF
+        pc_plus = [(pc_plus_int >> i) & 1 for i in range(8)]
         high_byte = self.memory.read(pc_plus)
         return low_byte + high_byte
 

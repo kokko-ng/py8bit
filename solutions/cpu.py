@@ -32,12 +32,11 @@ class CPU:
     def decode(self, instruction: List[int]) -> Dict:
         return self.decoder.decode(instruction)
 
-    def execute(self, decoded: Dict) -> None:
+    def execute(self, decoded: Dict, signals) -> None:
         if decoded.get('opcode_name') == 'HALT':
             self.halted = True
             return
 
-        signals = self.control.generate_signals(decoded, self.datapath.flags)
         self.datapath.execute_cycle(signals, decoded)
 
     def step(self) -> bool:
@@ -52,11 +51,28 @@ class CPU:
         decoded = self.decode(instruction)
         self.current_instruction = decoded
 
-        # Execute
-        self.execute(decoded)
+        # Generate control signals
+        signals = self.control.generate_signals(decoded, self.datapath.flags)
 
-        # Increment PC (if not a jump that already modified it)
-        if decoded.get('opcode_name') not in ['JMP', 'JZ', 'JNZ', 'HALT']:
+        # Execute
+        self.execute(decoded, signals)
+
+        # Increment PC by 2 (if not a jump that modified it, and not HALT)
+        # 16-bit instructions take 2 bytes
+        opname = decoded.get('opcode_name', '')
+        if opname == 'HALT':
+            pass  # Don't increment on HALT
+        elif opname == 'JMP':
+            pass  # JMP always loads PC, don't increment
+        elif opname in ['JZ', 'JNZ']:
+            # Conditional jump: check if jump was taken (pc_load was set)
+            if not signals.pc_load:
+                # Jump not taken, increment PC to next instruction
+                self.datapath.pc.clock(load=0, load_value=[0]*8, increment=1, reset=0, clk=1)
+                self.datapath.pc.clock(load=0, load_value=[0]*8, increment=1, reset=0, clk=1)
+        else:
+            # Normal instruction, increment PC
+            self.datapath.pc.clock(load=0, load_value=[0]*8, increment=1, reset=0, clk=1)
             self.datapath.pc.clock(load=0, load_value=[0]*8, increment=1, reset=0, clk=1)
 
         self.clock.tick()
