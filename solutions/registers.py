@@ -43,11 +43,17 @@ class RegisterFile:
         return [0] * 8
 
     def write(self, addr: List[int], data: List[int], enable: int, clk: int) -> None:
-        """Write to a register."""
+        """Write to a register.
+
+        To ensure proper edge-triggered behavior, we pulse the clock
+        by first setting it low, then high.
+        """
         if enable == 1:
             idx = self._addr_to_index(addr)
             if idx < self.num_registers:
-                self.registers[idx].clock(data, 1, clk)
+                # Pulse clock: low then high for rising edge
+                self.registers[idx].clock(data, 1, 0)  # Clock low
+                self.registers[idx].clock(data, 1, 1)  # Clock high (rising edge)
 
     def read_two(self, addr1: List[int], addr2: List[int]) -> tuple:
         """Read from two registers simultaneously."""
