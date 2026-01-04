@@ -1,0 +1,4 @@
+# Development dependencies for the 8-bit computer project
+pytest>=7.0
+jupyter>=1.0
+notebook>=7.0

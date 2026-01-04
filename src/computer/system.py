@@ -1,0 +1,75 @@
+"""
+Full System - Complete 8-bit Computer
+
+The complete computer system integrating:
+- CPU
+- Assembler
+- Memory initialization
+- I/O (simulated)
+"""
+
+from typing import List, Dict, Optional
+from computer.cpu import CPU
+from computer.assembler import Assembler
+
+
+class Computer:
+    """Complete 8-bit computer system."""
+
+    def __init__(self):
+        self.cpu = CPU()
+        self.assembler = Assembler()
+
+    def load_program(self, source: str) -> None:
+        """Assemble and load a program.
+
+        Args:
+            source: Assembly source code
+        """
+        # TODO: Implement program loading
+        pass
+
+    def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
+        """Load raw machine code into memory.
+
+        Args:
+            code: List of 16-bit instructions
+            start_addr: Starting address
+        """
+        # TODO: Implement machine code loading
+        pass
+
+    def run(self, max_cycles: int = 1000, debug: bool = False) -> Dict:
+        """Run the loaded program.
+
+        Args:
+            max_cycles: Maximum cycles to execute
+            debug: If True, print state after each instruction
+
+        Returns:
+            Final CPU state
+        """
+        # TODO: Implement run with optional debug output
+        pass
+
+    def reset(self) -> None:
+        """Reset the computer."""
+        self.cpu.reset()
+
+    def dump_state(self) -> Dict:
+        """Get complete system state for debugging.
+
+        Returns:
+            Dictionary with CPU state, register values, memory dump
+        """
+        # TODO: Implement state dump
+        pass
+
+    def dump_registers(self) -> str:
+        """Get formatted register dump."""
+        # TODO: Implement register dump
+        pass
+
+    def dump_memory(self, start: int = 0, end: int = 32) -> str:
+        """Get formatted memory dump."""
+        return self.cpu.datapath.memory.dump(start, end)
