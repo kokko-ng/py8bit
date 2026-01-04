@@ -62,4 +62,4 @@ class RAM:
         for addr in range(start, min(end, self.size)):
             val = sum(bit << i for i, bit in enumerate(self.memory[addr]))
             lines.append(f"{addr:02X}: {val:02X}")
-        return "\\n".join(lines)
+        return "\n".join(lines)

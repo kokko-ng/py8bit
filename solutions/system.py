@@ -17,6 +17,11 @@ class Computer:
     def load_program(self, source: str) -> None:
         code = self.assembler.assemble(source)
         self.load_machine_code(code)
+        # Also load data bytes from .byte directives
+        for addr, value in self.assembler.data_bytes.items():
+            addr_bits = [(addr >> i) & 1 for i in range(8)]
+            value_bits = [(value >> i) & 1 for i in range(8)]
+            self.cpu.datapath.memory.write(addr_bits, value_bits, 1)
 
     def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
         # Convert 16-bit instructions to bytes and load
@@ -58,7 +63,7 @@ class Computer:
             addr = [(i >> j) & 1 for j in range(3)]
             val = self.cpu.datapath.reg_file.read(addr)
             lines.append(f"R{i}: {self._bits_to_int(val):3d} (0x{self._bits_to_int(val):02X})")
-        return "\\n".join(lines)
+        return "\n".join(lines)
 
     def _bits_to_int(self, bits: List[int]) -> int:
         return sum(bit << i for i, bit in enumerate(bits))

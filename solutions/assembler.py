@@ -2,7 +2,7 @@
 Assembler - Solution File
 """
 
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 import re
 from solutions.isa import OPCODES, encode_instruction
 
@@ -13,10 +13,12 @@ class Assembler:
     def __init__(self):
         self.symbol_table: Dict[str, int] = {}
         self.errors: List[str] = []
+        self.data_bytes: Dict[int, int] = {}  # addr -> value
 
     def assemble(self, source: str) -> List[List[int]]:
         self.symbol_table = {}
         self.errors = []
+        self.data_bytes = {}
         parsed_lines = self.first_pass(source)
         return self.second_pass(parsed_lines)
 
@@ -24,7 +26,7 @@ class Assembler:
         parsed_lines = []
         address = 0
 
-        for line_num, line in enumerate(source.split('\\n'), 1):
+        for line_num, line in enumerate(source.split('\n'), 1):
             parsed = self.parse_line(line)
             if parsed is None:
                 continue
@@ -41,6 +43,8 @@ class Assembler:
             if parsed.get('directive') == '.org':
                 address = parsed['value']
             elif parsed.get('directive') == '.byte':
+                # Store the byte value at current address
+                self.data_bytes[address] = parsed.get('value', 0)
                 address += 1
 
         return parsed_lines
