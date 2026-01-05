@@ -2,6 +2,22 @@
 
 An educational project that teaches computer architecture by building a complete 8-bit computer in Python, from logic gates to running assembly programs.
 
+## Quick Start
+
+Want to jump right in? Here's the 2-minute version:
+
+```bash
+# 1. Setup
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# 2. Start learning
+jupyter notebook
+
+# 3. Open notebooks/01_logic_gates.ipynb and start coding!
+```
+
 ## Overview
 
 This project consists of 16 Jupyter notebooks, each building one layer of a computer:
@@ -27,8 +43,9 @@ This project consists of 16 Jupyter notebooks, each building one layer of a comp
 
 ### Prerequisites
 
-- Python 3.10+
-- Jupyter Notebook
+- Python 3.10 or higher
+- Basic Python programming knowledge
+- Understanding of binary (0s and 1s)
 
 ### Installation
 
@@ -43,9 +60,11 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Start Jupyter
+# Start Jupyter Notebook
 jupyter notebook
 ```
+
+This will open Jupyter in your browser. Navigate to the `notebooks/` folder and start with `01_logic_gates.ipynb`.
 
 ### Project Structure
 
@@ -62,12 +81,27 @@ jupyter notebook
 
 ## How to Use
 
-1. Open notebooks in order (01, 02, 03...)
-2. Read the theory and examples
-3. Complete the exercises in each notebook
-4. Copy your implementations to `src/computer/`
-5. Run `check('component_name')` to validate
-6. If stuck, reference the `solutions/` folder
+### Step-by-Step Workflow
+
+1. **Open notebooks in order** - Start with `01_logic_gates.ipynb`, then `02_combinational_circuits.ipynb`, etc.
+
+2. **Read and learn** - Each notebook teaches you the theory with examples
+
+3. **Complete exercises** - Write your code directly in the notebook cells
+
+4. **Save to module** - Once your code works in the notebook, copy it to the corresponding file in `src/computer/`. For example:
+   - From notebook: Copy your `AND()` function
+   - To file: Paste into `src/computer/gates.py` (replacing the `...`)
+
+5. **Validate** - Run the validation cell in the notebook:
+   ```python
+   from utils.checker import check
+   check('gates')  # Tests your gates.py implementation
+   ```
+
+6. **Debug** - If tests fail, review the error messages and fix your code
+
+7. **Get help if stuck** - Reference implementations are in the `solutions/` folder
 
 ## Checking Your Work
 
@@ -132,17 +166,22 @@ Design the instruction set and control logic.
 ### Phase 4: Integration (Notebooks 13-16)
 Connect everything and run real programs!
 
-## Running Tests
+## Advanced: Running All Tests
+
+The checker utility runs tests on individual components. If you want to test everything at once from the command line:
 
 ```bash
 # Activate virtual environment
 source .venv/bin/activate
 
-# Run all tests
-pytest
+# In a Python shell or script
+python3 -c "from utils.checker import check_all; check_all()"
+```
 
-# Run tests for a specific component
-pytest tests/test_gates.py -v
+Alternatively, you can run pytest (though tests will fail for unimplemented components):
+
+```bash
+pytest
 ```
 
 ## License
