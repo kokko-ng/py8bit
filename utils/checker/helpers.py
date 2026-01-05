@@ -22,32 +22,50 @@ def bits_to_int(bits: list, signed: bool = False) -> int:
 def assert_eq(actual, expected, message: str | None = None):
     """Assert that actual equals expected."""
     if actual != expected:
-        msg = message or f"Expected {expected}, got {actual}"
+        details = f"Expected: {expected!r}\n           Actual: {actual!r}"
+        if message:
+            msg = f"{message}\n           {details}"
+        else:
+            msg = details
         raise AssertionError(msg)
 
 
 def assert_true(condition, message: str | None = None):
     """Assert that condition is true."""
     if not condition:
-        raise AssertionError(message or "Condition is false")
+        msg = message or "Condition evaluated to False (expected True)"
+        raise AssertionError(msg)
 
 
 def assert_in(item, collection, message: str | None = None):
     """Assert that item is in collection."""
     if item not in collection:
-        msg = message or f"Expected {item} to be in {collection}"
+        details = f"Item {item!r} not found in collection\n           Collection: {collection!r}"
+        if message:
+            msg = f"{message}\n           {details}"
+        else:
+            msg = details
         raise AssertionError(msg)
 
 
 def assert_isinstance(obj, expected_type, message: str | None = None):
     """Assert that obj is an instance of expected_type."""
     if not isinstance(obj, expected_type):
-        msg = message or f"Expected instance of {expected_type}, got {type(obj)}"
+        details = f"Expected type: {expected_type.__name__ if hasattr(expected_type, '__name__') else expected_type}\n           Actual type: {type(obj).__name__}\n           Value: {obj!r}"
+        if message:
+            msg = f"{message}\n           {details}"
+        else:
+            msg = details
         raise AssertionError(msg)
 
 
 def assert_len(obj, expected_len: int, message: str | None = None):
     """Assert that obj has expected length."""
-    if len(obj) != expected_len:
-        msg = message or f"Expected length {expected_len}, got {len(obj)}"
+    actual_len = len(obj)
+    if actual_len != expected_len:
+        details = f"Expected length: {expected_len}\n           Actual length: {actual_len}\n           Value: {obj!r}"
+        if message:
+            msg = f"{message}\n           {details}"
+        else:
+            msg = details
         raise AssertionError(msg)

@@ -92,13 +92,19 @@ def display_results(component: str, exercise: str | None, passed: int, failed: i
         print("Great work! Your implementation is correct.")
     else:
         print(f"\n{failed} test(s) FAILED, {passed} test(s) passed")
-        print("\nFailed tests:")
+        print("\n" + "-" * 50)
+        print("FAILED TESTS:")
+        print("-" * 50)
         for result in results:
             if not result.passed:
-                print(f"  - {result.name}")
-                if verbose and result.error:
-                    print(f"      {result.error}")
-        print("\nHints:")
-        print("- Double-check your logic against the truth table")
-        print("- Make sure you're using the correct bit representation (0 and 1)")
-        print("- Verify input/output types match the specification")
+                print(f"\n  TEST: {result.name}")
+                if result.error:
+                    print(f"  ERROR: {result.error}")
+                else:
+                    print("  ERROR: (no error message)")
+        print("\n" + "-" * 50)
+        if verbose:
+            print("\nHints:")
+            print("- Double-check your logic against the truth table")
+            print("- Make sure you're using the correct bit representation (0 and 1)")
+            print("- Verify input/output types match the specification")
