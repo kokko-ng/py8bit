@@ -35,8 +35,7 @@ class ControlUnit:
             Control signals for current state
         """
         # TODO: Implement control signal generation
-        ...
-
+        pass
     def next_state(self) -> str:
         """Advance to next state in the cycle.
 
@@ -44,8 +43,7 @@ class ControlUnit:
             New state name
         """
         # TODO: Implement state machine
-        ...
-
+        pass
     def reset(self) -> None:
         """Reset control unit to initial state."""
         self.state = self.FETCH

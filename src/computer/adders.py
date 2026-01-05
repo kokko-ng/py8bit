@@ -43,9 +43,7 @@ def half_adder(a: int, b: int) -> Tuple[int, int]:
         Carry = AND(a, b)
     """
     # TODO: Implement half adder
-    sum_bit = XOR(a, b)
-    carry = AND(a, b)
-    return (sum_bit, carry)
+    pass
 
 
 def full_adder(a: int, b: int, cin: int) -> Tuple[int, int]:
@@ -81,13 +79,7 @@ def full_adder(a: int, b: int, cin: int) -> Tuple[int, int]:
         Final carry = OR of the two carries
     """
     # TODO: Implement full adder using two half adders
-    # First half adder: add a and b
-    sum1, carry1 = half_adder(a, b)
-    # Second half adder: add sum1 and cin
-    sum_final, carry2 = half_adder(sum1, cin)
-    # Final carry is OR of the two carries
-    carry_out = OR(carry1, carry2)
-    return (sum_final, carry_out)
+    pass
 
 
 def ripple_carry_adder_8bit(a: List[int], b: List[int], cin: int = 0) -> Tuple[List[int], int]:
@@ -111,13 +103,7 @@ def ripple_carry_adder_8bit(a: List[int], b: List[int], cin: int = 0) -> Tuple[L
         result = [0,0,0,1,0,0,0,0] (8 in binary, LSB first)
     """
     # TODO: Implement 8-bit ripple carry adder
-    # Chain 8 full adders together
-    result = []
-    carry = cin
-    for i in range(8):
-        sum_bit, carry = full_adder(a[i], b[i], carry)
-        result.append(sum_bit)
-    return (result, carry)
+    pass
 
 
 def subtractor_8bit(a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
@@ -144,18 +130,7 @@ def subtractor_8bit(a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
         or adding two negative numbers gives positive.
     """
     # TODO: Implement 8-bit subtractor
-    # Hint: Invert b, then use ripple_carry_adder_8bit with cin=1
-    # Invert b
-    b_inverted = [NOT(bit) for bit in b]
-    # Add a + ~b + 1
-    result, carry = ripple_carry_adder_8bit(a, b_inverted, cin=1)
-    # Borrow is the inverse of carry out
-    borrow = NOT(carry)
-    # Overflow detection: signs of a and b_inverted are same but result differs
-    # For simplicity, we'll calculate overflow as XOR of sign bits
-    overflow = AND(AND(NOT(a[7]), NOT(b[7])), result[7]) if len(a) == 8 else 0
-    overflow = OR(overflow, AND(AND(a[7], b[7]), NOT(result[7]))) if len(a) == 8 else overflow
-    return (result, borrow, overflow)
+    pass
 
 
 def twos_complement(bits: List[int]) -> List[int]:
@@ -170,9 +145,4 @@ def twos_complement(bits: List[int]) -> List[int]:
         Two's complement (8-bit, LSB at index 0)
     """
     # TODO: Implement two's complement
-    # Step 1: Invert all bits
-    inverted = [NOT(bit) for bit in bits]
-    # Step 2: Add 1
-    one = [1] + [0] * 7
-    result, _ = ripple_carry_adder_8bit(inverted, one)
-    return result
+    pass

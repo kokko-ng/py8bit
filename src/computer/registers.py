@@ -32,17 +32,11 @@ class Register8:
         """
         # TODO: Implement 8-bit register
         # Only update bits if enable=1 on clock edge
-        if enable == 1:
-            for i in range(8):
-                self.bits[i].clock(data[i], clk)
-        return self.read()
-
+        pass
     def read(self) -> List[int]:
         """Read current register value."""
         # TODO: Return current values of all flip-flops
-        return [self.bits[i].read() for i in range(8)]
-
-
+        pass
 class RegisterFile:
     """Register file - collection of registers with addressing.
 
@@ -68,11 +62,7 @@ class RegisterFile:
             8-bit register value
         """
         # TODO: Implement register read using address
-        idx = self._addr_to_index(addr)
-        if idx < self.num_registers:
-            return self.registers[idx].read()
-        return [0] * 8
-
+        pass
     def write(self, addr: List[int], data: List[int], enable: int, clk: int) -> None:
         """Write to a register.
 
@@ -84,13 +74,7 @@ class RegisterFile:
         """
         # TODO: Implement register write
         # Decode address and write to selected register
-        if enable == 1:
-            idx = self._addr_to_index(addr)
-            if idx < self.num_registers:
-                # Pulse clock: low then high for rising edge
-                self.registers[idx].clock(data, 1, 0)  # Clock low
-                self.registers[idx].clock(data, 1, 1)  # Clock high (rising edge)
-
+        pass
     def read_two(self, addr1: List[int], addr2: List[int]) -> tuple:
         """Read from two registers simultaneously.
 

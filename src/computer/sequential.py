@@ -43,14 +43,7 @@ class SRLatch:
         # Q = NOR(R, Q_bar)
         # Q_bar = NOR(S, Q)
         # Cross-coupled NOR gates - need to iterate to stabilize
-        for _ in range(2):
-            new_q = NOR(r, self.q_bar)
-            new_q_bar = NOR(s, self.q)
-            self.q = new_q
-            self.q_bar = new_q_bar
-        return self.q
-
-
+        pass
 class GatedSRLatch:
     """Gated SR Latch - SR latch with enable signal."""
 
@@ -70,11 +63,7 @@ class GatedSRLatch:
         """
         # TODO: Implement gated SR latch
         # Only update when enable=1
-        s_gated = AND(s, enable)
-        r_gated = AND(r, enable)
-        return self.sr_latch(s_gated, r_gated)
-
-
+        pass
 class DLatch:
     """D (Data) Latch - stores a single bit when enabled.
 
@@ -98,11 +87,7 @@ class DLatch:
         # TODO: Implement D latch
         # When enable=1: Q = D
         # When enable=0: Q = Q (hold)
-        if enable == 1:
-            self.q = d
-        return self.q
-
-
+        pass
 class DFlipFlop:
     """D Flip-Flop - edge-triggered storage element.
 
@@ -126,11 +111,7 @@ class DFlipFlop:
         """
         # TODO: Implement D flip-flop
         # Only update Q on rising edge (when clk goes from 0 to 1)
-        if clk == 1 and self._prev_clk == 0:  # Rising edge
-            self.q = d
-        self._prev_clk = clk
-        return self.q
-
+        pass
     def read(self) -> int:
         """Read current Q value."""
         return self.q
@@ -161,18 +142,7 @@ class JKFlipFlop:
             Current Q output
         """
         # TODO: Implement JK flip-flop
-        if clk == 1 and self._prev_clk == 0:  # Rising edge
-            if j == 0 and k == 0:
-                pass  # Hold
-            elif j == 0 and k == 1:
-                self.q = 0  # Reset
-            elif j == 1 and k == 0:
-                self.q = 1  # Set
-            elif j == 1 and k == 1:
-                self.q = NOT(self.q)  # Toggle
-        self._prev_clk = clk
-        return self.q
-
+        pass
     def read(self) -> int:
         """Read current Q value."""
         return self.q
@@ -198,7 +168,6 @@ class TFlipFlop:
             Current Q output
         """
         # TODO: Implement using JK flip-flop
-        return self.jk.clock(t, t, clk)
-
+        pass
     def read(self) -> int:
         return self.jk.read()

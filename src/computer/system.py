@@ -27,14 +27,7 @@ class Computer:
             source: Assembly source code
         """
         # TODO: Implement program loading
-        code = self.assembler.assemble(source)
-        self.load_machine_code(code)
-        # Also load data bytes from .byte directives
-        for addr, value in self.assembler.data_bytes.items():
-            addr_bits = [(addr >> i) & 1 for i in range(8)]
-            value_bits = [(value >> i) & 1 for i in range(8)]
-            self.cpu.datapath.memory.write(addr_bits, value_bits, 1)
-
+        pass
     def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
         """Load raw machine code into memory.
 
@@ -44,16 +37,7 @@ class Computer:
         """
         # TODO: Implement machine code loading
         # Convert 16-bit instructions to bytes and load
-        for i, instruction in enumerate(code):
-            addr = start_addr + i * 2
-            # Split into two bytes
-            low_byte = instruction[:8]
-            high_byte = instruction[8:] if len(instruction) > 8 else [0] * 8
-            addr_bits = [(addr >> j) & 1 for j in range(8)]
-            self.cpu.datapath.memory.write(addr_bits, low_byte, 1)
-            addr_bits = [((addr + 1) >> j) & 1 for j in range(8)]
-            self.cpu.datapath.memory.write(addr_bits, high_byte, 1)
-
+        pass
     def run(self, max_cycles: int = 1000, debug: bool = False) -> Dict:
         """Run the loaded program.
 
@@ -65,15 +49,7 @@ class Computer:
             Final CPU state
         """
         # TODO: Implement run with optional debug output
-        cycles = 0
-        while cycles < max_cycles:
-            if debug:
-                print(f"Cycle {cycles}: PC={self._format_bits(self.cpu.datapath.get_pc())}")
-            if not self.cpu.step():
-                break
-            cycles += 1
-        return self.dump_state()
-
+        pass
     def reset(self) -> None:
         """Reset the computer."""
         self.cpu.reset()
@@ -85,24 +61,11 @@ class Computer:
             Dictionary with CPU state, register values, memory dump
         """
         # TODO: Implement state dump
-        state = self.cpu.get_state()
-        state['registers'] = {}
-        for i in range(8):
-            addr = [(i >> j) & 1 for j in range(3)]
-            val = self.cpu.datapath.reg_file.read(addr)
-            state['registers'][f'R{i}'] = self._bits_to_int(val)
-        return state
-
+        pass
     def dump_registers(self) -> str:
         """Get formatted register dump."""
         # TODO: Implement register dump
-        lines = []
-        for i in range(8):
-            addr = [(i >> j) & 1 for j in range(3)]
-            val = self.cpu.datapath.reg_file.read(addr)
-            lines.append(f"R{i}: {self._bits_to_int(val):3d} (0x{self._bits_to_int(val):02X})")
-        return "\n".join(lines)
-
+        pass
     def dump_memory(self, start: int = 0, end: int = 32) -> str:
         """Get formatted memory dump."""
         return self.cpu.datapath.memory.dump(start, end)
