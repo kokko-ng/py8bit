@@ -36,7 +36,7 @@ dev = [
 where = ["src"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["utils/checker/tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
 addopts = "-v"

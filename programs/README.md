@@ -12,6 +12,8 @@ The simplest program - loads two numbers from memory, adds them, and stores the 
 ### multiply.asm
 Demonstrates multiplication through repeated addition.
 
+**Expected result:** R0 = 15 (5 × 3)
+
 ### fibonacci.asm
 Calculates Fibonacci sequence values and stores them in memory.
 
