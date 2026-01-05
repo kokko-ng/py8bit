@@ -40,3 +40,15 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
 addopts = "-v"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+# Notebooks need imports after path setup and have different conventions
+"notebooks/*.ipynb" = ["E402", "E702", "W291", "W293", "F841"]
+# Checker needs imports after path modification
+"utils/checker/__init__.py" = ["E402"]
