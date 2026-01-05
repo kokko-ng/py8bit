@@ -70,33 +70,7 @@ def encode_instruction(opcode: str, rd: int = 0, rs1: int = 0, rs2_imm: int = 0)
         For R-type instructions (ADD, SUB, etc.), rs2_imm is a 4-bit register number.
     """
     # TODO: Implement instruction encoding
-    op = OPCODES.get(opcode.upper(), 0)
-    op_name = opcode.upper()
-
-    if op_name in ['LOAD', 'STORE']:
-        # I-type: 8-bit address in low byte
-        instruction = (
-            (rs2_imm & 0xFF) |
-            ((rd & 0xF) << 8) |
-            ((op & 0xF) << 12)
-        )
-    elif op_name in ['JMP', 'JZ', 'JNZ']:
-        # J-type: 8-bit address in low byte
-        instruction = (
-            (rs2_imm & 0xFF) |
-            ((op & 0xF) << 12)
-        )
-    else:
-        # R-type: standard format
-        instruction = (
-            (rs2_imm & 0xF) |
-            ((rs1 & 0xF) << 4) |
-            ((rd & 0xF) << 8) |
-            ((op & 0xF) << 12)
-        )
-    return int_to_bits_n(instruction, 16)
-
-
+    pass
 def decode_instruction(instruction: List[int]) -> Dict:
     """Decode a 16-bit instruction.
 
@@ -107,29 +81,7 @@ def decode_instruction(instruction: List[int]) -> Dict:
         Dictionary with opcode, rd, rs1, rs2_imm fields
     """
     # TODO: Implement instruction decoding
-    val = bits_to_int_n(instruction)
-    opcode = (val >> 12) & 0xF
-    opcode_name = OPCODE_NAMES.get(opcode, 'UNKNOWN')
-    rd = (val >> 8) & 0xF
-
-    if opcode_name in ['LOAD', 'STORE', 'JMP', 'JZ', 'JNZ']:
-        # I-type or J-type: 8-bit immediate
-        rs1 = 0
-        rs2_imm = val & 0xFF
-    else:
-        # R-type
-        rs1 = (val >> 4) & 0xF
-        rs2_imm = val & 0xF
-
-    return {
-        'opcode': opcode,
-        'opcode_name': opcode_name,
-        'rd': rd,
-        'rs1': rs1,
-        'rs2_imm': rs2_imm,
-    }
-
-
+    pass
 def int_to_bits_n(value: int, n: int) -> List[int]:
     """Convert integer to n-bit list (LSB first)."""
     return [(value >> i) & 1 for i in range(n)]
