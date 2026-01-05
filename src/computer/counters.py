@@ -6,6 +6,7 @@ Essential for the Program Counter in the CPU.
 """
 
 from typing import List
+from computer.adders import ripple_carry_adder_8bit
 
 
 class BinaryCounter8:
@@ -26,7 +27,13 @@ class BinaryCounter8:
             Current count value
         """
         # TODO: Implement binary counter
-        ...
+        if reset == 1:
+            self.count = [0] * 8
+        elif enable == 1:
+            one = [1] + [0] * 7
+            self.count, _ = ripple_carry_adder_8bit(self.count, one)
+        # If enable == 0, hold current value
+        return self.count.copy()
 
     def read(self) -> List[int]:
         return self.count.copy()
@@ -62,7 +69,16 @@ class ProgramCounter:
             Current PC value
         """
         # TODO: Implement program counter
-        ...
+        # Priority: reset > load > increment
+        if reset == 1:
+            self.value = [0] * 8
+        elif load == 1:
+            self.value = load_value.copy()
+        elif increment == 1:
+            one = [1] + [0] * 7
+            self.value, _ = ripple_carry_adder_8bit(self.value, one)
+        # Otherwise hold
+        return self.value.copy()
 
     def read(self) -> List[int]:
         return self.value.copy()
