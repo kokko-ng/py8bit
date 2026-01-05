@@ -14,9 +14,13 @@ class Register8:
 
     def clock(self, data: List[int], enable: int, clk: int) -> List[int]:
         """Update register on clock edge when enabled."""
-        if enable == 1:
+        if enable == 1 and clk == 1:
+            # Cycle clock low first to ensure rising edge detection works
             for i in range(8):
-                self.bits[i].clock(data[i], clk)
+                self.bits[i].clock(data[i], 0)
+            # Then cycle high to trigger the rising edge
+            for i in range(8):
+                self.bits[i].clock(data[i], 1)
         return self.read()
 
     def read(self) -> List[int]:
