@@ -33,7 +33,7 @@ def NOT(a: int) -> int:
         Inverted bit (0 or 1)
     """
     # TODO: Implement NOT gate
-    pass
+    ...
 
 
 def AND(a: int, b: int) -> int:
@@ -57,7 +57,7 @@ def AND(a: int, b: int) -> int:
         Result bit (0 or 1)
     """
     # TODO: Implement AND gate
-    pass
+    ...
 
 
 def OR(a: int, b: int) -> int:
@@ -81,7 +81,7 @@ def OR(a: int, b: int) -> int:
         Result bit (0 or 1)
     """
     # TODO: Implement OR gate
-    pass
+    ...
 
 
 def NAND(a: int, b: int) -> int:
@@ -108,7 +108,7 @@ def NAND(a: int, b: int) -> int:
         Result bit (0 or 1)
     """
     # TODO: Implement NAND gate using AND and NOT
-    pass
+    ...
 
 
 def NOR(a: int, b: int) -> int:
@@ -135,7 +135,7 @@ def NOR(a: int, b: int) -> int:
         Result bit (0 or 1)
     """
     # TODO: Implement NOR gate using OR and NOT
-    pass
+    ...
 
 
 def XOR(a: int, b: int) -> int:
@@ -162,7 +162,7 @@ def XOR(a: int, b: int) -> int:
         Result bit (0 or 1)
     """
     # TODO: Implement XOR gate
-    pass
+    ...
 
 
 def XNOR(a: int, b: int) -> int:
@@ -188,4 +188,4 @@ def XNOR(a: int, b: int) -> int:
         Result bit (0 or 1)
     """
     # TODO: Implement XNOR gate using XOR and NOT
-    pass
+    ...

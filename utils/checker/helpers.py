@@ -19,33 +19,34 @@ def bits_to_int(bits: list, signed: bool = False) -> int:
     return result
 
 
-def assert_eq(actual, expected):
+def assert_eq(actual, expected, message: str | None = None):
     """Assert that actual equals expected."""
     if actual != expected:
-        raise AssertionError(f"Expected {expected}, got {actual}")
+        msg = message or f"Expected {expected}, got {actual}"
+        raise AssertionError(msg)
 
 
-def assert_true(condition, message: str = "Condition is false"):
+def assert_true(condition, message: str | None = None):
     """Assert that condition is true."""
     if not condition:
-        raise AssertionError(message)
+        raise AssertionError(message or "Condition is false")
 
 
-def assert_in(item, collection, message: str = None):
+def assert_in(item, collection, message: str | None = None):
     """Assert that item is in collection."""
     if item not in collection:
         msg = message or f"Expected {item} to be in {collection}"
         raise AssertionError(msg)
 
 
-def assert_isinstance(obj, expected_type, message: str = None):
+def assert_isinstance(obj, expected_type, message: str | None = None):
     """Assert that obj is an instance of expected_type."""
     if not isinstance(obj, expected_type):
         msg = message or f"Expected instance of {expected_type}, got {type(obj)}"
         raise AssertionError(msg)
 
 
-def assert_len(obj, expected_len: int, message: str = None):
+def assert_len(obj, expected_len: int, message: str | None = None):
     """Assert that obj has expected length."""
     if len(obj) != expected_len:
         msg = message or f"Expected length {expected_len}, got {len(obj)}"

@@ -41,7 +41,7 @@ def mux_2to1(a: int, b: int, sel: int) -> int:
     """
     # TODO: Implement 2-to-1 MUX using AND, OR, NOT gates
     # Hint: OUT = OR(AND(a, NOT(sel)), AND(b, sel))
-    pass
+    ...
 
 
 def mux_4to1(inputs: List[int], sel: List[int]) -> int:
@@ -67,7 +67,7 @@ def mux_4to1(inputs: List[int], sel: List[int]) -> int:
     """
     # TODO: Implement 4-to-1 MUX using 2-to-1 MUXes
     # Hint: Use a tree of 2-to-1 muxes
-    pass
+    ...
 
 
 def mux_8to1(inputs: List[int], sel: List[int]) -> int:
@@ -84,7 +84,7 @@ def mux_8to1(inputs: List[int], sel: List[int]) -> int:
         Selected input value
     """
     # TODO: Implement 8-to-1 MUX using 4-to-1 MUXes or 2-to-1 MUXes
-    pass
+    ...
 
 
 def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
@@ -103,7 +103,7 @@ def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
     """
     # TODO: Implement 1-to-2 DEMUX
     # Hint: out0 = AND(data, NOT(sel)), out1 = AND(data, sel)
-    pass
+    ...
 
 
 def demux_1to4(data: int, sel: List[int]) -> List[int]:
@@ -119,7 +119,7 @@ def demux_1to4(data: int, sel: List[int]) -> List[int]:
         List of 4 output values [out0, out1, out2, out3]
     """
     # TODO: Implement 1-to-4 DEMUX
-    pass
+    ...
 
 
 def decoder_2to4(sel: List[int]) -> List[int]:
@@ -143,7 +143,7 @@ def decoder_2to4(sel: List[int]) -> List[int]:
         List of 4 output bits (one-hot encoded)
     """
     # TODO: Implement 2-to-4 decoder
-    pass
+    ...
 
 
 def decoder_3to8(sel: List[int]) -> List[int]:
@@ -159,7 +159,7 @@ def decoder_3to8(sel: List[int]) -> List[int]:
         List of 8 output bits (one-hot encoded)
     """
     # TODO: Implement 3-to-8 decoder
-    pass
+    ...
 
 
 def encoder_4to2(inputs: List[int]) -> List[int]:
@@ -175,7 +175,7 @@ def encoder_4to2(inputs: List[int]) -> List[int]:
         List of 2 output bits [out0, out1] representing the binary value
     """
     # TODO: Implement 4-to-2 priority encoder
-    pass
+    ...
 
 
 def encoder_8to3(inputs: List[int]) -> List[int]:
@@ -191,4 +191,4 @@ def encoder_8to3(inputs: List[int]) -> List[int]:
         List of 3 output bits [out0, out1, out2]
     """
     # TODO: Implement 8-to-3 priority encoder
-    pass
+    ...

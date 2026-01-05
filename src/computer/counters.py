@@ -29,7 +29,7 @@ class BinaryCounter8:
             Current count value
         """
         # TODO: Implement binary counter
-        pass
+        ...
 
     def read(self) -> List[int]:
         return self.count.copy()
@@ -65,7 +65,7 @@ class ProgramCounter:
             Current PC value
         """
         # TODO: Implement program counter
-        pass
+        ...
 
     def read(self) -> List[int]:
         return self.value.copy()

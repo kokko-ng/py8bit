@@ -6,7 +6,7 @@ Test runner utilities for the checker.
 class TestResult:
     """Result of a single test."""
 
-    def __init__(self, name: str, passed: bool, error: str = None):
+    def __init__(self, name: str, passed: bool, error: str | None = None):
         self.name = name
         self.passed = passed
         self.error = error
@@ -27,7 +27,7 @@ def run_test(name: str, test_fn) -> TestResult:
         return TestResult(name, False, f"{type(e).__name__}: {e}")
 
 
-def run_tests(test_cases: dict, exercise: str = None) -> tuple:
+def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
     """
     Run a set of test cases and return (passed, failed, errors, results).
 
@@ -61,7 +61,7 @@ def run_tests(test_cases: dict, exercise: str = None) -> tuple:
     return passed, failed, errors, results
 
 
-def display_results(component: str, exercise: str, passed: int, failed: int,
+def display_results(component: str, exercise: str | None, passed: int, failed: int,
                     errors: int, verbose: bool, results: list):
     """Display test results in a user-friendly format."""
     title = f"Testing: {component}"
