@@ -19,19 +19,22 @@ class Clock:
         Returns:
             Current cycle number
         """
-        self.state = 1 - self.state
-        if self.state == 0:  # Completed a full cycle
-            self.cycle += 1
-        return self.cycle
+        # TODO: Implement clock tick
+        # Toggle state between 0 and 1
+        # Increment cycle when state goes from 1 to 0
+        pass
 
     def reset(self) -> None:
         """Reset clock to initial state."""
-        self.cycle = 0
-        self.state = 0
+        # TODO: Implement clock reset
+        # Reset cycle and state to 0
+        pass
 
     def get_state(self) -> int:
         """Get current clock state (0 or 1)."""
-        return self.state
+        # TODO: Implement get_state
+        # Return current clock state (0 or 1)
+        pass
 
 
 class ControlSignals:
@@ -65,16 +68,12 @@ class ControlSignals:
 
     def reset(self) -> None:
         """Reset all control signals to 0."""
-        self.__init__()
+        # TODO: Implement control signals reset
+        # Reset all signals to their initial values
+        pass
 
     def to_dict(self) -> dict:
         """Convert to dictionary for debugging."""
-        return {
-            'pc_load': self.pc_load,
-            'pc_inc': self.pc_inc,
-            'mem_read': self.mem_read,
-            'mem_write': self.mem_write,
-            'reg_write': self.reg_write,
-            'alu_op': self.alu_op,
-            'ir_load': self.ir_load,
-        }
+        # TODO: Implement to_dict
+        # Return a dictionary with all control signal values
+        pass
