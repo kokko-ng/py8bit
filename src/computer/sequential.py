@@ -41,7 +41,7 @@ class SRLatch:
         # TODO: Implement SR latch
         # Q = NOR(R, Q_bar)
         # Q_bar = NOR(S, Q)
-        pass
+        ...
 
 
 class GatedSRLatch:
@@ -63,7 +63,7 @@ class GatedSRLatch:
         """
         # TODO: Implement gated SR latch
         # Only update when enable=1
-        pass
+        ...
 
 
 class DLatch:
@@ -89,7 +89,7 @@ class DLatch:
         # TODO: Implement D latch
         # When enable=1: Q = D
         # When enable=0: Q = Q (hold)
-        pass
+        ...
 
 
 class DFlipFlop:
@@ -115,7 +115,7 @@ class DFlipFlop:
         """
         # TODO: Implement D flip-flop
         # Only update Q on rising edge (when clk goes from 0 to 1)
-        pass
+        ...
 
     def read(self) -> int:
         """Read current Q value."""
@@ -147,7 +147,7 @@ class JKFlipFlop:
             Current Q output
         """
         # TODO: Implement JK flip-flop
-        pass
+        ...
 
     def read(self) -> int:
         """Read current Q value."""
@@ -174,7 +174,7 @@ class TFlipFlop:
             Current Q output
         """
         # TODO: Implement using JK flip-flop
-        pass
+        ...
 
     def read(self) -> int:
         return self.jk.read()

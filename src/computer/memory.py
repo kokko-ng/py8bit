@@ -31,7 +31,7 @@ class RAM:
             8-bit data at address
         """
         # TODO: Implement memory read
-        pass
+        ...
 
     def write(self, address: List[int], data: List[int], enable: int) -> None:
         """Write to memory.
@@ -42,7 +42,7 @@ class RAM:
             enable: Write enable (1 to write)
         """
         # TODO: Implement memory write
-        pass
+        ...
 
     def load_program(self, program: List[List[int]], start_addr: int = 0) -> None:
         """Load a program into memory.

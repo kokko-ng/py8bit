@@ -58,7 +58,7 @@ def _test_system_load_run():
     # Load a simple program (NOPs followed by HALT)
     if hasattr(cpu, 'load_program'):
         try:
-            cpu.load_program([0x00, 0x00, 0x0F << 4])  # NOP, NOP, HALT
+            cpu.load_program([0x00, 0x00, 0x0F << 4])  # type: ignore[attr-defined]  # NOP, NOP, HALT
             cpu.run()
             assert_true(True)
         except Exception:

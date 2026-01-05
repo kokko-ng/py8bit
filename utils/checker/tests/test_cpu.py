@@ -62,7 +62,7 @@ def _test_cpu_step_pc():
     cpu = CPU()
     # Get initial PC if possible
     if hasattr(cpu, 'pc'):
-        initial_pc = cpu.pc if isinstance(cpu.pc, int) else 0
+        initial_pc = cpu.pc if isinstance(cpu.pc, int) else 0  # type: ignore[attr-defined]
         cpu.step()
         # Just verify step runs without checking PC
         assert_true(True)

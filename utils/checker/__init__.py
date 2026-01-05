@@ -27,7 +27,7 @@ from .tests import COMPONENT_TESTS
 __all__ = ['check', 'check_all', 'COMPONENT_TESTS']
 
 
-def check(component_name: str, exercise: str = None, verbose: bool = False) -> bool:
+def check(component_name: str, exercise: str | None = None, verbose: bool = False) -> bool:
     """Run tests for a component and display pass/fail results.
 
     Args:
