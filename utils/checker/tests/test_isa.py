@@ -2,12 +2,12 @@
 Test cases for ISA (Instruction Set Architecture).
 """
 
-from ..helpers import assert_eq, assert_true, assert_in, assert_len, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_true, assert_in, assert_len
 
 
 def get_tests() -> dict:
     """Return all test cases for ISA."""
-    from computer.isa import OPCODES, encode_instruction, decode_instruction
+    from computer.isa import OPCODES
 
     return {
         # OPCODES definitions
@@ -87,7 +87,7 @@ def _test_encode_jtype(opcode):
 
 def _test_decode_nop():
     """Test decoding NOP instruction."""
-    from computer.isa import encode_instruction, decode_instruction, OPCODES
+    from computer.isa import encode_instruction, decode_instruction
     encoded = encode_instruction('NOP')
     if encoded is not None:
         decoded = decode_instruction(encoded)
@@ -97,7 +97,7 @@ def _test_decode_nop():
 
 def _test_roundtrip():
     """Test encode/decode roundtrip."""
-    from computer.isa import encode_instruction, decode_instruction, OPCODES
+    from computer.isa import encode_instruction, decode_instruction
     for opcode in ['NOP', 'ADD', 'HALT']:
         encoded = encode_instruction(opcode)
         if encoded is not None:

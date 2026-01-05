@@ -4,7 +4,7 @@ CPU - Central Processing Unit
 The CPU integrates all components and executes the fetch-decode-execute cycle.
 """
 
-from typing import List, Dict, Optional
+from typing import List, Dict
 from computer.datapath import DataPath
 from computer.control import ControlUnit
 from computer.decoder import InstructionDecoder

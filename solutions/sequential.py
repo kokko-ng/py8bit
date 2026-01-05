@@ -2,7 +2,7 @@
 Latches and Flip-Flops - Solution File
 """
 
-from solutions.gates import AND, OR, NOT, NOR, NAND
+from solutions.gates import AND, NOT, NOR
 
 
 class SRLatch:

@@ -2,7 +2,7 @@
 Test cases for assembler.
 """
 
-from ..helpers import assert_eq, assert_true, assert_len
+from ..helpers import assert_true
 
 
 def get_tests() -> dict:

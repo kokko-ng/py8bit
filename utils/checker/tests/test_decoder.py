@@ -2,7 +2,7 @@
 Test cases for instruction decoder.
 """
 
-from ..helpers import assert_eq, assert_true, int_to_bits, bits_to_int
+from ..helpers import assert_true, int_to_bits
 
 
 def get_tests() -> dict:

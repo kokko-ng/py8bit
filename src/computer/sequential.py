@@ -11,7 +11,6 @@ Components:
 - JK Flip-Flop: Versatile edge-triggered element
 """
 
-from computer.gates import AND, OR, NOT, NOR, NAND
 
 
 class SRLatch:

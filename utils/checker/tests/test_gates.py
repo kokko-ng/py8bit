@@ -2,7 +2,7 @@
 Test cases for logic gates.
 """
 
-from ..helpers import assert_eq, assert_true, assert_isinstance
+from ..helpers import assert_eq, assert_isinstance
 
 
 def get_tests() -> dict:
@@ -83,7 +83,7 @@ def get_tests() -> dict:
 
 def _test_demorgan_nand():
     """Test De Morgan's law: NAND(a,b) = OR(NOT(a), NOT(b))"""
-    from computer.gates import NOT, AND, OR, NAND
+    from computer.gates import NOT, OR, NAND
     for a in [0, 1]:
         for b in [0, 1]:
             assert_eq(NAND(a, b), OR(NOT(a), NOT(b)))

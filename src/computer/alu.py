@@ -23,9 +23,6 @@ Flags:
 """
 
 from typing import List, Tuple, Dict
-from computer.gates import AND, OR, XOR, NOT
-from computer.adders import ripple_carry_adder_8bit, subtractor_8bit
-from computer.combinational import mux_8to1
 
 
 class ALU:

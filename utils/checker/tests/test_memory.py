@@ -2,7 +2,7 @@
 Test cases for memory.
 """
 
-from ..helpers import assert_eq, assert_true, assert_len, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_true, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:

@@ -4,7 +4,6 @@ Control Unit - Solution File
 
 from typing import Dict
 from solutions.clock import ControlSignals
-from solutions.isa import OPCODES
 
 
 class ControlUnit:

@@ -6,9 +6,6 @@ Essential for the Program Counter in the CPU.
 """
 
 from typing import List
-from computer.sequential import TFlipFlop, DFlipFlop
-from computer.adders import ripple_carry_adder_8bit
-from computer.gates import AND, OR, NOT
 
 
 class BinaryCounter8:

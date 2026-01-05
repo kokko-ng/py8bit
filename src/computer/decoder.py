@@ -6,7 +6,6 @@ and instruction type.
 """
 
 from typing import List, Dict
-from computer.isa import OPCODE_NAMES, bits_to_int_n
 
 
 class InstructionDecoder:

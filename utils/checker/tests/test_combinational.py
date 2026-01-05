@@ -2,7 +2,7 @@
 Test cases for combinational circuits.
 """
 
-from ..helpers import assert_eq, assert_true, assert_len
+from ..helpers import assert_eq
 
 
 def get_tests() -> dict:
@@ -10,8 +10,7 @@ def get_tests() -> dict:
     from computer.combinational import (
         mux_2to1, mux_4to1, mux_8to1,
         demux_1to2, demux_1to4,
-        decoder_2to4, decoder_3to8,
-        encoder_4to2, encoder_8to3
+        decoder_2to4, encoder_4to2, encoder_8to3
     )
 
     return {
