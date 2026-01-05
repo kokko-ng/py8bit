@@ -87,19 +87,27 @@ def decoder_3to8(sel: List[int]) -> List[int]:
 
 def encoder_4to2(inputs: List[int]) -> List[int]:
     """4-to-2 Priority Encoder."""
-    # out1 is 1 if inputs[2] or inputs[3] is active
+    # Priority encoder: higher index takes precedence
     out1 = OR(inputs[2], inputs[3])
-    # out0 is 1 if inputs[1] or inputs[3] is active (and higher priority not active)
-    out0 = OR(inputs[1], inputs[3])
+    # out0 is 1 when highest active is 1 or 3 (but 2 takes priority over 1)
+    out0 = OR(inputs[3], AND(inputs[1], NOT(inputs[2])))
     return [out0, out1]
 
 
 def encoder_8to3(inputs: List[int]) -> List[int]:
     """8-to-3 Priority Encoder."""
-    # out2 is 1 if any of inputs[4-7] is active
-    out2 = OR(OR(inputs[4], inputs[5]), OR(inputs[6], inputs[7]))
-    # out1 is 1 if any of inputs[2,3,6,7] is active
-    out1 = OR(OR(inputs[2], inputs[3]), OR(inputs[6], inputs[7]))
-    # out0 is 1 if any of inputs[1,3,5,7] is active
-    out0 = OR(OR(inputs[1], inputs[3]), OR(inputs[5], inputs[7]))
+    # Priority encoder: higher index takes precedence
+    any_upper = OR(OR(inputs[4], inputs[5]), OR(inputs[6], inputs[7]))
+
+    # out2 is 1 when highest active is in 4-7
+    out2 = any_upper
+
+    # out1 is 1 when highest active has bit 1 set (2,3 in lower half; 6,7 in upper half)
+    out1 = OR(OR(inputs[6], inputs[7]),
+              AND(NOT(any_upper), OR(inputs[2], inputs[3])))
+
+    # out0 is 1 when highest active has bit 0 set (1,3 in lower half; 5,7 in upper half)
+    out0 = OR(OR(inputs[5], inputs[7]),
+              AND(NOT(any_upper), OR(inputs[1], inputs[3])))
+
     return [out0, out1, out2]

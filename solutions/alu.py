@@ -50,8 +50,11 @@ class ALU:
             result, carry = self._shr(a)
         elif op_val == 8:  # CMP
             # Compare sets flags based on subtraction but returns A
-            _, carry, overflow = self._sub(a, b)
+            sub_result, carry, overflow = self._sub(a, b)
             result = a.copy()
+            # Calculate flags based on the subtraction result, not the returned result
+            flags = self._calculate_flags(sub_result, carry, overflow)
+            return result, flags
 
         flags = self._calculate_flags(result, carry, overflow)
         return result, flags
