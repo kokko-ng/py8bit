@@ -2,7 +2,7 @@
 Test cases for sequential circuits.
 """
 
-from ..helpers import assert_eq, assert_true
+from ..helpers import assert_eq
 
 
 def get_tests() -> dict:

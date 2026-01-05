@@ -15,7 +15,6 @@ All circuits use the gates from the gates module.
 """
 
 from typing import List, Tuple
-from computer.gates import AND, OR, NOT
 
 
 def mux_2to1(a: int, b: int, sel: int) -> int:

@@ -2,7 +2,7 @@
 Test cases for control unit.
 """
 
-from ..helpers import assert_eq, assert_true
+from ..helpers import assert_true
 
 
 def get_tests() -> dict:

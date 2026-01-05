@@ -8,7 +8,6 @@ the fetch-decode-execute cycle.
 
 from typing import Dict
 from computer.clock import ControlSignals
-from computer.isa import OPCODES
 
 
 class ControlUnit:

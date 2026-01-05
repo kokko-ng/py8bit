@@ -2,7 +2,7 @@
 Test cases for CPU.
 """
 
-from ..helpers import assert_eq, assert_true, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_true
 
 
 def get_tests() -> dict:
@@ -62,7 +62,7 @@ def _test_cpu_step_pc():
     cpu = CPU()
     # Get initial PC if possible
     if hasattr(cpu, 'pc'):
-        initial_pc = cpu.pc if isinstance(cpu.pc, int) else 0  # type: ignore[attr-defined]
+        _ = cpu.pc if isinstance(cpu.pc, int) else 0  # type: ignore[attr-defined]
         cpu.step()
         # Just verify step runs without checking PC
         assert_true(True)

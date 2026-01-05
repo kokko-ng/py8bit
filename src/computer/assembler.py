@@ -5,8 +5,6 @@ Converts assembly language to machine code.
 """
 
 from typing import List, Dict, Optional
-import re
-from computer.isa import OPCODES, encode_instruction
 
 
 class Assembler:

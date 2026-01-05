@@ -14,7 +14,6 @@ Bit representation: Lists with LSB at index 0.
 """
 
 from typing import List, Tuple
-from computer.gates import AND, OR, XOR, NOT
 
 
 def half_adder(a: int, b: int) -> Tuple[int, int]:

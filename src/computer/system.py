@@ -8,7 +8,7 @@ The complete computer system integrating:
 - I/O (simulated)
 """
 
-from typing import List, Dict, Optional
+from typing import List, Dict
 from computer.cpu import CPU
 from computer.assembler import Assembler
 

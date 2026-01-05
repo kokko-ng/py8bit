@@ -2,9 +2,8 @@
 Assembler - Solution File
 """
 
-from typing import List, Dict, Optional, Tuple
-import re
-from solutions.isa import OPCODES, encode_instruction
+from typing import List, Dict, Optional
+from solutions.isa import encode_instruction
 
 
 class Assembler:

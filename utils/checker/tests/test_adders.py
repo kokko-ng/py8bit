@@ -2,12 +2,12 @@
 Test cases for adders.
 """
 
-from ..helpers import assert_eq, assert_true, assert_isinstance, assert_len, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_isinstance, assert_len, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
     """Return all test cases for adders."""
-    from computer.adders import half_adder, full_adder, ripple_carry_adder_8bit, subtractor_8bit, twos_complement
+    from computer.adders import half_adder, full_adder, twos_complement
 
     return {
         # Half adder - complete truth table

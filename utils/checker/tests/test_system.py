@@ -2,7 +2,7 @@
 Test cases for full system integration.
 """
 
-from ..helpers import assert_eq, assert_true, int_to_bits, bits_to_int
+from ..helpers import assert_true
 
 
 def get_tests() -> dict:
