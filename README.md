@@ -2,22 +2,6 @@
 
 An educational project that teaches computer architecture by building a complete 8-bit computer in Python, from logic gates to running assembly programs.
 
-## Quick Start
-
-Want to jump right in? Here's the 2-minute version:
-
-```bash
-# 1. Setup
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-
-# 2. Start learning
-jupyter notebook
-
-# 3. Open notebooks/01_logic_gates.ipynb and start coding!
-```
-
 ## Overview
 
 This project consists of 16 Jupyter notebooks, each building one layer of a computer:
