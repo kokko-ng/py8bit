@@ -1,5 +1,4 @@
-"""
-CPU - Central Processing Unit
+"""CPU - Central Processing Unit.
 
 The CPU integrates all components and executes the fetch-decode-execute cycle.
 """
@@ -15,6 +14,7 @@ class CPU:
     """8-bit CPU - integrates datapath and control."""
 
     def __init__(self):
+        """Initialize CPU components."""
         self.datapath = DataPath()
         self.control = ControlUnit()
         self.decoder = InstructionDecoder()
@@ -24,7 +24,7 @@ class CPU:
 
     def reset(self) -> None:
         """Reset CPU to initial state."""
-        self.datapath.pc.clock(load=0, load_value=[0]*8, increment=0, reset=1, clk=1)
+        self.datapath.pc.clock(load=0, load_value=[0] * 8, increment=0, reset=1, clk=1)
         self.control.reset()
         self.halted = False
         self.current_instruction = None
@@ -83,8 +83,8 @@ class CPU:
     def get_state(self) -> Dict:
         """Get current CPU state for debugging."""
         return {
-            'pc': self.datapath.get_pc(),
-            'flags': self.datapath.flags.copy(),
-            'halted': self.halted,
-            'cycle': self.clock.cycle,
+            "pc": self.datapath.get_pc(),
+            "flags": self.datapath.flags.copy(),
+            "halted": self.halted,
+            "cycle": self.clock.cycle,
         }

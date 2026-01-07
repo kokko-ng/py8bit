@@ -1,6 +1,4 @@
-"""
-Test modules for the 8-bit computer components.
-"""
+"""Test modules for the 8-bit computer components."""
 
 from .test_gates import get_tests as get_gates_tests
 from .test_adders import get_tests as get_adders_tests
@@ -21,22 +19,22 @@ from .test_system import get_tests as get_system_tests
 
 # Component to test function mapping
 COMPONENT_TESTS = {
-    'gates': get_gates_tests,
-    'adders': get_adders_tests,
-    'combinational': get_combinational_tests,
-    'alu': get_alu_tests,
-    'sequential': get_sequential_tests,
-    'registers': get_registers_tests,
-    'counters': get_counters_tests,
-    'memory': get_memory_tests,
-    'clock': get_clock_tests,
-    'isa': get_isa_tests,
-    'decoder': get_decoder_tests,
-    'control': get_control_tests,
-    'datapath': get_datapath_tests,
-    'cpu': get_cpu_tests,
-    'assembler': get_assembler_tests,
-    'system': get_system_tests,
+    "gates": get_gates_tests,
+    "adders": get_adders_tests,
+    "combinational": get_combinational_tests,
+    "alu": get_alu_tests,
+    "sequential": get_sequential_tests,
+    "registers": get_registers_tests,
+    "counters": get_counters_tests,
+    "memory": get_memory_tests,
+    "clock": get_clock_tests,
+    "isa": get_isa_tests,
+    "decoder": get_decoder_tests,
+    "control": get_control_tests,
+    "datapath": get_datapath_tests,
+    "cpu": get_cpu_tests,
+    "assembler": get_assembler_tests,
+    "system": get_system_tests,
 }
 
-__all__ = ['COMPONENT_TESTS']
+__all__ = ["COMPONENT_TESTS"]

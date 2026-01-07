@@ -1,6 +1,4 @@
-"""
-Full System - Solution File
-"""
+"""Full System - Solution File."""
 
 from typing import List, Dict
 from solutions.cpu import CPU
@@ -11,10 +9,12 @@ class Computer:
     """Complete 8-bit computer system."""
 
     def __init__(self):
+        """Initialize computer with CPU and assembler."""
         self.cpu = CPU()
         self.assembler = Assembler()
 
     def load_program(self, source: str) -> None:
+        """Load and assemble a program from source code."""
         code = self.assembler.assemble(source)
         self.load_machine_code(code)
         # Also load data bytes from .byte directives
@@ -24,6 +24,7 @@ class Computer:
             self.cpu.datapath.memory.write(addr_bits, value_bits, 1)
 
     def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
+        """Load machine code into memory."""
         # Convert 16-bit instructions to bytes and load
         for i, instruction in enumerate(code):
             addr = start_addr + i * 2
@@ -36,6 +37,7 @@ class Computer:
             self.cpu.datapath.memory.write(addr_bits, high_byte, 1)
 
     def run(self, max_cycles: int = 1000, debug: bool = False) -> Dict:
+        """Run the computer until HALT or max cycles."""
         cycles = 0
         while cycles < max_cycles:
             if debug:
@@ -46,18 +48,21 @@ class Computer:
         return self.dump_state()
 
     def reset(self) -> None:
+        """Reset the computer to initial state."""
         self.cpu.reset()
 
     def dump_state(self) -> Dict:
+        """Get current computer state."""
         state = self.cpu.get_state()
-        state['registers'] = {}
+        state["registers"] = {}
         for i in range(8):
             addr = [(i >> j) & 1 for j in range(3)]
             val = self.cpu.datapath.reg_file.read(addr)
-            state['registers'][f'R{i}'] = self._bits_to_int(val)
+            state["registers"][f"R{i}"] = self._bits_to_int(val)
         return state
 
     def dump_registers(self) -> str:
+        """Get formatted register dump."""
         lines = []
         for i in range(8):
             addr = [(i >> j) & 1 for j in range(3)]

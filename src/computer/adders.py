@@ -1,5 +1,4 @@
-"""
-Adders - Arithmetic Building Blocks
+"""Adders - Arithmetic Building Blocks.
 
 This module contains adder circuits that perform binary addition.
 These are fundamental building blocks for the ALU.
@@ -14,7 +13,6 @@ Bit representation: Lists with LSB at index 0.
 """
 
 from typing import List, Tuple
-from computer.gates import AND, OR, NOT, XOR
 
 
 def half_adder(a: int, b: int) -> Tuple[int, int]:

@@ -1,5 +1,4 @@
-"""
-Latches and Flip-Flops - Sequential Logic Building Blocks
+"""Latches and Flip-Flops - Sequential Logic Building Blocks.
 
 Unlike combinational circuits, sequential circuits have memory - they can
 store state. Latches and flip-flops are the fundamental memory elements.
@@ -10,9 +9,6 @@ Components:
 - D Flip-Flop: Edge-triggered data storage
 - JK Flip-Flop: Versatile edge-triggered element
 """
-
-from computer.gates import AND, OR, NOT, NOR
-
 
 
 class SRLatch:
@@ -26,6 +22,7 @@ class SRLatch:
     """
 
     def __init__(self):
+        """Initialize SR latch with default state."""
         self.q = 0
         self.q_bar = 1
 
@@ -44,10 +41,13 @@ class SRLatch:
         # Q_bar = NOR(S, Q)
         # Cross-coupled NOR gates - need to iterate to stabilize
         pass
+
+
 class GatedSRLatch:
     """Gated SR Latch - SR latch with enable signal."""
 
     def __init__(self):
+        """Initialize gated SR latch."""
         self.sr_latch = SRLatch()
 
     def __call__(self, s: int, r: int, enable: int) -> int:
@@ -64,6 +64,8 @@ class GatedSRLatch:
         # TODO: Implement gated SR latch
         # Only update when enable=1
         pass
+
+
 class DLatch:
     """D (Data) Latch - stores a single bit when enabled.
 
@@ -72,6 +74,7 @@ class DLatch:
     """
 
     def __init__(self):
+        """Initialize D latch."""
         self.q = 0
 
     def __call__(self, d: int, enable: int) -> int:
@@ -88,6 +91,8 @@ class DLatch:
         # When enable=1: Q = D
         # When enable=0: Q = Q (hold)
         pass
+
+
 class DFlipFlop:
     """D Flip-Flop - edge-triggered storage element.
 
@@ -96,6 +101,7 @@ class DFlipFlop:
     """
 
     def __init__(self):
+        """Initialize D flip-flop."""
         self.q = 0
         self._prev_clk = 0
 
@@ -128,6 +134,7 @@ class JKFlipFlop:
     """
 
     def __init__(self):
+        """Initialize JK flip-flop."""
         self.q = 0
         self._prev_clk = 0
 
@@ -157,6 +164,7 @@ class TFlipFlop:
     """
 
     def __init__(self):
+        """Initialize T flip-flop."""
         self.jk = JKFlipFlop()
 
     def clock(self, t: int, clk: int) -> int:
@@ -173,4 +181,5 @@ class TFlipFlop:
         pass
 
     def read(self) -> int:
+        """Read current Q value."""
         return self.jk.read()

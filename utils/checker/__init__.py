@@ -1,5 +1,4 @@
-"""
-Test checker for 8-bit computer notebooks.
+"""Test checker for 8-bit computer notebooks.
 
 This module provides a `check()` function that runs inline tests for a component
 and displays friendly pass/fail messages without requiring pytest.
@@ -19,12 +18,12 @@ from pathlib import Path
 
 # Add src to path
 project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root / 'src'))
+sys.path.insert(0, str(project_root / "src"))
 
 from .runner import run_tests, display_results
 from .tests import COMPONENT_TESTS
 
-__all__ = ['check', 'check_all', 'COMPONENT_TESTS']
+__all__ = ["check", "check_all", "COMPONENT_TESTS"]
 
 
 def check(component_name: str, exercise: str | None = None, verbose: bool = False) -> bool:

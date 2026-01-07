@@ -45,10 +45,15 @@ addopts = "-v"
 line-length = 120
 
 [tool.ruff.lint]
-select = ["E", "F", "W"]
+select = ["E", "F", "W", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
 # Notebooks need imports after path setup and have different conventions
-"notebooks/*.ipynb" = ["E402", "E702", "W291", "W293", "F841"]
+"notebooks/*.ipynb" = ["E402", "E702", "W291", "W293", "F841", "D100", "D102", "D107", "D205", "D415"]
 # Checker needs imports after path modification
 "utils/checker/__init__.py" = ["E402"]
+# Test files - allow missing module and function docstrings
+"utils/checker/tests/*.py" = ["D100", "D103"]

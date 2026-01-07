@@ -1,5 +1,4 @@
-"""
-Control Unit
+"""Control Unit.
 
 The control unit generates control signals based on the current
 instruction and CPU state. It implements the state machine for
@@ -14,13 +13,14 @@ class ControlUnit:
     """CPU Control Unit - generates control signals."""
 
     # CPU States
-    FETCH = 'FETCH'
-    DECODE = 'DECODE'
-    EXECUTE = 'EXECUTE'
-    MEMORY = 'MEMORY'
-    WRITEBACK = 'WRITEBACK'
+    FETCH = "FETCH"
+    DECODE = "DECODE"
+    EXECUTE = "EXECUTE"
+    MEMORY = "MEMORY"
+    WRITEBACK = "WRITEBACK"
 
     def __init__(self):
+        """Initialize control unit."""
         self.state = self.FETCH
         self.signals = ControlSignals()
 

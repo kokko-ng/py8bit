@@ -1,5 +1,4 @@
-"""
-Data Path
+"""Data Path.
 
 The data path connects all CPU components:
 - Program Counter
@@ -23,12 +22,13 @@ class DataPath:
     """CPU Data Path - connects all components."""
 
     def __init__(self):
+        """Initialize data path components."""
         self.pc = ProgramCounter()
         self.memory = RAM()
         self.reg_file = RegisterFile()
         self.alu = ALU()
         self.ir = [0] * 16  # Instruction register (16-bit)
-        self.flags = {'Z': 0, 'C': 0, 'N': 0, 'V': 0}
+        self.flags = {"Z": 0, "C": 0, "N": 0, "V": 0}
 
     def execute_cycle(self, signals: ControlSignals, decoded: Dict) -> None:
         """Execute one clock cycle based on control signals.

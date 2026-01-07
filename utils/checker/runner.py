@@ -1,17 +1,17 @@
-"""
-Test runner utilities for the checker.
-"""
+"""Test runner utilities for the checker."""
 
 
 class TestResult:
     """Result of a single test."""
 
     def __init__(self, name: str, passed: bool, error: str | None = None):
+        """Initialize test result."""
         self.name = name
         self.passed = passed
         self.error = error
 
     def __repr__(self):
+        """Return string representation."""
         status = "PASS" if self.passed else "FAIL"
         return f"TestResult({self.name}: {status})"
 
@@ -28,8 +28,7 @@ def run_test(name: str, test_fn) -> TestResult:
 
 
 def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
-    """
-    Run a set of test cases and return (passed, failed, errors, results).
+    """Run a set of test cases and return (passed, failed, errors, results).
 
     Args:
         test_cases: Dict mapping test names to test functions
@@ -53,7 +52,7 @@ def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
 
         if result.passed:
             passed += 1
-        elif result.error and ('Error' in result.error or 'Exception' in result.error):
+        elif result.error and ("Error" in result.error or "Exception" in result.error):
             errors += 1
         else:
             failed += 1
@@ -61,8 +60,9 @@ def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
     return passed, failed, errors, results
 
 
-def display_results(component: str, exercise: str | None, passed: int, failed: int,
-                    errors: int, verbose: bool, results: list):
+def display_results(
+    component: str, exercise: str | None, passed: int, failed: int, errors: int, verbose: bool, results: list
+):
     """Display test results in a user-friendly format."""
     title = f"Testing: {component}"
     if exercise:
@@ -81,7 +81,7 @@ def display_results(component: str, exercise: str | None, passed: int, failed: i
         print("This usually means there's a syntax error or import issue.")
         if verbose:
             for result in results:
-                if result.error and ('Error' in result.error or 'Exception' in result.error):
+                if result.error and ("Error" in result.error or "Exception" in result.error):
                     print(f"  - {result.name}: {result.error}")
         else:
             print("Run with verbose=True for more details.")

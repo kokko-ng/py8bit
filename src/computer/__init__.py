@@ -1,5 +1,4 @@
-"""
-8-Bit Computer Components Library
+"""8-Bit Computer Components Library.
 
 This package contains all the building blocks for constructing an 8-bit computer
 from scratch, starting with logic gates and building up to a complete CPU.
@@ -55,7 +54,7 @@ def bits_to_int(bits: List[int], signed: bool = False) -> int:
 
     if signed and len(bits) > 0 and bits[-1] == 1:
         # Two's complement: subtract 2^n if MSB is 1
-        result -= (1 << len(bits))
+        result -= 1 << len(bits)
 
     return result
 
@@ -83,4 +82,4 @@ def bits_to_bin(bits: List[int]) -> str:
     Returns:
         Binary string with MSB first (e.g., '00000101')
     """
-    return ''.join(str(b) for b in reversed(bits))
+    return "".join(str(b) for b in reversed(bits))

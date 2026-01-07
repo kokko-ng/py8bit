@@ -1,5 +1,4 @@
-"""
-Logic Gates - The Foundation of Digital Circuits
+"""Logic Gates - The Foundation of Digital Circuits.
 
 This module contains the fundamental logic gates that form the building blocks
 of all digital circuits. Every component in our 8-bit computer will ultimately

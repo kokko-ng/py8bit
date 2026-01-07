@@ -1,5 +1,4 @@
-"""
-Full System - Complete 8-bit Computer
+"""Full System - Complete 8-bit Computer.
 
 The complete computer system integrating:
 - CPU
@@ -17,6 +16,7 @@ class Computer:
     """Complete 8-bit computer system."""
 
     def __init__(self):
+        """Initialize computer with CPU and assembler."""
         self.cpu = CPU()
         self.assembler = Assembler()
 

@@ -1,5 +1,4 @@
-"""
-Registers - Multi-bit Storage Elements
+"""Registers - Multi-bit Storage Elements.
 
 Registers are groups of flip-flops that store multi-bit values.
 They are fundamental for holding data in the CPU.
@@ -17,6 +16,7 @@ class Register8:
     """8-bit register built from D flip-flops."""
 
     def __init__(self):
+        """Initialize 8-bit register."""
         self.bits = [DFlipFlop() for _ in range(8)]
 
     def clock(self, data: List[int], enable: int, clk: int) -> List[int]:
@@ -38,6 +38,8 @@ class Register8:
         """Read current register value."""
         # TODO: Return current values of all flip-flops
         pass
+
+
 class RegisterFile:
     """Register file - collection of registers with addressing.
 
@@ -46,6 +48,7 @@ class RegisterFile:
     """
 
     def __init__(self, num_registers: int = 8):
+        """Initialize register file."""
         self.registers = [Register8() for _ in range(num_registers)]
         self.num_registers = num_registers
 

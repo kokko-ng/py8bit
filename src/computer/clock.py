@@ -1,5 +1,4 @@
-"""
-Clock and Control Signals
+"""Clock and Control Signals.
 
 The clock coordinates all CPU operations. Control signals
 direct data flow through the CPU.
@@ -10,6 +9,7 @@ class Clock:
     """CPU Clock generator."""
 
     def __init__(self):
+        """Initialize clock."""
         self.cycle = 0
         self.state = 0  # 0 = low, 1 = high
 
@@ -41,30 +41,31 @@ class ControlSignals:
     """Container for all CPU control signals."""
 
     def __init__(self):
+        """Initialize control signals to default values."""
         # Program counter controls
-        self.pc_load = 0      # Load PC with new value
-        self.pc_inc = 0       # Increment PC
-        self.pc_reset = 0     # Reset PC to 0
+        self.pc_load = 0  # Load PC with new value
+        self.pc_inc = 0  # Increment PC
+        self.pc_reset = 0  # Reset PC to 0
 
         # Memory controls
-        self.mem_read = 0     # Read from memory
-        self.mem_write = 0    # Write to memory
+        self.mem_read = 0  # Read from memory
+        self.mem_write = 0  # Write to memory
 
         # Register file controls
-        self.reg_write = 0    # Write to register
-        self.reg_read_a = 0   # Read register for A operand
-        self.reg_read_b = 0   # Read register for B operand
+        self.reg_write = 0  # Write to register
+        self.reg_read_a = 0  # Read register for A operand
+        self.reg_read_b = 0  # Read register for B operand
 
         # ALU controls
         self.alu_op = [0, 0, 0, 0]  # ALU operation code
 
         # Instruction register
-        self.ir_load = 0      # Load instruction register
+        self.ir_load = 0  # Load instruction register
 
         # Data path controls
-        self.alu_src_b = 0    # 0=register, 1=immediate
-        self.reg_dst = 0      # Register destination select
-        self.mem_to_reg = 0   # 0=ALU result, 1=memory data
+        self.alu_src_b = 0  # 0=register, 1=immediate
+        self.reg_dst = 0  # Register destination select
+        self.mem_to_reg = 0  # 0=ALU result, 1=memory data
 
     def reset(self) -> None:
         """Reset all control signals to 0."""
