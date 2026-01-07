@@ -50,11 +50,12 @@ class CPU:
         # TODO: Implement decode
         pass
 
-    def execute(self, decoded: Dict) -> None:
+    def execute(self, decoded: Dict, signals) -> None:
         """Execute instruction.
 
         Args:
             decoded: Decoded instruction fields
+            signals: Control signals for this instruction
         """
         # TODO: Implement execute
         pass
