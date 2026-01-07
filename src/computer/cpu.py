@@ -37,6 +37,7 @@ class CPU:
         """
         # TODO: Implement fetch
         pass
+
     def decode(self, instruction: List[int]) -> Dict:
         """Decode instruction.
 
@@ -48,6 +49,7 @@ class CPU:
         """
         # TODO: Implement decode
         pass
+
     def execute(self, decoded: Dict) -> None:
         """Execute instruction.
 
@@ -56,6 +58,7 @@ class CPU:
         """
         # TODO: Implement execute
         pass
+
     def step(self) -> bool:
         """Execute one complete instruction.
 
@@ -64,6 +67,7 @@ class CPU:
         """
         # TODO: Implement single step
         pass
+
     def run(self, max_cycles: int = 1000) -> int:
         """Run until HALT or max cycles reached.
 
@@ -75,6 +79,7 @@ class CPU:
         """
         # TODO: Implement run loop
         pass
+
     def get_state(self) -> Dict:
         """Get current CPU state for debugging."""
         return {

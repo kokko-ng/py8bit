@@ -39,6 +39,7 @@ class DataPath:
         """
         # TODO: Implement data path execution
         pass
+
     def fetch_instruction(self) -> List[int]:
         """Fetch instruction at current PC.
 
@@ -47,6 +48,7 @@ class DataPath:
         """
         # TODO: Implement instruction fetch
         pass
+
     def load_instruction(self, instruction: List[int]) -> None:
         """Load instruction into IR."""
         self.ir = instruction.copy()
