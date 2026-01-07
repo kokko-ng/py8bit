@@ -33,6 +33,7 @@ class Register8:
         # TODO: Implement 8-bit register
         # Only update bits if enable=1 on clock edge
         pass
+
     def read(self) -> List[int]:
         """Read current register value."""
         # TODO: Return current values of all flip-flops
@@ -63,6 +64,7 @@ class RegisterFile:
         """
         # TODO: Implement register read using address
         pass
+
     def write(self, addr: List[int], data: List[int], enable: int, clk: int) -> None:
         """Write to a register.
 
@@ -75,6 +77,7 @@ class RegisterFile:
         # TODO: Implement register write
         # Decode address and write to selected register
         pass
+
     def read_two(self, addr1: List[int], addr2: List[int]) -> tuple:
         """Read from two registers simultaneously.
 

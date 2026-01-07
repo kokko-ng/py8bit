@@ -28,6 +28,7 @@ class BinaryCounter8:
         """
         # TODO: Implement binary counter
         pass
+
     def read(self) -> List[int]:
         return self.count.copy()
 
@@ -64,5 +65,6 @@ class ProgramCounter:
         # TODO: Implement program counter
         # Priority: reset > load > increment
         pass
+
     def read(self) -> List[int]:
         return self.value.copy()

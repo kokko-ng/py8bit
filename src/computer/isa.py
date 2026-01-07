@@ -71,6 +71,8 @@ def encode_instruction(opcode: str, rd: int = 0, rs1: int = 0, rs2_imm: int = 0)
     """
     # TODO: Implement instruction encoding
     pass
+
+
 def decode_instruction(instruction: List[int]) -> Dict:
     """Decode a 16-bit instruction.
 
@@ -82,6 +84,8 @@ def decode_instruction(instruction: List[int]) -> Dict:
     """
     # TODO: Implement instruction decoding
     pass
+
+
 def int_to_bits_n(value: int, n: int) -> List[int]:
     """Convert integer to n-bit list (LSB first)."""
     return [(value >> i) & 1 for i in range(n)]

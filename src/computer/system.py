@@ -28,6 +28,7 @@ class Computer:
         """
         # TODO: Implement program loading
         pass
+
     def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
         """Load raw machine code into memory.
 
@@ -38,6 +39,7 @@ class Computer:
         # TODO: Implement machine code loading
         # Convert 16-bit instructions to bytes and load
         pass
+
     def run(self, max_cycles: int = 1000, debug: bool = False) -> Dict:
         """Run the loaded program.
 
@@ -50,6 +52,7 @@ class Computer:
         """
         # TODO: Implement run with optional debug output
         pass
+
     def reset(self) -> None:
         """Reset the computer."""
         self.cpu.reset()
@@ -62,10 +65,12 @@ class Computer:
         """
         # TODO: Implement state dump
         pass
+
     def dump_registers(self) -> str:
         """Get formatted register dump."""
         # TODO: Implement register dump
         pass
+
     def dump_memory(self, start: int = 0, end: int = 32) -> str:
         """Get formatted memory dump."""
         return self.cpu.datapath.memory.dump(start, end)

@@ -112,6 +112,7 @@ class DFlipFlop:
         # TODO: Implement D flip-flop
         # Only update Q on rising edge (when clk goes from 0 to 1)
         pass
+
     def read(self) -> int:
         """Read current Q value."""
         return self.q
@@ -143,6 +144,7 @@ class JKFlipFlop:
         """
         # TODO: Implement JK flip-flop
         pass
+
     def read(self) -> int:
         """Read current Q value."""
         return self.q
@@ -169,5 +171,6 @@ class TFlipFlop:
         """
         # TODO: Implement using JK flip-flop
         pass
+
     def read(self) -> int:
         return self.jk.read()
