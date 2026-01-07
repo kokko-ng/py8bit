@@ -27,3 +27,12 @@ This prevents clutter in the working directory and ensures consistent cleanup ac
 ## Package Management
 
 Uses **uv** for Python package and environment management. Python 3.13+ is required.
+
+## Repository Structure
+
+This repository has a public and private counterpart:
+
+- **Public repo**: https://github.com/kokko-ng/py8bit
+- **Private repo**: https://github.com/kokko-ng/kokko-priv-py8bit
+
+Personal solutions and work should be done in the `kokko` branch and pushed only to the private repo using the `/compush` command.
