@@ -1,5 +1,4 @@
-"""
-Memory - RAM (Random Access Memory)
+"""Memory - RAM (Random Access Memory).
 
 RAM allows reading and writing data at any address.
 Our RAM has:
@@ -14,6 +13,7 @@ class RAM:
     """256-byte RAM with 8-bit addressing."""
 
     def __init__(self, size: int = 256):
+        """Initialize RAM with given size."""
         self.size = size
         self.memory = [[0] * 8 for _ in range(size)]
 

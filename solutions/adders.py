@@ -1,8 +1,4 @@
-"""
-Adders - Solution File
-
-Complete implementations of all adder circuits.
-"""
+"""Adders - Solution File."""
 
 from typing import List, Tuple
 from solutions.gates import AND, OR, XOR, NOT

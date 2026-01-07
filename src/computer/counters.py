@@ -1,18 +1,17 @@
-"""
-Counters - Sequential Counting Circuits
+"""Counters - Sequential Counting Circuits.
 
 Counters increment their value on each clock cycle.
 Essential for the Program Counter in the CPU.
 """
 
 from typing import List
-from computer.adders import ripple_carry_adder_8bit
 
 
 class BinaryCounter8:
     """8-bit binary counter."""
 
     def __init__(self):
+        """Initialize binary counter."""
         self.count = [0] * 8
 
     def clock(self, enable: int = 1, reset: int = 0, clk: int = 1) -> List[int]:
@@ -30,6 +29,7 @@ class BinaryCounter8:
         pass
 
     def read(self) -> List[int]:
+        """Read current counter value."""
         return self.count.copy()
 
 
@@ -44,10 +44,10 @@ class ProgramCounter:
     """
 
     def __init__(self):
+        """Initialize program counter."""
         self.value = [0] * 8
 
-    def clock(self, load: int, load_value: List[int],
-              increment: int, reset: int, clk: int) -> List[int]:
+    def clock(self, load: int, load_value: List[int], increment: int, reset: int, clk: int) -> List[int]:
         """Update PC on clock edge.
 
         Priority: reset > load > increment
@@ -67,4 +67,5 @@ class ProgramCounter:
         pass
 
     def read(self) -> List[int]:
+        """Read current PC value."""
         return self.value.copy()

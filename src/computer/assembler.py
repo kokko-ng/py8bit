@@ -1,17 +1,16 @@
-"""
-Assembler
+"""Assembler.
 
 Converts assembly language to machine code.
 """
 
 from typing import List, Dict, Optional
-from computer.isa import encode_instruction
 
 
 class Assembler:
     """Two-pass assembler for our 8-bit CPU."""
 
     def __init__(self):
+        """Initialize assembler state."""
         self.symbol_table: Dict[str, int] = {}
         self.errors: List[str] = []
         self.data_bytes: Dict[int, int] = {}  # addr -> value
@@ -80,7 +79,7 @@ class Assembler:
     def _parse_reg(self, operand: str) -> int:
         """Parse a register operand."""
         operand = operand.strip().upper()
-        if operand.startswith('R'):
+        if operand.startswith("R"):
             return int(operand[1:])
         return 0
 
@@ -89,6 +88,6 @@ class Assembler:
         operand = operand.strip()
         if operand in self.symbol_table:
             return self.symbol_table[operand]
-        if operand.startswith('0x') or operand.startswith('0X'):
+        if operand.startswith("0x") or operand.startswith("0X"):
             return int(operand, 16)
         return int(operand)

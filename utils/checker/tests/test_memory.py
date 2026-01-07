@@ -1,6 +1,4 @@
-"""
-Test cases for memory.
-"""
+"""Test cases for memory."""
 
 from ..helpers import assert_eq, assert_true, int_to_bits, bits_to_int
 
@@ -12,11 +10,10 @@ def get_tests() -> dict:
     return {
         # RAM creation and structure
         "RAM_create": lambda: assert_true(RAM() is not None),
-        "RAM_has_read": lambda: assert_true(hasattr(RAM(), 'read')),
-        "RAM_has_write": lambda: assert_true(hasattr(RAM(), 'write')),
-        "RAM_has_load_program": lambda: assert_true(hasattr(RAM(), 'load_program')),
+        "RAM_has_read": lambda: assert_true(hasattr(RAM(), "read")),
+        "RAM_has_write": lambda: assert_true(hasattr(RAM(), "write")),
+        "RAM_has_load_program": lambda: assert_true(hasattr(RAM(), "load_program")),
         "RAM_default_size": lambda: assert_eq(RAM().size, 256),
-
         # RAM read/write
         "RAM_write_read_addr0": lambda: _test_ram_addr(0),
         "RAM_write_read_addr10": lambda: _test_ram_addr(10),
@@ -25,7 +22,6 @@ def get_tests() -> dict:
         "RAM_multiple_addresses": lambda: _test_ram_multiple(),
         "RAM_overwrite": lambda: _test_ram_overwrite(),
         "RAM_write_disabled": lambda: _test_ram_write_disabled(),
-
         # RAM load program
         "RAM_load_program": lambda: _test_ram_load_program(),
         "RAM_load_program_offset": lambda: _test_ram_load_program_offset(),
@@ -35,6 +31,7 @@ def get_tests() -> dict:
 def _test_ram_addr(addr_val):
     """Test RAM write and read at specific address."""
     from computer.memory import RAM
+
     ram = RAM()
     addr = int_to_bits(addr_val, 8)
     data = int_to_bits(addr_val % 256, 8)
@@ -47,6 +44,7 @@ def _test_ram_addr(addr_val):
 def _test_ram_multiple():
     """Test RAM with multiple addresses."""
     from computer.memory import RAM
+
     ram = RAM()
     # Write different values to different addresses
     for i in range(10):
@@ -64,6 +62,7 @@ def _test_ram_multiple():
 def _test_ram_overwrite():
     """Test RAM overwrite."""
     from computer.memory import RAM
+
     ram = RAM()
     addr = int_to_bits(5, 8)
     # Write first value
@@ -80,6 +79,7 @@ def _test_ram_overwrite():
 def _test_ram_write_disabled():
     """Test RAM write when enable=0."""
     from computer.memory import RAM
+
     ram = RAM()
     addr = int_to_bits(5, 8)
     # Write first value
@@ -96,6 +96,7 @@ def _test_ram_write_disabled():
 def _test_ram_load_program():
     """Test RAM load_program method."""
     from computer.memory import RAM
+
     ram = RAM()
     program = [
         int_to_bits(0x00, 8),  # NOP
@@ -114,6 +115,7 @@ def _test_ram_load_program():
 def _test_ram_load_program_offset():
     """Test RAM load_program with offset."""
     from computer.memory import RAM
+
     ram = RAM()
     program = [
         int_to_bits(0xAA, 8),

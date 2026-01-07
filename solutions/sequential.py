@@ -1,6 +1,4 @@
-"""
-Latches and Flip-Flops - Solution File
-"""
+"""Latches and Flip-Flops - Solution File."""
 
 from solutions.gates import AND, NOT, NOR
 
@@ -9,10 +7,12 @@ class SRLatch:
     """SR (Set-Reset) Latch using NOR gates."""
 
     def __init__(self):
+        """Initialize SR latch with default state."""
         self.q = 0
         self.q_bar = 1
 
     def __call__(self, s: int, r: int) -> int:
+        """Update latch state and return Q."""
         # Cross-coupled NOR gates
         # Need to iterate to stabilize
         for _ in range(2):
@@ -27,9 +27,11 @@ class GatedSRLatch:
     """Gated SR Latch."""
 
     def __init__(self):
+        """Initialize gated SR latch."""
         self.sr_latch = SRLatch()
 
     def __call__(self, s: int, r: int, enable: int) -> int:
+        """Update latch when enabled."""
         gated_s = AND(s, enable)
         gated_r = AND(r, enable)
         return self.sr_latch(gated_s, gated_r)
@@ -39,9 +41,11 @@ class DLatch:
     """D (Data) Latch."""
 
     def __init__(self):
+        """Initialize D latch."""
         self.q = 0
 
     def __call__(self, d: int, enable: int) -> int:
+        """Update latch and return Q."""
         if enable == 1:
             self.q = d
         return self.q
@@ -51,10 +55,12 @@ class DFlipFlop:
     """D Flip-Flop - edge-triggered."""
 
     def __init__(self):
+        """Initialize D flip-flop."""
         self.q = 0
         self._prev_clk = 0
 
     def clock(self, d: int, clk: int) -> int:
+        """Update flip-flop on clock edge."""
         # Detect rising edge
         if self._prev_clk == 0 and clk == 1:
             self.q = d
@@ -62,6 +68,7 @@ class DFlipFlop:
         return self.q
 
     def read(self) -> int:
+        """Read current Q value."""
         return self.q
 
 
@@ -69,10 +76,12 @@ class JKFlipFlop:
     """JK Flip-Flop."""
 
     def __init__(self):
+        """Initialize JK flip-flop."""
         self.q = 0
         self._prev_clk = 0
 
     def clock(self, j: int, k: int, clk: int) -> int:
+        """Update flip-flop on clock edge."""
         # Detect rising edge
         if self._prev_clk == 0 and clk == 1:
             if j == 0 and k == 0:
@@ -87,6 +96,7 @@ class JKFlipFlop:
         return self.q
 
     def read(self) -> int:
+        """Read current Q value."""
         return self.q
 
 
@@ -94,10 +104,13 @@ class TFlipFlop:
     """T (Toggle) Flip-Flop."""
 
     def __init__(self):
+        """Initialize T flip-flop."""
         self.jk = JKFlipFlop()
 
     def clock(self, t: int, clk: int) -> int:
+        """Update flip-flop on clock edge."""
         return self.jk.clock(t, t, clk)
 
     def read(self) -> int:
+        """Read current Q value."""
         return self.jk.read()

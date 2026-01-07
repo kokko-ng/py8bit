@@ -1,6 +1,4 @@
-"""
-ALU - Arithmetic Logic Unit - Solution File
-"""
+"""ALU - Arithmetic Logic Unit - Solution File."""
 
 from typing import List, Tuple, Dict
 from solutions.gates import AND, OR, XOR, NOT
@@ -13,7 +11,7 @@ class ALU:
     OP_ADD = [0, 0, 0, 0]
     OP_SUB = [1, 0, 0, 0]
     OP_AND = [0, 1, 0, 0]
-    OP_OR  = [1, 1, 0, 0]
+    OP_OR = [1, 1, 0, 0]
     OP_XOR = [0, 0, 1, 0]
     OP_NOT = [1, 0, 1, 0]
     OP_SHL = [0, 1, 1, 0]
@@ -27,7 +25,7 @@ class ALU:
         overflow = 0
 
         # Decode opcode (convert to integer for easier comparison)
-        op_val = opcode[0] + opcode[1]*2 + opcode[2]*4 + opcode[3]*8
+        op_val = opcode[0] + opcode[1] * 2 + opcode[2] * 4 + opcode[3] * 8
 
         if op_val == 0:  # ADD
             result, carry = self._add(a, b)
@@ -98,12 +96,16 @@ class ALU:
     def _calculate_flags(self, result: List[int], carry: int, overflow: int) -> Dict[str, int]:
         """Calculate status flags."""
         # Zero flag: 1 if all bits are 0
-        z = NOT(OR(OR(OR(result[0], result[1]), OR(result[2], result[3])),
-                   OR(OR(result[4], result[5]), OR(result[6], result[7]))))
+        z = NOT(
+            OR(
+                OR(OR(result[0], result[1]), OR(result[2], result[3])),
+                OR(OR(result[4], result[5]), OR(result[6], result[7])),
+            )
+        )
 
         return {
-            'Z': z,
-            'C': carry,
-            'N': result[7],  # Negative = MSB
-            'V': overflow
+            "Z": z,
+            "C": carry,
+            "N": result[7],  # Negative = MSB
+            "V": overflow,
         }

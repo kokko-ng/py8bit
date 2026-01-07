@@ -1,8 +1,4 @@
-"""
-Combinational Circuits - Solution File
-
-Complete implementations of all combinational circuits.
-"""
+"""Combinational Circuits - Solution File."""
 
 from typing import List, Tuple
 
@@ -103,11 +99,9 @@ def encoder_8to3(inputs: List[int]) -> List[int]:
     out2 = any_upper
 
     # out1 is 1 when highest active has bit 1 set (2,3 in lower half; 6,7 in upper half)
-    out1 = OR(OR(inputs[6], inputs[7]),
-              AND(NOT(any_upper), OR(inputs[2], inputs[3])))
+    out1 = OR(OR(inputs[6], inputs[7]), AND(NOT(any_upper), OR(inputs[2], inputs[3])))
 
     # out0 is 1 when highest active has bit 0 set (1,3 in lower half; 5,7 in upper half)
-    out0 = OR(OR(inputs[5], inputs[7]),
-              AND(NOT(any_upper), OR(inputs[1], inputs[3])))
+    out0 = OR(OR(inputs[5], inputs[7]), AND(NOT(any_upper), OR(inputs[1], inputs[3])))
 
     return [out0, out1, out2]

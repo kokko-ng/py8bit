@@ -1,6 +1,4 @@
-"""
-Utility functions and assertion helpers for the checker.
-"""
+"""Utility functions and assertion helpers for the checker."""
 
 
 def int_to_bits(value: int, num_bits: int = 8) -> list:
@@ -15,7 +13,7 @@ def bits_to_int(bits: list, signed: bool = False) -> int:
     """Convert a list of bits (LSB at index 0) to an integer."""
     result = sum(bit << i for i, bit in enumerate(bits))
     if signed and len(bits) > 0 and bits[-1] == 1:
-        result -= (1 << len(bits))
+        result -= 1 << len(bits)
     return result
 
 
@@ -51,7 +49,8 @@ def assert_in(item, collection, message: str | None = None):
 def assert_isinstance(obj, expected_type, message: str | None = None):
     """Assert that obj is an instance of expected_type."""
     if not isinstance(obj, expected_type):
-        details = f"Expected type: {expected_type.__name__ if hasattr(expected_type, '__name__') else expected_type}\n           Actual type: {type(obj).__name__}\n           Value: {obj!r}"
+        type_name = expected_type.__name__ if hasattr(expected_type, "__name__") else expected_type
+        details = f"Expected type: {type_name}\n           Actual type: {type(obj).__name__}\n           Value: {obj!r}"
         if message:
             msg = f"{message}\n           {details}"
         else:

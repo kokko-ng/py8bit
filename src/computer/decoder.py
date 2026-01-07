@@ -1,13 +1,10 @@
-"""
-Instruction Decoder
+"""Instruction Decoder.
 
 Decodes 16-bit instructions into their component fields
 and instruction type.
 """
 
 from typing import List, Dict
-from computer.isa import OPCODE_NAMES
-from computer import bits_to_int
 
 
 class InstructionDecoder:

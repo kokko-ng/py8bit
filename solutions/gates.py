@@ -1,9 +1,4 @@
-"""
-Logic Gates - Solution File
-
-This file contains the complete, working implementations of all logic gates.
-Students can reference this if they get stuck.
-"""
+"""Logic Gates - Solution File."""
 
 
 def NOT(a: int) -> int:

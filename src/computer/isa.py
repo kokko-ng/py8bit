@@ -1,5 +1,4 @@
-"""
-Instruction Set Architecture (ISA)
+"""Instruction Set Architecture (ISA).
 
 Defines the instruction format and opcodes for our 8-bit CPU.
 
@@ -31,22 +30,22 @@ from typing import List, Dict
 
 # Opcode definitions
 OPCODES = {
-    'NOP':   0b0000,
-    'LOAD':  0b0001,
-    'STORE': 0b0010,
-    'MOV':   0b0011,
-    'ADD':   0b0100,
-    'SUB':   0b0101,
-    'AND':   0b0110,
-    'OR':    0b0111,
-    'XOR':   0b1000,
-    'NOT':   0b1001,
-    'SHL':   0b1010,
-    'SHR':   0b1011,
-    'JMP':   0b1100,
-    'JZ':    0b1101,
-    'JNZ':   0b1110,
-    'HALT':  0b1111,
+    "NOP": 0b0000,
+    "LOAD": 0b0001,
+    "STORE": 0b0010,
+    "MOV": 0b0011,
+    "ADD": 0b0100,
+    "SUB": 0b0101,
+    "AND": 0b0110,
+    "OR": 0b0111,
+    "XOR": 0b1000,
+    "NOT": 0b1001,
+    "SHL": 0b1010,
+    "SHR": 0b1011,
+    "JMP": 0b1100,
+    "JZ": 0b1101,
+    "JNZ": 0b1110,
+    "HALT": 0b1111,
 }
 
 # Reverse lookup

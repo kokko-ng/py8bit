@@ -1,5 +1,4 @@
-"""
-ALU - Arithmetic Logic Unit
+"""ALU - Arithmetic Logic Unit.
 
 The ALU is the computational heart of the CPU. It performs arithmetic and
 logical operations based on an opcode input.
@@ -23,8 +22,6 @@ Flags:
 """
 
 from typing import List, Tuple, Dict
-from computer.gates import AND, OR, NOT, XOR
-from computer.adders import ripple_carry_adder_8bit, subtractor_8bit
 
 
 class ALU:
@@ -34,7 +31,7 @@ class ALU:
     OP_ADD = [0, 0, 0, 0]
     OP_SUB = [1, 0, 0, 0]
     OP_AND = [0, 1, 0, 0]
-    OP_OR  = [1, 1, 0, 0]
+    OP_OR = [1, 1, 0, 0]
     OP_XOR = [0, 0, 1, 0]
     OP_NOT = [1, 0, 1, 0]
     OP_SHL = [0, 1, 1, 0]
