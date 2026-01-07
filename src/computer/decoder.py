@@ -4,7 +4,9 @@ Decodes 16-bit instructions into their component fields
 and instruction type.
 """
 
-from typing import List, Dict
+from typing import Dict, List
+
+from computer.isa import OPCODE_NAMES, bits_to_int_n  # noqa: F401
 
 
 class InstructionDecoder:

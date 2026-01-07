@@ -10,6 +10,8 @@ Components:
 - JK Flip-Flop: Versatile edge-triggered element
 """
 
+from computer.gates import AND, NOR, NOT  # noqa: F401
+
 
 class SRLatch:
     """SR (Set-Reset) Latch using NOR gates.

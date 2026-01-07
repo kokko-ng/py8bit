@@ -15,6 +15,8 @@ All circuits use the gates from the gates module.
 
 from typing import List, Tuple
 
+from computer.gates import AND, NOT, OR  # noqa: F401
+
 
 def mux_2to1(a: int, b: int, sel: int) -> int:
     """2-to-1 Multiplexer.

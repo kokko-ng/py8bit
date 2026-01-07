@@ -6,6 +6,8 @@ Essential for the Program Counter in the CPU.
 
 from typing import List
 
+from computer.adders import ripple_carry_adder_8bit  # noqa: F401
+
 
 class BinaryCounter8:
     """8-bit binary counter."""

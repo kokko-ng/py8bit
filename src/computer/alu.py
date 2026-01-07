@@ -21,7 +21,10 @@ Flags:
 - V (Overflow): Signed overflow occurred
 """
 
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
+
+from computer.adders import ripple_carry_adder_8bit, subtractor_8bit  # noqa: F401
+from computer.gates import AND, NOT, OR, XOR  # noqa: F401
 
 
 class ALU:
