@@ -3,7 +3,9 @@
 Converts assembly language to machine code.
 """
 
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
+
+from computer.isa import encode_instruction  # noqa: F401
 
 
 class Assembler:
