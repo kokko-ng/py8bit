@@ -167,6 +167,6 @@ MIT License - Feel free to use for education!
 ## Acknowledgments
 
 Inspired by:
-- "The Elements of Computing Systems" (Nand2Tetris)
-- Ben Eater's 8-bit breadboard computer
-- Classic computer architecture textbooks
+- Sebastian Lague's videos on how computers work
+- Ben Eater's series on creating an 8-bit computer from scratch
+- Turing Complete for the gamified approach inspiration
