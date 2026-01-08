@@ -23,7 +23,7 @@ class InstructionDecoder:
         """
         # TODO: Implement instruction decoding
         # Convert bits to integer
-        pass
+        ...
 
     def get_instruction_type(self, opcode: int) -> str:
         """Determine instruction type from opcode.
@@ -35,4 +35,4 @@ class InstructionDecoder:
         - 'N': No operands (NOP, HALT)
         """
         # TODO: Implement type detection
-        pass
+        ...

@@ -69,7 +69,7 @@ def encode_instruction(opcode: str, rd: int = 0, rs1: int = 0, rs2_imm: int = 0)
         For R-type instructions (ADD, SUB, etc.), rs2_imm is a 4-bit register number.
     """
     # TODO: Implement instruction encoding
-    pass
+    ...
 
 
 def decode_instruction(instruction: List[int]) -> Dict:
@@ -82,7 +82,7 @@ def decode_instruction(instruction: List[int]) -> Dict:
         Dictionary with opcode, rd, rs1, rs2_imm fields
     """
     # TODO: Implement instruction decoding
-    pass
+    ...
 
 
 def int_to_bits_n(value: int, n: int) -> List[int]:

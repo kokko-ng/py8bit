@@ -43,7 +43,7 @@ def half_adder(a: int, b: int) -> Tuple[int, int]:
         Carry = AND(a, b)
     """
     # TODO: Implement half adder
-    pass
+    ...
 
 
 def full_adder(a: int, b: int, cin: int) -> Tuple[int, int]:
@@ -79,7 +79,7 @@ def full_adder(a: int, b: int, cin: int) -> Tuple[int, int]:
         Final carry = OR of the two carries
     """
     # TODO: Implement full adder using two half adders
-    pass
+    ...
 
 
 def ripple_carry_adder_8bit(a: List[int], b: List[int], cin: int = 0) -> Tuple[List[int], int]:
@@ -103,7 +103,7 @@ def ripple_carry_adder_8bit(a: List[int], b: List[int], cin: int = 0) -> Tuple[L
         result = [0,0,0,1,0,0,0,0] (8 in binary, LSB first)
     """
     # TODO: Implement 8-bit ripple carry adder
-    pass
+    ...
 
 
 def subtractor_8bit(a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
@@ -130,7 +130,7 @@ def subtractor_8bit(a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
         or adding two negative numbers gives positive.
     """
     # TODO: Implement 8-bit subtractor
-    pass
+    ...
 
 
 def twos_complement(bits: List[int]) -> List[int]:
@@ -145,4 +145,4 @@ def twos_complement(bits: List[int]) -> List[int]:
         Two's complement (8-bit, LSB at index 0)
     """
     # TODO: Implement two's complement
-    pass
+    ...

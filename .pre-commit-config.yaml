@@ -11,4 +11,3 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies: []
-        args: [--ignore-missing-imports, --allow-untyped-defs, --allow-incomplete-defs, --no-error-summary, --disable-error-code=empty-body]

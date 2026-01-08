@@ -27,6 +27,14 @@ dev = [
     "notebook>=7.0",
 ]
 
+[tool.mypy]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# Student stub files have intentionally empty function bodies
+module = "computer.*"
+disable_error_code = ["empty-body"]
+
 [tool.ruff]
 line-length = 120
 

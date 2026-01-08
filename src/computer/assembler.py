@@ -27,7 +27,7 @@ class Assembler:
             List of 16-bit instructions (each as list of bits)
         """
         # TODO: Implement assembler
-        pass
+        ...
 
     def first_pass(self, source: str) -> List[Dict]:
         """First pass: build symbol table and parse lines.
@@ -39,7 +39,7 @@ class Assembler:
             List of parsed line dictionaries
         """
         # TODO: Implement first pass
-        pass
+        ...
 
     def second_pass(self, parsed_lines: List[Dict]) -> List[List[int]]:
         """Second pass: generate machine code.
@@ -51,7 +51,7 @@ class Assembler:
             List of 16-bit instructions
         """
         # TODO: Implement second pass
-        pass
+        ...
 
     def parse_line(self, line: str) -> Optional[Dict]:
         """Parse a single line of assembly.
@@ -64,7 +64,7 @@ class Assembler:
         """
         # TODO: Implement line parsing
         # Remove comments and strip whitespace
-        pass
+        ...
 
     def parse_operand(self, operand: str) -> tuple:
         """Parse an operand string.
@@ -76,7 +76,7 @@ class Assembler:
             Tuple of (type, value) where type is 'reg', 'imm', or 'label'
         """
         # TODO: Implement operand parsing
-        pass
+        ...
 
     def _parse_reg(self, operand: str) -> int:
         """Parse a register operand."""
