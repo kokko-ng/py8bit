@@ -57,9 +57,8 @@ This will open Jupyter in your browser. Navigate to the `notebooks/` folder and 
 ├── notebooks/           # 16 educational notebooks
 ├── src/computer/        # Student module stubs
 ├── solutions/           # Reference implementations
-├── tests/               # Pytest validation tests
 ├── programs/            # Sample assembly programs
-├── utils/               # Helper utilities
+├── utils/               # Helper utilities (including test checker)
 └── requirements.txt
 ```
 
@@ -160,12 +159,6 @@ source .venv/bin/activate
 
 # In a Python shell or script
 python3 -c "from utils.checker import check_all; check_all()"
-```
-
-Alternatively, you can run pytest (though tests will fail for unimplemented components):
-
-```bash
-pytest
 ```
 
 ## License
