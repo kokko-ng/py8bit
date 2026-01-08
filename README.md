@@ -29,7 +29,6 @@ This project consists of 16 Jupyter notebooks, each building one layer of a comp
 
 - Python 3.10 or higher
 - Basic Python programming knowledge
-- Understanding of binary (0s and 1s)
 
 ### Installation
 
