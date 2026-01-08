@@ -199,7 +199,9 @@ def encoder_8to3(inputs: List[int]) -> List[int]:
         List of 3 output bits [out0, out1, out2]
     """
     # TODO: Implement 8-to-3 priority encoder
-    # out2 is 1 if any of inputs[4:8] is active
-    # out1 is 1 if inputs[2], inputs[3], inputs[6], or inputs[7] is active
-    # out0 is 1 if inputs[1], inputs[3], inputs[5], or inputs[7] is active
+    # Priority: higher indices take precedence over lower
+    # Hint: Check if any upper half (4-7) is active, then use that to mask lower half
+    # out2 = 1 when highest active is in 4-7
+    # out1 = 1 when highest active has bit 1 set (2,3 if no upper; 6,7 if upper)
+    # out0 = 1 when highest active has bit 0 set (1,3 if no upper; 5,7 if upper)
     ...
