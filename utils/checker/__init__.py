@@ -1,7 +1,7 @@
 """Test checker for 8-bit computer notebooks.
 
 This module provides a `check()` function that runs inline tests for a component
-and displays friendly pass/fail messages without requiring pytest.
+and displays friendly pass/fail messages.
 
 Usage:
     from utils.checker import check, check_all
