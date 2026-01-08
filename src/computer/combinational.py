@@ -41,7 +41,7 @@ def mux_2to1(a: int, b: int, sel: int) -> int:
     """
     # TODO: Implement 2-to-1 MUX using AND, OR, NOT gates
     # Hint: OUT = OR(AND(a, NOT(sel)), AND(b, sel))
-    pass
+    ...
 
 
 def mux_4to1(inputs: List[int], sel: List[int]) -> int:
@@ -68,7 +68,7 @@ def mux_4to1(inputs: List[int], sel: List[int]) -> int:
     # TODO: Implement 4-to-1 MUX using 2-to-1 MUXes
     # Hint: Use a tree of 2-to-1 muxes
     # First layer: select between pairs based on sel[0]
-    pass
+    ...
 
 
 def mux_8to1(inputs: List[int], sel: List[int]) -> int:
@@ -86,7 +86,7 @@ def mux_8to1(inputs: List[int], sel: List[int]) -> int:
     """
     # TODO: Implement 8-to-1 MUX using 4-to-1 MUXes or 2-to-1 MUXes
     # First layer: use two 4-to-1 muxes on the lower and upper halves
-    pass
+    ...
 
 
 def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
@@ -105,7 +105,7 @@ def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
     """
     # TODO: Implement 1-to-2 DEMUX
     # Hint: out0 = AND(data, NOT(sel)), out1 = AND(data, sel)
-    pass
+    ...
 
 
 def demux_1to4(data: int, sel: List[int]) -> List[int]:
@@ -122,7 +122,7 @@ def demux_1to4(data: int, sel: List[int]) -> List[int]:
     """
     # TODO: Implement 1-to-4 DEMUX
     # First demux into two lines based on sel[1]
-    pass
+    ...
 
 
 def decoder_2to4(sel: List[int]) -> List[int]:
@@ -147,7 +147,7 @@ def decoder_2to4(sel: List[int]) -> List[int]:
     """
     # TODO: Implement 2-to-4 decoder
     # Each output is an AND of the appropriate select signals
-    pass
+    ...
 
 
 def decoder_3to8(sel: List[int]) -> List[int]:
@@ -164,7 +164,7 @@ def decoder_3to8(sel: List[int]) -> List[int]:
     """
     # TODO: Implement 3-to-8 decoder
     # Each output is an AND of the appropriate select signals
-    pass
+    ...
 
 
 def encoder_4to2(inputs: List[int]) -> List[int]:
@@ -183,7 +183,7 @@ def encoder_4to2(inputs: List[int]) -> List[int]:
     # Priority encoding: higher index takes precedence
     # out1 = 1 if inputs[2] or inputs[3] is active
     # out0 = 1 if inputs[3] is active OR (inputs[1] is active AND higher priority inputs are not)
-    pass
+    ...
 
 
 def encoder_8to3(inputs: List[int]) -> List[int]:
@@ -202,4 +202,4 @@ def encoder_8to3(inputs: List[int]) -> List[int]:
     # out2 is 1 if any of inputs[4:8] is active
     # out1 is 1 if inputs[2], inputs[3], inputs[6], or inputs[7] is active
     # out0 is 1 if inputs[1], inputs[3], inputs[5], or inputs[7] is active
-    pass
+    ...

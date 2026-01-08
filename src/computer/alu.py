@@ -58,49 +58,49 @@ class ALU:
         # 1. Decode opcode and perform the operation
         # 2. Calculate flags based on the result
         # 3. Return (result, flags)
-        pass
+        ...
 
     def _add(self, a: List[int], b: List[int]) -> Tuple[List[int], int]:
         """Perform addition. Returns (result, carry)."""
         # TODO: Implement using ripple_carry_adder_8bit
-        pass
+        ...
 
     def _sub(self, a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
         """Perform subtraction. Returns (result, borrow, overflow)."""
         # TODO: Implement using subtractor_8bit
-        pass
+        ...
 
     def _and(self, a: List[int], b: List[int]) -> List[int]:
         """Perform bitwise AND."""
         # TODO: Implement bitwise AND
-        pass
+        ...
 
     def _or(self, a: List[int], b: List[int]) -> List[int]:
         """Perform bitwise OR."""
         # TODO: Implement bitwise OR
-        pass
+        ...
 
     def _xor(self, a: List[int], b: List[int]) -> List[int]:
         """Perform bitwise XOR."""
         # TODO: Implement bitwise XOR
-        pass
+        ...
 
     def _not(self, a: List[int]) -> List[int]:
         """Perform bitwise NOT."""
         # TODO: Implement bitwise NOT
-        pass
+        ...
 
     def _shl(self, a: List[int]) -> Tuple[List[int], int]:
         """Shift left by 1. Returns (result, carry_out)."""
         # TODO: Implement shift left
         # The MSB becomes the carry, all bits shift left, LSB becomes 0
-        pass
+        ...
 
     def _shr(self, a: List[int]) -> Tuple[List[int], int]:
         """Shift right by 1. Returns (result, carry_out)."""
         # TODO: Implement shift right
         # The LSB becomes the carry, all bits shift right, MSB becomes 0
-        pass
+        ...
 
     def _calculate_flags(self, result: List[int], carry: int, overflow: int) -> Dict[str, int]:
         """Calculate status flags.
@@ -118,4 +118,4 @@ class ALU:
         # C: carry bit
         # N: MSB of result
         # V: overflow bit
-        pass
+        ...

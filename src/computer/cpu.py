@@ -36,7 +36,7 @@ class CPU:
             16-bit instruction
         """
         # TODO: Implement fetch
-        pass
+        ...
 
     def decode(self, instruction: List[int]) -> Dict:
         """Decode instruction.
@@ -48,7 +48,7 @@ class CPU:
             Decoded instruction fields
         """
         # TODO: Implement decode
-        pass
+        ...
 
     def execute(self, decoded: Dict, signals) -> None:
         """Execute instruction.
@@ -58,7 +58,7 @@ class CPU:
             signals: Control signals for this instruction
         """
         # TODO: Implement execute
-        pass
+        ...
 
     def step(self) -> bool:
         """Execute one complete instruction.
@@ -67,7 +67,7 @@ class CPU:
             True if CPU is still running, False if halted
         """
         # TODO: Implement single step
-        pass
+        ...
 
     def run(self, max_cycles: int = 1000) -> int:
         """Run until HALT or max cycles reached.
@@ -79,7 +79,7 @@ class CPU:
             Number of cycles executed
         """
         # TODO: Implement run loop
-        pass
+        ...
 
     def get_state(self) -> Dict:
         """Get current CPU state for debugging."""

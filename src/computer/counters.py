@@ -28,7 +28,7 @@ class BinaryCounter8:
             Current count value
         """
         # TODO: Implement binary counter
-        pass
+        ...
 
     def read(self) -> List[int]:
         """Read current counter value."""
@@ -66,7 +66,7 @@ class ProgramCounter:
         """
         # TODO: Implement program counter
         # Priority: reset > load > increment
-        pass
+        ...
 
     def read(self) -> List[int]:
         """Read current PC value."""
