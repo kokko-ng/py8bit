@@ -23,8 +23,8 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
-    "jupyter>=1.0",
-    "notebook>=7.0",
+    "jupyter>=1.1",
+    "notebook>=7.5",
 ]
 
 [tool.mypy]
