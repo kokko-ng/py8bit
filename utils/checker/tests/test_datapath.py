@@ -1,6 +1,6 @@
 """Test cases for datapath."""
 
-from ..helpers import assert_eq, assert_true, assert_not_none
+from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
@@ -15,23 +15,24 @@ def get_tests() -> dict:
         "DataPath_has_memory": lambda: assert_true(hasattr(DataPath(), "memory")),
         "DataPath_has_reg_file": lambda: assert_true(hasattr(DataPath(), "reg_file")),
         "DataPath_has_alu": lambda: assert_true(hasattr(DataPath(), "alu")),
-        "DataPath_has_ir": lambda: assert_true(hasattr(DataPath(), "ir")),
-        "DataPath_has_flags": lambda: assert_true(hasattr(DataPath(), "flags")),
-        # DataPath methods
-        "DataPath_has_get_pc": lambda: assert_true(hasattr(DataPath(), "get_pc")),
-        "DataPath_has_set_pc": lambda: assert_true(hasattr(DataPath(), "set_pc")),
-        "DataPath_has_fetch": lambda: assert_true(hasattr(DataPath(), "fetch_instruction")),
-        "DataPath_has_load_ir": lambda: assert_true(hasattr(DataPath(), "load_instruction")),
         # DataPath initial state
         "DataPath_initial_pc": lambda: _test_datapath_initial_pc(),
         "DataPath_initial_flags": lambda: _test_datapath_initial_flags(),
+        # DataPath PC operations
+        "DataPath_set_pc": lambda: _test_datapath_set_pc(),
+        "DataPath_increment_pc": lambda: _test_datapath_increment_pc(),
+        # DataPath fetch
+        "DataPath_fetch_instruction": lambda: _test_datapath_fetch(),
+        # DataPath ALU
+        "DataPath_alu_add": lambda: _test_datapath_alu_add(),
+        # DataPath register operations
+        "DataPath_write_read_register": lambda: _test_datapath_register(),
     }
 
 
 def _test_datapath_initial_pc():
     """Test datapath initial PC is 0."""
     from computer.datapath import DataPath
-    from ..helpers import bits_to_int
 
     dp = DataPath()
     pc = dp.get_pc()
@@ -44,7 +45,71 @@ def _test_datapath_initial_flags():
     from computer.datapath import DataPath
 
     dp = DataPath()
-    if hasattr(dp, "flags"):
-        assert_true("Z" in dp.flags)
-        assert_true("C" in dp.flags)
-        assert_true("N" in dp.flags)
+    assert_true("Z" in dp.flags)
+    assert_true("C" in dp.flags)
+    assert_true("N" in dp.flags)
+
+
+def _test_datapath_set_pc():
+    """Test datapath set_pc method."""
+    from computer.datapath import DataPath
+
+    dp = DataPath()
+    new_pc = int_to_bits(42, 8)
+    dp.set_pc(new_pc)
+    result = dp.get_pc()
+    assert_not_none(result, "DataPath.get_pc() returned None after set_pc")
+    assert_eq(bits_to_int(result), 42)
+
+
+def _test_datapath_increment_pc():
+    """Test datapath increment_pc method."""
+    from computer.datapath import DataPath
+
+    dp = DataPath()
+    dp.increment_pc()
+    result = dp.get_pc()
+    assert_not_none(result, "DataPath.get_pc() returned None after increment_pc")
+    assert_eq(bits_to_int(result), 2, "increment_pc should add 2 (instruction width)")
+
+
+def _test_datapath_fetch():
+    """Test datapath fetch_instruction method."""
+    from computer.datapath import DataPath
+
+    dp = DataPath()
+    # Write a known instruction to memory at address 0
+    test_val = 0xAB
+    dp.memory.write(int_to_bits(0, 8), int_to_bits(test_val, 8), 1)
+    dp.memory.write(int_to_bits(1, 8), int_to_bits(0xCD, 8), 1)
+    result = dp.fetch_instruction()
+    assert_not_none(result, "DataPath.fetch_instruction() returned None")
+    assert_eq(len(result), 16, "fetch_instruction should return 16-bit instruction")
+
+
+def _test_datapath_alu_add():
+    """Test datapath ALU add operation."""
+    from computer.datapath import DataPath
+    from computer.alu import ALU
+
+    dp = DataPath()
+    a = int_to_bits(10, 8)
+    b = int_to_bits(5, 8)
+    result, flags = dp.alu(a, b, ALU.OP_ADD)
+    assert_not_none(result, "ALU() returned None")
+    assert_eq(bits_to_int(result), 15)
+
+
+def _test_datapath_register():
+    """Test datapath register file operations."""
+    from computer.datapath import DataPath
+
+    dp = DataPath()
+    # Write to register 1
+    addr = [1, 0, 0]
+    data = int_to_bits(77, 8)
+    dp.reg_file.write(addr, data, 1, 0)
+    dp.reg_file.write(addr, data, 1, 1)
+    result = dp.reg_file.read(addr)
+    assert_not_none(result, "RegisterFile.read() returned None")
+    assert_eq(bits_to_int(result), 77)

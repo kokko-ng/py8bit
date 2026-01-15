@@ -173,16 +173,24 @@ def encoder_4to2(inputs: List[int]) -> List[int]:
     Encodes a 4-bit one-hot (or priority) input to a 2-bit binary output.
     If multiple inputs are high, the highest index wins (priority encoding).
 
+    Examples:
+        [1,0,0,0] -> [0,0] (index 0)
+        [0,1,0,0] -> [1,0] (index 1)
+        [0,0,1,0] -> [0,1] (index 2)
+        [0,0,0,1] -> [1,1] (index 3)
+        [1,1,0,0] -> [1,0] (index 1 wins over 0)
+        [1,1,1,1] -> [1,1] (index 3 wins over all)
+
     Args:
         inputs: List of 4 input bits
 
     Returns:
-        List of 2 output bits [out0, out1] representing the binary value
+        List of 2 output bits [out0, out1] representing the binary index
     """
     # TODO: Implement 4-to-2 priority encoder
-    # Priority encoding: higher index takes precedence
-    # out1 = 1 if inputs[2] or inputs[3] is active
-    # out0 = 1 if inputs[3] is active OR (inputs[1] is active AND higher priority inputs are not)
+    # Higher index takes precedence when multiple inputs are active
+    # out1 = 1 when highest active index is 2 or 3
+    # out0 = 1 when highest active index is 1 or 3
     ...
 
 
@@ -192,6 +200,10 @@ def encoder_8to3(inputs: List[int]) -> List[int]:
     Encodes an 8-bit input to a 3-bit binary output.
     The output represents the index of the highest active input.
 
+    Examples:
+        Only inputs[5]=1 -> [1,0,1] (binary 5)
+        All inputs active -> [1,1,1] (index 7 wins)
+
     Args:
         inputs: List of 8 input bits
 
@@ -199,9 +211,8 @@ def encoder_8to3(inputs: List[int]) -> List[int]:
         List of 3 output bits [out0, out1, out2]
     """
     # TODO: Implement 8-to-3 priority encoder
-    # Priority: higher indices take precedence over lower
-    # Hint: Check if any upper half (4-7) is active, then use that to mask lower half
-    # out2 = 1 when highest active is in 4-7
-    # out1 = 1 when highest active has bit 1 set (2,3 if no upper; 6,7 if upper)
-    # out0 = 1 when highest active has bit 0 set (1,3 if no upper; 5,7 if upper)
+    # Higher index takes precedence when multiple inputs are active
+    # out2 = 1 when highest active index is 4, 5, 6, or 7
+    # out1 = 1 when highest active index is 2, 3, 6, or 7
+    # out0 = 1 when highest active index is 1, 3, 5, or 7
     ...
