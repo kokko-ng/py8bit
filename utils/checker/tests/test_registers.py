@@ -1,6 +1,6 @@
 """Test cases for registers."""
 
-from ..helpers import assert_eq, assert_true, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
@@ -34,8 +34,8 @@ def _test_register_load():
     reg.clock(data, 1, 0)
     reg.clock(data, 1, 1)
     result = reg.read()
-    if result is not None:
-        assert_eq(bits_to_int(result), 42)
+    assert_not_none(result, "Register8.read() returned None")
+    assert_eq(bits_to_int(result), 42)
 
 
 def _test_register_hold():
@@ -51,8 +51,8 @@ def _test_register_hold():
     reg.clock(new_data, 0, 0)
     reg.clock(new_data, 0, 1)
     result = reg.read()
-    if result is not None:
-        assert_eq(bits_to_int(result), 42)
+    assert_not_none(result, "Register8.read() returned None")
+    assert_eq(bits_to_int(result), 42)
 
 
 def _test_register_multiple():
@@ -65,8 +65,8 @@ def _test_register_multiple():
         reg.clock(data, 1, 0)
         reg.clock(data, 1, 1)
         result = reg.read()
-        if result is not None:
-            assert_eq(bits_to_int(result), val)
+        assert_not_none(result, "Register8.read() returned None")
+        assert_eq(bits_to_int(result), val)
 
 
 def _test_regfile_write_read():
@@ -79,8 +79,8 @@ def _test_regfile_write_read():
     rf.write(addr, data, 1, 0)
     rf.write(addr, data, 1, 1)
     result = rf.read(addr)
-    if result is not None:
-        assert_eq(bits_to_int(result), 123)
+    assert_not_none(result, "RegisterFile.read() returned None")
+    assert_eq(bits_to_int(result), 123)
 
 
 def _test_regfile_multiple():
@@ -99,8 +99,8 @@ def _test_regfile_multiple():
     for reg_idx, val in test_data:
         addr = [reg_idx & 1, (reg_idx >> 1) & 1, (reg_idx >> 2) & 1]
         result = rf.read(addr)
-        if result is not None:
-            assert_eq(bits_to_int(result), val)
+        assert_not_none(result, "RegisterFile.read() returned None")
+        assert_eq(bits_to_int(result), val)
 
 
 def _test_regfile_read_two():
@@ -117,6 +117,7 @@ def _test_regfile_read_two():
     rf.write([1, 0, 0], int_to_bits(200, 8), 1, 1)
     # Read both
     val1, val2 = rf.read_two([0, 0, 0], [1, 0, 0])
-    if val1 is not None and val2 is not None:
-        assert_eq(bits_to_int(val1), 100)
-        assert_eq(bits_to_int(val2), 200)
+    assert_not_none(val1, "RegisterFile.read_two() returned None for first value")
+    assert_not_none(val2, "RegisterFile.read_two() returned None for second value")
+    assert_eq(bits_to_int(val1), 100)
+    assert_eq(bits_to_int(val2), 200)

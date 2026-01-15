@@ -1,6 +1,6 @@
 """Test cases for ISA (Instruction Set Architecture)."""
 
-from ..helpers import assert_eq, assert_true, assert_in, assert_len
+from ..helpers import assert_eq, assert_true, assert_in, assert_len, assert_not_none
 
 
 def get_tests() -> dict:
@@ -54,8 +54,8 @@ def _test_encode(opcode):
     from computer.isa import encode_instruction
 
     result = encode_instruction(opcode)
-    if result is not None:
-        assert_len(result, 16)
+    assert_not_none(result, "encode_instruction() returned None")
+    assert_len(result, 16)
 
 
 def _test_encode_rtype(opcode):
@@ -63,8 +63,8 @@ def _test_encode_rtype(opcode):
     from computer.isa import encode_instruction
 
     result = encode_instruction(opcode, rd=1, rs1=2, rs2_imm=3)
-    if result is not None:
-        assert_len(result, 16)
+    assert_not_none(result, "encode_instruction() returned None")
+    assert_len(result, 16)
 
 
 def _test_encode_itype(opcode):
@@ -72,8 +72,8 @@ def _test_encode_itype(opcode):
     from computer.isa import encode_instruction
 
     result = encode_instruction(opcode, rd=1, rs2_imm=100)
-    if result is not None:
-        assert_len(result, 16)
+    assert_not_none(result, "encode_instruction() returned None")
+    assert_len(result, 16)
 
 
 def _test_encode_jtype(opcode):
@@ -81,8 +81,8 @@ def _test_encode_jtype(opcode):
     from computer.isa import encode_instruction
 
     result = encode_instruction(opcode, rs2_imm=200)
-    if result is not None:
-        assert_len(result, 16)
+    assert_not_none(result, "encode_instruction() returned None")
+    assert_len(result, 16)
 
 
 def _test_decode_nop():
@@ -90,10 +90,10 @@ def _test_decode_nop():
     from computer.isa import encode_instruction, decode_instruction
 
     encoded = encode_instruction("NOP")
-    if encoded is not None:
-        decoded = decode_instruction(encoded)
-        if decoded is not None:
-            assert_true("opcode" in decoded or len(decoded) > 0)
+    assert_not_none(encoded, "encode_instruction() returned None")
+    decoded = decode_instruction(encoded)
+    assert_not_none(decoded, "decode_instruction() returned None")
+    assert_true("opcode" in decoded or len(decoded) > 0)
 
 
 def _test_roundtrip():
@@ -102,8 +102,6 @@ def _test_roundtrip():
 
     for opcode in ["NOP", "ADD", "HALT"]:
         encoded = encode_instruction(opcode)
-        if encoded is not None:
-            decoded = decode_instruction(encoded)
-            if decoded is not None:
-                # Just verify we get something back
-                assert_true(decoded is not None)
+        assert_not_none(encoded, f"encode_instruction({opcode}) returned None")
+        decoded = decode_instruction(encoded)
+        assert_not_none(decoded, f"decode_instruction() returned None for {opcode}")

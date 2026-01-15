@@ -1,6 +1,6 @@
 """Test cases for datapath."""
 
-from ..helpers import assert_eq, assert_true
+from ..helpers import assert_eq, assert_true, assert_not_none
 
 
 def get_tests() -> dict:
@@ -31,13 +31,12 @@ def get_tests() -> dict:
 def _test_datapath_initial_pc():
     """Test datapath initial PC is 0."""
     from computer.datapath import DataPath
+    from ..helpers import bits_to_int
 
     dp = DataPath()
     pc = dp.get_pc()
-    if pc is not None:
-        from ..helpers import bits_to_int
-
-        assert_eq(bits_to_int(pc), 0)
+    assert_not_none(pc, "DataPath.get_pc() returned None")
+    assert_eq(bits_to_int(pc), 0)
 
 
 def _test_datapath_initial_flags():

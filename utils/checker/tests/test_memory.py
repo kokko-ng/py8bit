@@ -1,6 +1,6 @@
 """Test cases for memory."""
 
-from ..helpers import assert_eq, assert_true, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
@@ -37,8 +37,8 @@ def _test_ram_addr(addr_val):
     data = int_to_bits(addr_val % 256, 8)
     ram.write(addr, data, 1)
     result = ram.read(addr)
-    if result is not None:
-        assert_eq(bits_to_int(result), addr_val % 256)
+    assert_not_none(result, "RAM.read() returned None")
+    assert_eq(bits_to_int(result), addr_val % 256)
 
 
 def _test_ram_multiple():
@@ -55,8 +55,8 @@ def _test_ram_multiple():
     for i in range(10):
         addr = int_to_bits(i * 10, 8)
         result = ram.read(addr)
-        if result is not None:
-            assert_eq(bits_to_int(result), i * 10)
+        assert_not_none(result, "RAM.read() returned None")
+        assert_eq(bits_to_int(result), i * 10)
 
 
 def _test_ram_overwrite():
@@ -72,8 +72,8 @@ def _test_ram_overwrite():
     data2 = int_to_bits(200, 8)
     ram.write(addr, data2, 1)
     result = ram.read(addr)
-    if result is not None:
-        assert_eq(bits_to_int(result), 200)
+    assert_not_none(result, "RAM.read() returned None")
+    assert_eq(bits_to_int(result), 200)
 
 
 def _test_ram_write_disabled():
@@ -89,8 +89,8 @@ def _test_ram_write_disabled():
     data2 = int_to_bits(200, 8)
     ram.write(addr, data2, 0)
     result = ram.read(addr)
-    if result is not None:
-        assert_eq(bits_to_int(result), 100)
+    assert_not_none(result, "RAM.read() returned None")
+    assert_eq(bits_to_int(result), 100)
 
 
 def _test_ram_load_program():
@@ -108,8 +108,8 @@ def _test_ram_load_program():
     for i, instr in enumerate(program):
         addr = int_to_bits(i, 8)
         result = ram.read(addr)
-        if result is not None:
-            assert_eq(result, instr)
+        assert_not_none(result, "RAM.read() returned None")
+        assert_eq(result, instr)
 
 
 def _test_ram_load_program_offset():
@@ -124,8 +124,8 @@ def _test_ram_load_program_offset():
     ram.load_program(program, start_addr=100)
     # Verify program at offset
     result = ram.read(int_to_bits(100, 8))
-    if result is not None:
-        assert_eq(bits_to_int(result), 0xAA)
+    assert_not_none(result, "RAM.read() returned None")
+    assert_eq(bits_to_int(result), 0xAA)
     result = ram.read(int_to_bits(101, 8))
-    if result is not None:
-        assert_eq(bits_to_int(result), 0xBB)
+    assert_not_none(result, "RAM.read() returned None")
+    assert_eq(bits_to_int(result), 0xBB)
