@@ -1,6 +1,6 @@
 """Test cases for counters."""
 
-from ..helpers import assert_eq, assert_true, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
@@ -31,9 +31,10 @@ def _test_counter8_count_one():
     from computer.counters import BinaryCounter8
 
     counter = BinaryCounter8()
-    result = counter.clock(1, 0, 1)
-    if result is not None:
-        assert_eq(bits_to_int(counter.read()), 1)
+    counter.clock(1, 0, 1)
+    result = counter.read()
+    assert_not_none(result, "BinaryCounter8.read() returned None")
+    assert_eq(bits_to_int(result), 1)
 
 
 def _test_counter8_sequence():
@@ -42,9 +43,10 @@ def _test_counter8_sequence():
 
     counter = BinaryCounter8()
     for expected in range(1, 10):
-        result = counter.clock(1, 0, 1)
-        if result is not None:
-            assert_eq(bits_to_int(counter.read()), expected)
+        counter.clock(1, 0, 1)
+        result = counter.read()
+        assert_not_none(result, "BinaryCounter8.read() returned None")
+        assert_eq(bits_to_int(result), expected)
 
 
 def _test_counter8_reset():
@@ -56,9 +58,10 @@ def _test_counter8_reset():
     for _ in range(5):
         counter.clock(1, 0, 1)
     # Reset
-    result = counter.clock(0, 1, 1)
-    if result is not None:
-        assert_eq(bits_to_int(counter.read()), 0)
+    counter.clock(0, 1, 1)
+    result = counter.read()
+    assert_not_none(result, "BinaryCounter8.read() returned None")
+    assert_eq(bits_to_int(result), 0)
 
 
 def _test_counter8_hold():
@@ -79,9 +82,10 @@ def _test_pc_increment():
     from computer.counters import ProgramCounter
 
     pc = ProgramCounter()
-    result = pc.clock(load=0, load_value=[0] * 8, increment=1, reset=0, clk=1)
-    if result is not None:
-        assert_eq(bits_to_int(pc.read()), 1)
+    pc.clock(load=0, load_value=[0] * 8, increment=1, reset=0, clk=1)
+    result = pc.read()
+    assert_not_none(result, "ProgramCounter.read() returned None")
+    assert_eq(bits_to_int(result), 1)
 
 
 def _test_pc_increment_sequence():
@@ -90,9 +94,10 @@ def _test_pc_increment_sequence():
 
     pc = ProgramCounter()
     for expected in range(1, 10):
-        result = pc.clock(load=0, load_value=[0] * 8, increment=1, reset=0, clk=1)
-        if result is not None:
-            assert_eq(bits_to_int(pc.read()), expected)
+        pc.clock(load=0, load_value=[0] * 8, increment=1, reset=0, clk=1)
+        result = pc.read()
+        assert_not_none(result, "ProgramCounter.read() returned None")
+        assert_eq(bits_to_int(result), expected)
 
 
 def _test_pc_load():
@@ -101,9 +106,10 @@ def _test_pc_load():
 
     pc = ProgramCounter()
     addr = int_to_bits(100, 8)
-    result = pc.clock(load=1, load_value=addr, increment=0, reset=0, clk=1)
-    if result is not None:
-        assert_eq(bits_to_int(pc.read()), 100)
+    pc.clock(load=1, load_value=addr, increment=0, reset=0, clk=1)
+    result = pc.read()
+    assert_not_none(result, "ProgramCounter.read() returned None")
+    assert_eq(bits_to_int(result), 100)
 
 
 def _test_pc_reset():
@@ -115,9 +121,10 @@ def _test_pc_reset():
     addr = int_to_bits(50, 8)
     pc.clock(load=1, load_value=addr, increment=0, reset=0, clk=1)
     # Reset
-    result = pc.clock(load=0, load_value=[0] * 8, increment=0, reset=1, clk=1)
-    if result is not None:
-        assert_eq(bits_to_int(pc.read()), 0)
+    pc.clock(load=0, load_value=[0] * 8, increment=0, reset=1, clk=1)
+    result = pc.read()
+    assert_not_none(result, "ProgramCounter.read() returned None")
+    assert_eq(bits_to_int(result), 0)
 
 
 def _test_pc_priority():
@@ -127,6 +134,7 @@ def _test_pc_priority():
     pc = ProgramCounter()
     addr = int_to_bits(100, 8)
     # Reset takes priority over load
-    result = pc.clock(load=1, load_value=addr, increment=0, reset=1, clk=1)
-    if result is not None:
-        assert_eq(bits_to_int(pc.read()), 0)
+    pc.clock(load=1, load_value=addr, increment=0, reset=1, clk=1)
+    result = pc.read()
+    assert_not_none(result, "ProgramCounter.read() returned None")
+    assert_eq(bits_to_int(result), 0)

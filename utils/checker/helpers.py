@@ -18,7 +18,16 @@ def bits_to_int(bits: list, signed: bool = False) -> int:
 
 
 def assert_eq(actual, expected, message: str | None = None):
-    """Assert that actual equals expected."""
+    """Assert that actual equals expected.
+
+    Note: If both values are None, this is treated as a failure since
+    None typically indicates an unimplemented function.
+    """
+    if actual is None and expected is None:
+        msg = "Both values are None (function may be unimplemented)"
+        if message:
+            msg = f"{message}\n           {msg}"
+        raise AssertionError(msg)
     if actual != expected:
         details = f"Expected: {expected!r}\n           Actual: {actual!r}"
         if message:
@@ -43,6 +52,13 @@ def assert_in(item, collection, message: str | None = None):
             msg = f"{message}\n           {details}"
         else:
             msg = details
+        raise AssertionError(msg)
+
+
+def assert_not_none(obj, message: str | None = None):
+    """Assert that obj is not None."""
+    if obj is None:
+        msg = message or "Value is None (function may be unimplemented)"
         raise AssertionError(msg)
 
 
