@@ -91,8 +91,9 @@ def _test_datapath_alu_add():
     dp = DataPath()
     a = int_to_bits(10, 8)
     b = int_to_bits(5, 8)
-    result, flags = dp.alu(a, b, ALU.OP_ADD)
-    assert_not_none(result, "ALU() returned None")
+    output = dp.alu(a, b, ALU.OP_ADD)
+    assert_not_none(output, "DataPath.alu() returned None")
+    result, flags = output
     assert_eq(bits_to_int(result), 15)
 
 

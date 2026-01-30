@@ -1,6 +1,6 @@
 """Test cases for adders."""
 
-from ..helpers import assert_eq, assert_isinstance, assert_len, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_isinstance, assert_len, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
@@ -77,7 +77,9 @@ def _test_ripple_add(a_val, b_val, expected_result, expected_carry):
 
     a = int_to_bits(a_val, 8)
     b = int_to_bits(b_val, 8)
-    result, carry = ripple_carry_adder_8bit(a, b)
+    output = ripple_carry_adder_8bit(a, b)
+    assert_not_none(output, "ripple_carry_adder_8bit returned None")
+    result, carry = output
     assert_eq(bits_to_int(result), expected_result)
     assert_eq(carry, expected_carry)
 
@@ -89,8 +91,12 @@ def _test_ripple_commutative():
     for a_val, b_val in [(5, 10), (100, 50), (1, 254)]:
         a = int_to_bits(a_val, 8)
         b = int_to_bits(b_val, 8)
-        result1, carry1 = ripple_carry_adder_8bit(a, b)
-        result2, carry2 = ripple_carry_adder_8bit(b, a)
+        output1 = ripple_carry_adder_8bit(a, b)
+        output2 = ripple_carry_adder_8bit(b, a)
+        assert_not_none(output1, "ripple_carry_adder_8bit returned None")
+        assert_not_none(output2, "ripple_carry_adder_8bit returned None")
+        result1, carry1 = output1
+        result2, carry2 = output2
         assert_eq(bits_to_int(result1), bits_to_int(result2))
         assert_eq(carry1, carry2)
 
@@ -101,7 +107,9 @@ def _test_sub(a_val, b_val, expected_result, expected_borrow):
 
     a = int_to_bits(a_val, 8)
     b = int_to_bits(b_val, 8)
-    result, borrow, _ = subtractor_8bit(a, b)
+    output = subtractor_8bit(a, b)
+    assert_not_none(output, "subtractor_8bit returned None")
+    result, borrow, _ = output
     assert_eq(bits_to_int(result), expected_result)
     assert_eq(borrow, expected_borrow)
 
@@ -112,5 +120,8 @@ def _test_twos_complement_double():
 
     for val in [1, 5, 10, 50, 127]:
         bits = int_to_bits(val, 8)
-        result = twos_complement(twos_complement(bits))
+        first = twos_complement(bits)
+        assert_not_none(first, "twos_complement returned None")
+        result = twos_complement(first)
+        assert_not_none(result, "twos_complement returned None")
         assert_eq(bits_to_int(result), val)
