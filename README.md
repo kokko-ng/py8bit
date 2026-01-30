@@ -34,7 +34,7 @@ This project consists of 16 Jupyter notebooks, each building one layer of a comp
 
 ```bash
 # Clone or download the project
-cd 8bit
+cd py8bit
 
 # Create virtual environment
 python3 -m venv .venv
@@ -52,7 +52,7 @@ This will open Jupyter in your browser. Navigate to the `notebooks/` folder and 
 ### Project Structure
 
 ```
-8bit/
+py8bit/
 ├── notebooks/           # 16 educational notebooks
 ├── src/computer/        # Student module stubs
 ├── solutions/           # Reference implementations

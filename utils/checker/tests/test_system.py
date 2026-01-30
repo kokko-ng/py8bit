@@ -24,18 +24,32 @@ def _test_system_add_program():
     from computer.system import Computer
 
     comp = Computer()
-    # Program: MOV R0, 5; MOV R1, 3; ADD R2, R0, R1; HALT
-    # Encoded as bytes
+    # Test basic ADD: preload values into registers via memory operations
+    # Since this ISA doesn't have immediate MOV, use LOAD from memory
+    # Program layout:
+    #   0-1: LOAD R0, 100  (load value 5 from address 100)
+    #   2-3: LOAD R1, 101  (load value 3 from address 101)
+    #   4-5: ADD R2, R0, R1
+    #   6-7: HALT
+    # Data:
+    #   100: 5
+    #   101: 3
     program = [
-        0x30,
-        0x05,  # MOV R0, #5 (opcode 0011, Rd=0, imm=5)
-        0x31,
-        0x03,  # MOV R1, #3 (opcode 0011, Rd=1, imm=3)
-        0x42,
-        0x01,  # ADD R2, R0, R1 (opcode 0100, Rd=2, Rs1=0, Rs2=1)
-        0xF0,
-        0x00,  # HALT
+        # LOAD R0, 100 (opcode=1, rd=0, addr=100) -> 0x1064 -> little-endian: [0x64, 0x10]
+        0x64, 0x10,
+        # LOAD R1, 101 (opcode=1, rd=1, addr=101) -> 0x1165 -> little-endian: [0x65, 0x11]
+        0x65, 0x11,
+        # ADD R2, R0, R1 (opcode=4, rd=2, rs1=0, rs2=1) -> 0x4201 -> little-endian: [0x01, 0x42]
+        0x01, 0x42,
+        # HALT (opcode=15) -> 0xF000 -> little-endian: [0x00, 0xF0]
+        0x00, 0xF0,
     ]
+    # Pad to address 100 and add data
+    while len(program) < 100:
+        program.append(0x00)
+    program.append(5)   # address 100: value 5
+    program.append(3)   # address 101: value 3
+
     comp.load_program(program)
     comp.run(max_cycles=100)
     # R2 should contain 8
@@ -45,23 +59,29 @@ def _test_system_add_program():
 
 
 def _test_system_mov_program():
-    """Test system handles MOV instruction."""
+    """Test system handles LOAD instruction."""
     from computer.system import Computer
 
     comp = Computer()
-    # Program: MOV R0, 42; HALT
+    # Program: LOAD R0, 100; HALT
+    # (MOV is register-to-register only, so we use LOAD to test loading values)
     program = [
-        0x30,
-        0x2A,  # MOV R0, #42
-        0xF0,
-        0x00,  # HALT
+        # LOAD R0, 100 (opcode=1, rd=0, addr=100) -> 0x1064 -> little-endian: [0x64, 0x10]
+        0x64, 0x10,
+        # HALT (opcode=15) -> 0xF000 -> little-endian: [0x00, 0xF0]
+        0x00, 0xF0,
     ]
+    # Pad to address 100 and add data
+    while len(program) < 100:
+        program.append(0x00)
+    program.append(42)  # address 100: value 42
+
     comp.load_program(program)
     comp.run(max_cycles=100)
     # R0 should contain 42
     r0_addr = [0, 0, 0]
     r0_val = comp.cpu.datapath.reg_file.read(r0_addr)
-    assert_eq(bits_to_int(r0_val), 42, "MOV program should put 42 in R0")
+    assert_eq(bits_to_int(r0_val), 42, "LOAD program should put 42 in R0")
 
 
 def _test_system_memory_program():
@@ -69,22 +89,26 @@ def _test_system_memory_program():
     from computer.system import Computer
 
     comp = Computer()
-    # Program: MOV R0, 99; STORE R0, 100; MOV R0, 0; LOAD R1, 100; HALT
+    # Program: LOAD R0, 200; STORE R0, 100; LOAD R1, 100; HALT
+    # Store a value from one location to another, then load it back
     program = [
-        0x30,
-        0x63,  # MOV R0, #99
-        0x20,
-        0x64,  # STORE R0, 100
-        0x30,
-        0x00,  # MOV R0, #0 (clear R0)
-        0x11,
-        0x64,  # LOAD R1, 100
-        0xF0,
-        0x00,  # HALT
+        # LOAD R0, 200 (opcode=1, rd=0, addr=200) -> 0x10C8 -> little-endian: [0xC8, 0x10]
+        0xC8, 0x10,
+        # STORE R0, 100 (opcode=2, rd=0, addr=100) -> 0x2064 -> little-endian: [0x64, 0x20]
+        0x64, 0x20,
+        # LOAD R1, 100 (opcode=1, rd=1, addr=100) -> 0x1164 -> little-endian: [0x64, 0x11]
+        0x64, 0x11,
+        # HALT (opcode=15) -> 0xF000 -> little-endian: [0x00, 0xF0]
+        0x00, 0xF0,
     ]
+    # Pad to address 200 and add data
+    while len(program) < 200:
+        program.append(0x00)
+    program.append(99)  # address 200: value 99
+
     comp.load_program(program)
     comp.run(max_cycles=100)
-    # R1 should contain 99 (loaded from memory address 100)
+    # R1 should contain 99 (loaded from memory address 100, which got 99 from address 200)
     r1_addr = [1, 0, 0]
     r1_val = comp.cpu.datapath.reg_file.read(r1_addr)
     assert_eq(bits_to_int(r1_val), 99, "LOAD should retrieve 99 from memory")

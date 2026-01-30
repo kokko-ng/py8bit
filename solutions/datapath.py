@@ -86,3 +86,9 @@ class DataPath:
     def set_pc(self, value: List[int]) -> None:
         """Set PC value for jumps."""
         self.pc.clock(load=1, load_value=value, increment=0, reset=0, clk=1)
+
+    def increment_pc(self) -> None:
+        """Increment PC by 2 (instruction width)."""
+        # Increment PC twice (each instruction is 2 bytes)
+        self.pc.clock(load=0, load_value=[0] * 8, increment=1, reset=0, clk=1)
+        self.pc.clock(load=0, load_value=[0] * 8, increment=1, reset=0, clk=1)

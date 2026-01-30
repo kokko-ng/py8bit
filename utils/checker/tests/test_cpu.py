@@ -59,11 +59,13 @@ def _test_cpu_decode():
 def _test_cpu_execute():
     """Test CPU execute works."""
     from computer.cpu import CPU
+    from computer.clock import ControlSignals
 
     cpu = CPU()
     decoded = {"opcode": 0, "rd": 0, "rs1": 0, "rs2": 0, "immediate": 0, "address": 0}
+    signals = ControlSignals()  # Default signals for NOP
     # Execute should not raise an error and should handle the instruction
-    cpu.execute(decoded)
+    cpu.execute(decoded, signals)
     # If we get here without exception, the method is implemented
     assert_true(True)
 
