@@ -8,12 +8,6 @@ def get_tests() -> dict:
     from computer.memory import RAM
 
     return {
-        # RAM creation and structure
-        "RAM_create": lambda: assert_true(RAM() is not None),
-        "RAM_has_read": lambda: assert_true(hasattr(RAM(), "read")),
-        "RAM_has_write": lambda: assert_true(hasattr(RAM(), "write")),
-        "RAM_has_load_program": lambda: assert_true(hasattr(RAM(), "load_program")),
-        "RAM_default_size": lambda: assert_eq(RAM().size, 256),
         # RAM read/write
         "RAM_write_read_addr0": lambda: _test_ram_addr(0),
         "RAM_write_read_addr10": lambda: _test_ram_addr(10),

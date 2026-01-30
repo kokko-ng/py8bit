@@ -9,16 +9,10 @@ def get_tests() -> dict:
 
     return {
         # Register8
-        "Register8_create": lambda: assert_true(Register8() is not None),
-        "Register8_has_read": lambda: assert_true(hasattr(Register8(), "read")),
-        "Register8_has_clock": lambda: assert_true(hasattr(Register8(), "clock")),
         "Register8_load_value": lambda: _test_register_load(),
         "Register8_hold_value": lambda: _test_register_hold(),
         "Register8_multiple_values": lambda: _test_register_multiple(),
         # RegisterFile
-        "RegisterFile_create": lambda: assert_true(RegisterFile() is not None),
-        "RegisterFile_has_read": lambda: assert_true(hasattr(RegisterFile(), "read")),
-        "RegisterFile_has_write": lambda: assert_true(hasattr(RegisterFile(), "write")),
         "RegisterFile_write_read": lambda: _test_regfile_write_read(),
         "RegisterFile_multiple_registers": lambda: _test_regfile_multiple(),
         "RegisterFile_read_two": lambda: _test_regfile_read_two(),

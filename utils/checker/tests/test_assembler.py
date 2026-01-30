@@ -8,9 +8,6 @@ def get_tests() -> dict:
     from computer.assembler import Assembler
 
     return {
-        # Assembler creation
-        "Assembler_create": lambda: assert_true(Assembler() is not None),
-        "Assembler_has_assemble": lambda: assert_true(hasattr(Assembler(), "assemble")),
         # Assemble instructions
         "Assembler_NOP": lambda: _test_assemble_nop(),
         "Assembler_HALT": lambda: _test_assemble_halt(),
@@ -95,14 +92,10 @@ def _test_assemble_labels():
     from computer.assembler import Assembler
 
     asm = Assembler()
-    try:
-        program = """start: NOP
+    program = """start: NOP
 JMP start"""
-        result = asm.assemble(program)
-        assert_true(len(result) >= 2)
-    except Exception:
-        # Labels may not be supported
-        assert_true(True)
+    result = asm.assemble(program)
+    assert_true(result is not None and len(result) >= 2, "assemble() with labels should return at least 2 instructions")
 
 
 def _test_assemble_comments():
@@ -110,11 +103,7 @@ def _test_assemble_comments():
     from computer.assembler import Assembler
 
     asm = Assembler()
-    try:
-        program = """NOP ; This is a comment
+    program = """NOP ; This is a comment
 HALT"""
-        result = asm.assemble(program)
-        assert_true(len(result) >= 2)
-    except Exception:
-        # Comments may use different syntax
-        assert_true(True)
+    result = asm.assemble(program)
+    assert_true(result is not None and len(result) >= 2, "assemble() with comments should return at least 2 instructions")

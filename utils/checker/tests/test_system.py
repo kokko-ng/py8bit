@@ -8,10 +8,6 @@ def get_tests() -> dict:
     from computer.system import Computer
 
     return {
-        # System creation
-        "System_create": lambda: assert_true(Computer() is not None),
-        # System components
-        "System_has_cpu": lambda: assert_true(hasattr(Computer(), "cpu")),
         # System execution
         "System_run_add_program": lambda: _test_system_add_program(),
         "System_run_mov_program": lambda: _test_system_mov_program(),

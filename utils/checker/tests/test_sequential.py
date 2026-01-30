@@ -9,7 +9,7 @@ def get_tests() -> dict:
 
     return {
         # SR Latch
-        "SRLatch_initial_state": lambda: assert_eq(SRLatch().q, 0),
+        "SRLatch_initial_state": lambda: _test_sr_initial_state(),
         "SRLatch_set": lambda: _test_sr_set(),
         "SRLatch_reset": lambda: _test_sr_reset(),
         "SRLatch_hold_high": lambda: _test_sr_hold_high(),
@@ -21,26 +21,26 @@ def get_tests() -> dict:
         "GatedSRLatch_enabled_set": lambda: assert_eq(GatedSRLatch()(1, 0, 1), 1),
         "GatedSRLatch_enabled_reset": lambda: _test_gated_sr_enabled_reset(),
         # D Latch
-        "DLatch_initial_state": lambda: assert_eq(DLatch().q, 0),
+        "DLatch_initial_state": lambda: _test_d_latch_initial_state(),
         "DLatch_transparent_high": lambda: assert_eq(DLatch()(1, 1), 1),
         "DLatch_transparent_low": lambda: _test_d_latch_transparent_low(),
         "DLatch_hold_when_disabled": lambda: _test_d_latch_hold(),
         "DLatch_sequence": lambda: _test_d_latch_sequence(),
         # D Flip-Flop
-        "DFlipFlop_initial_state": lambda: assert_eq(DFlipFlop().read(), 0),
+        "DFlipFlop_initial_state": lambda: _test_dff_initial_state(),
         "DFlipFlop_rising_edge_captures": lambda: _test_dff_rising_edge(),
         "DFlipFlop_ignores_falling_edge": lambda: _test_dff_falling_edge(),
         "DFlipFlop_holds_between_edges": lambda: _test_dff_holds(),
         "DFlipFlop_sequence": lambda: _test_dff_sequence(),
         # JK Flip-Flop
-        "JKFlipFlop_initial_state": lambda: assert_eq(JKFlipFlop().read(), 0),
+        "JKFlipFlop_initial_state": lambda: _test_jk_initial_state(),
         "JKFlipFlop_set": lambda: _test_jk_set(),
         "JKFlipFlop_reset": lambda: _test_jk_reset(),
         "JKFlipFlop_hold": lambda: _test_jk_hold(),
         "JKFlipFlop_toggle": lambda: _test_jk_toggle(),
         "JKFlipFlop_toggle_sequence": lambda: _test_jk_toggle_sequence(),
         # T Flip-Flop
-        "TFlipFlop_initial_state": lambda: assert_eq(TFlipFlop().read(), 0),
+        "TFlipFlop_initial_state": lambda: _test_t_initial_state(),
         "TFlipFlop_toggle_on": lambda: _test_t_toggle_on(),
         "TFlipFlop_hold_when_t0": lambda: _test_t_hold(),
         "TFlipFlop_counting_pattern": lambda: _test_t_counting(),
@@ -225,9 +225,11 @@ def _test_jk_reset():
     jk = JKFlipFlop()
     jk.clock(1, 0, 0)
     jk.clock(1, 0, 1)  # Set first
+    # Verify set worked before testing reset
+    assert_eq(jk.read(), 1, "JK flip-flop should be 1 after set")
     jk.clock(0, 1, 0)
     jk.clock(0, 1, 1)  # Reset
-    assert_eq(jk.read(), 0)
+    assert_eq(jk.read(), 0, "JK flip-flop should be 0 after reset")
 
 
 def _test_jk_hold():
@@ -306,3 +308,64 @@ def _test_t_counting():
         t.clock(1, 0)
         t.clock(1, 1)
         assert_eq(t.read(), exp)
+
+
+# Initial state tests that also verify methods work
+def _test_sr_initial_state():
+    """Test SR latch initial state and method works."""
+    from computer.sequential import SRLatch
+
+    sr = SRLatch()
+    assert_eq(sr.q, 0)
+    # Also verify __call__ returns a value (not None)
+    result = sr(0, 0)
+    if result is None:
+        raise AssertionError("SRLatch.__call__() returned None - implement the method")
+
+
+def _test_d_latch_initial_state():
+    """Test D latch initial state and method works."""
+    from computer.sequential import DLatch
+
+    d = DLatch()
+    assert_eq(d.q, 0)
+    # Also verify __call__ returns a value (not None)
+    result = d(0, 0)
+    if result is None:
+        raise AssertionError("DLatch.__call__() returned None - implement the method")
+
+
+def _test_dff_initial_state():
+    """Test D flip-flop initial state and method works."""
+    from computer.sequential import DFlipFlop
+
+    dff = DFlipFlop()
+    assert_eq(dff.read(), 0)
+    # Also verify clock method works
+    result = dff.clock(0, 1)
+    if result is None:
+        raise AssertionError("DFlipFlop.clock() returned None - implement the method")
+
+
+def _test_jk_initial_state():
+    """Test JK flip-flop initial state and method works."""
+    from computer.sequential import JKFlipFlop
+
+    jk = JKFlipFlop()
+    assert_eq(jk.read(), 0)
+    # Also verify clock method works
+    result = jk.clock(0, 0, 1)
+    if result is None:
+        raise AssertionError("JKFlipFlop.clock() returned None - implement the method")
+
+
+def _test_t_initial_state():
+    """Test T flip-flop initial state and method works."""
+    from computer.sequential import TFlipFlop
+
+    t = TFlipFlop()
+    assert_eq(t.read(), 0)
+    # Also verify clock method works
+    result = t.clock(0, 1)
+    if result is None:
+        raise AssertionError("TFlipFlop.clock() returned None - implement the method")

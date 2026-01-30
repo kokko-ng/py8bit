@@ -8,11 +8,6 @@ def get_tests() -> dict:
     from computer.clock import Clock
 
     return {
-        # Clock creation
-        "Clock_create": lambda: assert_true(Clock() is not None),
-        "Clock_has_state": lambda: assert_true(hasattr(Clock(), "state")),
-        "Clock_has_tick": lambda: assert_true(hasattr(Clock(), "tick")),
-        "Clock_initial_state": lambda: assert_eq(Clock().state, 0),
         # Clock tick
         "Clock_tick_goes_high": lambda: _test_clock_tick_high(),
         "Clock_tick_alternates": lambda: _test_clock_alternates(),

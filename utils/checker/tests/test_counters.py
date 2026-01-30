@@ -9,15 +9,11 @@ def get_tests() -> dict:
 
     return {
         # BinaryCounter8
-        "BinaryCounter8_create": lambda: assert_true(BinaryCounter8() is not None),
-        "BinaryCounter8_initial_state": lambda: assert_eq(BinaryCounter8().read(), [0] * 8),
         "BinaryCounter8_count_one": lambda: _test_counter8_count_one(),
         "BinaryCounter8_count_sequence": lambda: _test_counter8_sequence(),
         "BinaryCounter8_reset": lambda: _test_counter8_reset(),
         "BinaryCounter8_hold": lambda: _test_counter8_hold(),
         # ProgramCounter
-        "ProgramCounter_create": lambda: assert_true(ProgramCounter() is not None),
-        "ProgramCounter_initial_state": lambda: assert_eq(ProgramCounter().read(), [0] * 8),
         "ProgramCounter_increment": lambda: _test_pc_increment(),
         "ProgramCounter_increment_sequence": lambda: _test_pc_increment_sequence(),
         "ProgramCounter_load": lambda: _test_pc_load(),
