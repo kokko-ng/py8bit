@@ -184,9 +184,6 @@ def encoder_4to2(inputs: List[int]) -> List[int]:
         List of 2 output bits [out0, out1] representing the binary index
     """
     # TODO: Implement 4-to-2 priority encoder
-    # Higher index takes precedence when multiple inputs are active
-    # out1 = 1 when highest active index is 2 or 3
-    # out0 = 1 when highest active index is 1 or 3
     ...
 
 
@@ -207,8 +204,4 @@ def encoder_8to3(inputs: List[int]) -> List[int]:
         List of 3 output bits [out0, out1, out2]
     """
     # TODO: Implement 8-to-3 priority encoder
-    # Higher index takes precedence when multiple inputs are active
-    # out2 = 1 when highest active index is 4, 5, 6, or 7
-    # out1 = 1 when highest active index is 2, 3, 6, or 7
-    # out0 = 1 when highest active index is 1, 3, 5, or 7
     ...
