@@ -38,10 +38,7 @@ class SRLatch:
         Returns:
             Current Q output
         """
-        # TODO: Implement SR latch
-        # Q = NOR(R, Q_bar)
-        # Q_bar = NOR(S, Q)
-        # Cross-coupled NOR gates - need to iterate to stabilize
+        # TODO: Implement SR latch using cross-coupled NOR gates
         ...
 
 

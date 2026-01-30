@@ -93,13 +93,11 @@ class ALU:
     def _shl(self, a: List[int]) -> Tuple[List[int], int]:
         """Shift left by 1. Returns (result, carry_out)."""
         # TODO: Implement shift left
-        # The MSB becomes the carry, all bits shift left, LSB becomes 0
         ...
 
     def _shr(self, a: List[int]) -> Tuple[List[int], int]:
         """Shift right by 1. Returns (result, carry_out)."""
         # TODO: Implement shift right
-        # The LSB becomes the carry, all bits shift right, MSB becomes 0
         ...
 
     def _calculate_flags(self, result: List[int], carry: int, overflow: int) -> Dict[str, int]:
@@ -114,8 +112,4 @@ class ALU:
             Dictionary with Z, C, N, V flags
         """
         # TODO: Implement flag calculation
-        # Z: 1 if all result bits are 0
-        # C: carry bit
-        # N: MSB of result
-        # V: overflow bit
         ...
