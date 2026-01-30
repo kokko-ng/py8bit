@@ -1,6 +1,6 @@
 """Test cases for full system integration."""
 
-from ..helpers import assert_true, assert_eq, bits_to_int
+from ..helpers import assert_true, assert_eq, assert_not_none, bits_to_int
 
 
 def get_tests() -> dict:
@@ -51,6 +51,7 @@ def _test_system_add_program():
     # R2 should contain 8
     r2_addr = [0, 1, 0]  # Register 2
     r2_val = comp.cpu.datapath.reg_file.read(r2_addr)
+    assert_not_none(r2_val, "RegisterFile.read() returned None")
     assert_eq(bits_to_int(r2_val), 8, "ADD program should compute 5 + 3 = 8 in R2")
 
 
@@ -77,6 +78,7 @@ def _test_system_mov_program():
     # R0 should contain 42
     r0_addr = [0, 0, 0]
     r0_val = comp.cpu.datapath.reg_file.read(r0_addr)
+    assert_not_none(r0_val, "RegisterFile.read() returned None")
     assert_eq(bits_to_int(r0_val), 42, "LOAD program should put 42 in R0")
 
 
@@ -107,4 +109,5 @@ def _test_system_memory_program():
     # R1 should contain 99 (loaded from memory address 100, which got 99 from address 200)
     r1_addr = [1, 0, 0]
     r1_val = comp.cpu.datapath.reg_file.read(r1_addr)
+    assert_not_none(r1_val, "RegisterFile.read() returned None")
     assert_eq(bits_to_int(r1_val), 99, "LOAD should retrieve 99 from memory")
