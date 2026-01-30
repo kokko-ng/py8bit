@@ -57,11 +57,14 @@ def _test_counter8_reset():
     # Count up a bit
     for _ in range(5):
         counter.clock(1, 0, 1)
+    # Verify counting worked before testing reset
+    result = counter.read()
+    assert_not_none(result, "BinaryCounter8.read() returned None")
+    assert_eq(bits_to_int(result), 5, "Counter should be 5 before reset")
     # Reset
     counter.clock(0, 1, 1)
     result = counter.read()
-    assert_not_none(result, "BinaryCounter8.read() returned None")
-    assert_eq(bits_to_int(result), 0)
+    assert_eq(bits_to_int(result), 0, "Counter should be 0 after reset")
 
 
 def _test_counter8_hold():
@@ -120,11 +123,14 @@ def _test_pc_reset():
     # Load a value first
     addr = int_to_bits(50, 8)
     pc.clock(load=1, load_value=addr, increment=0, reset=0, clk=1)
+    # Verify load worked before testing reset
+    result = pc.read()
+    assert_not_none(result, "ProgramCounter.read() returned None")
+    assert_eq(bits_to_int(result), 50, "PC should be 50 before reset")
     # Reset
     pc.clock(load=0, load_value=[0] * 8, increment=0, reset=1, clk=1)
     result = pc.read()
-    assert_not_none(result, "ProgramCounter.read() returned None")
-    assert_eq(bits_to_int(result), 0)
+    assert_eq(bits_to_int(result), 0, "PC should be 0 after reset")
 
 
 def _test_pc_priority():
@@ -132,9 +138,14 @@ def _test_pc_priority():
     from computer.counters import ProgramCounter
 
     pc = ProgramCounter()
-    addr = int_to_bits(100, 8)
-    # Reset takes priority over load
-    pc.clock(load=1, load_value=addr, increment=0, reset=1, clk=1)
+    # First, load a value to verify the PC can change
+    addr = int_to_bits(50, 8)
+    pc.clock(load=1, load_value=addr, increment=0, reset=0, clk=1)
     result = pc.read()
     assert_not_none(result, "ProgramCounter.read() returned None")
-    assert_eq(bits_to_int(result), 0)
+    assert_eq(bits_to_int(result), 50, "PC should be 50 after load")
+    # Now test that reset takes priority over load
+    new_addr = int_to_bits(100, 8)
+    pc.clock(load=1, load_value=new_addr, increment=0, reset=1, clk=1)
+    result = pc.read()
+    assert_eq(bits_to_int(result), 0, "Reset should take priority over load")
