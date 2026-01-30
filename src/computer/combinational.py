@@ -81,8 +81,7 @@ def mux_8to1(inputs: List[int], sel: List[int]) -> int:
     Returns:
         Selected input value
     """
-    # TODO: Implement 8-to-1 MUX using 4-to-1 MUXes or 2-to-1 MUXes
-    # First layer: use two 4-to-1 muxes on the lower and upper halves
+    # TODO: Implement 8-to-1 MUX
     ...
 
 
@@ -117,7 +116,6 @@ def demux_1to4(data: int, sel: List[int]) -> List[int]:
         List of 4 output values [out0, out1, out2, out3]
     """
     # TODO: Implement 1-to-4 DEMUX
-    # First demux into two lines based on sel[1]
     ...
 
 
@@ -142,7 +140,6 @@ def decoder_2to4(sel: List[int]) -> List[int]:
         List of 4 output bits (one-hot encoded)
     """
     # TODO: Implement 2-to-4 decoder
-    # Each output is an AND of the appropriate select signals
     ...
 
 
@@ -159,7 +156,6 @@ def decoder_3to8(sel: List[int]) -> List[int]:
         List of 8 output bits (one-hot encoded)
     """
     # TODO: Implement 3-to-8 decoder
-    # Each output is an AND of the appropriate select signals
     ...
 
 
