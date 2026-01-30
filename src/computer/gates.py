@@ -97,8 +97,6 @@ def NAND(a: int, b: int) -> int:
         1 | 0 |  1
         1 | 1 |  0
 
-    Hint: NAND = NOT(AND(a, b))
-
     Args:
         a: First input bit (0 or 1)
         b: Second input bit (0 or 1)
@@ -124,8 +122,6 @@ def NOR(a: int, b: int) -> int:
         1 | 0 |  0
         1 | 1 |  0
 
-    Hint: NOR = NOT(OR(a, b))
-
     Args:
         a: First input bit (0 or 1)
         b: Second input bit (0 or 1)
@@ -150,9 +146,6 @@ def XOR(a: int, b: int) -> int:
         1 | 0 |  1
         1 | 1 |  0
 
-    Hint: XOR can be built from AND, OR, and NOT gates.
-          XOR(a, b) = OR(AND(a, NOT(b)), AND(NOT(a), b))
-
     Args:
         a: First input bit (0 or 1)
         b: Second input bit (0 or 1)
@@ -176,8 +169,6 @@ def XNOR(a: int, b: int) -> int:
         0 | 1 |  0
         1 | 0 |  0
         1 | 1 |  1
-
-    Hint: XNOR = NOT(XOR(a, b))
 
     Args:
         a: First input bit (0 or 1)

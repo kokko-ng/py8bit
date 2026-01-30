@@ -40,7 +40,6 @@ def mux_2to1(a: int, b: int, sel: int) -> int:
         Selected input value
     """
     # TODO: Implement 2-to-1 MUX using AND, OR, NOT gates
-    # Hint: OUT = OR(AND(a, NOT(sel)), AND(b, sel))
     ...
 
 
@@ -66,8 +65,6 @@ def mux_4to1(inputs: List[int], sel: List[int]) -> int:
         Selected input value
     """
     # TODO: Implement 4-to-1 MUX using 2-to-1 MUXes
-    # Hint: Use a tree of 2-to-1 muxes
-    # First layer: select between pairs based on sel[0]
     ...
 
 
@@ -104,7 +101,6 @@ def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
         Tuple of (out0, out1)
     """
     # TODO: Implement 1-to-2 DEMUX
-    # Hint: out0 = AND(data, NOT(sel)), out1 = AND(data, sel)
     ...
 
 

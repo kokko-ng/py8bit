@@ -37,10 +37,6 @@ def half_adder(a: int, b: int) -> Tuple[int, int]:
 
     Returns:
         Tuple of (sum, carry)
-
-    Hint:
-        Sum = XOR(a, b)
-        Carry = AND(a, b)
     """
     # TODO: Implement half adder
     ...
@@ -71,12 +67,6 @@ def full_adder(a: int, b: int, cin: int) -> Tuple[int, int]:
 
     Returns:
         Tuple of (sum, carry_out)
-
-    Hint:
-        Use two half adders!
-        First half adder: adds a and b
-        Second half adder: adds the result with cin
-        Final carry = OR of the two carries
     """
     # TODO: Implement full adder using two half adders
     ...
