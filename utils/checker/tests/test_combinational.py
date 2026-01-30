@@ -113,9 +113,12 @@ def _test_decoder_2to4_one_hot():
     """Test that 2-to-4 decoder outputs are one-hot."""
     from computer.combinational import decoder_2to4
 
+    from ..helpers import assert_not_none
+
     for s0 in [0, 1]:
         for s1 in [0, 1]:
             output = decoder_2to4([s0, s1])
+            assert_not_none(output, "decoder_2to4 returned None")
             assert_eq(sum(output), 1)
 
 
@@ -135,9 +138,12 @@ def _test_decoder_3to8_one_hot():
     """Test that 3-to-8 decoder outputs are one-hot."""
     from computer.combinational import decoder_3to8
 
+    from ..helpers import assert_not_none
+
     for i in range(8):
         sel = [(i >> 0) & 1, (i >> 1) & 1, (i >> 2) & 1]
         output = decoder_3to8(sel)
+        assert_not_none(output, "decoder_3to8 returned None")
         assert_eq(sum(output), 1)
 
 
