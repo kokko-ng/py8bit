@@ -157,10 +157,7 @@ class JKFlipFlop:
 
 
 class TFlipFlop:
-    """T (Toggle) Flip-Flop - toggles on each clock when T=1.
-
-    Built from JK flip-flop with J=K=T.
-    """
+    """T (Toggle) Flip-Flop - toggles on each clock when T=1."""
 
     def __init__(self):
         """Initialize T flip-flop."""
