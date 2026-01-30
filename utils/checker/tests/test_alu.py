@@ -1,6 +1,6 @@
 """Test cases for ALU."""
 
-from ..helpers import assert_eq, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
@@ -76,7 +76,9 @@ def _test_alu_op(alu, a_val, b_val, op, expected_result, expected_flags):
     """Helper for ALU operation tests."""
     a = int_to_bits(a_val, 8)
     b = int_to_bits(b_val, 8)
-    result, flags = alu(a, b, op)
+    output = alu(a, b, op)
+    assert_not_none(output, "ALU returned None")
+    result, flags = output
     assert_eq(bits_to_int(result), expected_result)
     for flag, value in expected_flags.items():
         assert_eq(flags[flag], value, f"Flag {flag}")
@@ -88,7 +90,9 @@ def _test_alu_not(alu, a_val, expected):
 
     a = int_to_bits(a_val, 8)
     b = [0] * 8
-    result, _ = alu(a, b, ALU.OP_NOT)
+    output = alu(a, b, ALU.OP_NOT)
+    assert_not_none(output, "ALU returned None")
+    result, _ = output
     assert_eq(bits_to_int(result), expected)
 
 
@@ -98,7 +102,9 @@ def _test_alu_sub_borrow(alu):
 
     a = int_to_bits(3, 8)
     b = int_to_bits(5, 8)
-    result, flags = alu(a, b, ALU.OP_SUB)
+    output = alu(a, b, ALU.OP_SUB)
+    assert_not_none(output, "ALU returned None")
+    result, flags = output
     assert_eq(bits_to_int(result), 254)  # -2 in unsigned
 
 
@@ -108,7 +114,9 @@ def _test_alu_negative_flag(alu):
 
     a = int_to_bits(0, 8)
     b = int_to_bits(1, 8)
-    _, flags = alu(a, b, ALU.OP_SUB)
+    output = alu(a, b, ALU.OP_SUB)
+    assert_not_none(output, "ALU returned None")
+    _, flags = output
     assert_eq(flags["N"], 1)
 
 
@@ -118,7 +126,9 @@ def _test_alu_cmp(alu, a_val, b_val, expected_flags):
 
     a = int_to_bits(a_val, 8)
     b = int_to_bits(b_val, 8)
-    result, flags = alu(a, b, ALU.OP_CMP)
+    output = alu(a, b, ALU.OP_CMP)
+    assert_not_none(output, "ALU returned None")
+    result, flags = output
     assert_eq(bits_to_int(result), a_val)  # A is unchanged
     for flag, value in expected_flags.items():
         assert_eq(flags[flag], value)
@@ -131,5 +141,7 @@ def _test_alu_cmp_preserves(alu):
     for a_val in [0, 5, 127, 255]:
         a = int_to_bits(a_val, 8)
         b = int_to_bits(100, 8)
-        result, _ = alu(a, b, ALU.OP_CMP)
+        output = alu(a, b, ALU.OP_CMP)
+        assert_not_none(output, "ALU returned None")
+        result, _ = output
         assert_eq(bits_to_int(result), a_val)

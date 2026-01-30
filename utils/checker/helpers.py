@@ -11,6 +11,8 @@ def int_to_bits(value: int, num_bits: int = 8) -> list:
 
 def bits_to_int(bits: list, signed: bool = False) -> int:
     """Convert a list of bits (LSB at index 0) to an integer."""
+    if bits is None:
+        raise AssertionError("Value is None (function may be unimplemented)")
     result = sum(bit << i for i, bit in enumerate(bits))
     if signed and len(bits) > 0 and bits[-1] == 1:
         result -= 1 << len(bits)
@@ -76,6 +78,11 @@ def assert_isinstance(obj, expected_type, message: str | None = None):
 
 def assert_len(obj, expected_len: int, message: str | None = None):
     """Assert that obj has expected length."""
+    if obj is None:
+        msg = "Value is None (function may be unimplemented)"
+        if message:
+            msg = f"{message}\n           {msg}"
+        raise AssertionError(msg)
     actual_len = len(obj)
     if actual_len != expected_len:
         details = f"Expected length: {expected_len}\n           Actual length: {actual_len}\n           Value: {obj!r}"

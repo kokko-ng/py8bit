@@ -1,6 +1,6 @@
 """Test cases for assembler."""
 
-from ..helpers import assert_true
+from ..helpers import assert_true, assert_not_none
 
 
 def get_tests() -> dict:
@@ -27,6 +27,7 @@ def _test_assemble_nop():
 
     asm = Assembler()
     result = asm.assemble("NOP")
+    assert_not_none(result, "Assembler.assemble() returned None")
     assert_true(len(result) > 0)
 
 
@@ -36,6 +37,7 @@ def _test_assemble_halt():
 
     asm = Assembler()
     result = asm.assemble("HALT")
+    assert_not_none(result, "Assembler.assemble() returned None")
     assert_true(len(result) > 0)
 
 
@@ -46,10 +48,12 @@ def _test_assemble_add():
     asm = Assembler()
     try:
         result = asm.assemble("ADD R0, R1, R2")
+        assert_not_none(result, "Assembler.assemble() returned None")
         assert_true(len(result) > 0)
     except Exception:
         # May not support register syntax
         result = asm.assemble("ADD 0, 1, 2")
+        assert_not_none(result, "Assembler.assemble() returned None")
         assert_true(len(result) > 0)
 
 
@@ -60,9 +64,11 @@ def _test_assemble_load():
     asm = Assembler()
     try:
         result = asm.assemble("LOAD R0, 100")
+        assert_not_none(result, "Assembler.assemble() returned None")
         assert_true(len(result) > 0)
     except Exception:
         result = asm.assemble("LOAD 0, 100")
+        assert_not_none(result, "Assembler.assemble() returned None")
         assert_true(len(result) > 0)
 
 
@@ -72,6 +78,7 @@ def _test_assemble_jmp():
 
     asm = Assembler()
     result = asm.assemble("JMP 50")
+    assert_not_none(result, "Assembler.assemble() returned None")
     assert_true(len(result) > 0)
 
 
@@ -84,6 +91,7 @@ def _test_assemble_multiple():
 NOP
 HALT"""
     result = asm.assemble(program)
+    assert_not_none(result, "Assembler.assemble() returned None")
     assert_true(len(result) >= 3)
 
 
