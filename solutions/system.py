@@ -13,15 +13,27 @@ class Computer:
         self.cpu = CPU()
         self.assembler = Assembler()
 
-    def load_program(self, source: str) -> None:
-        """Load and assemble a program from source code."""
-        code = self.assembler.assemble(source)
-        self.load_machine_code(code)
-        # Also load data bytes from .byte directives
-        for addr, value in self.assembler.data_bytes.items():
-            addr_bits = [(addr >> i) & 1 for i in range(8)]
-            value_bits = [(value >> i) & 1 for i in range(8)]
-            self.cpu.datapath.memory.write(addr_bits, value_bits, 1)
+    def load_program(self, source) -> None:
+        """Load a program from source code or raw bytes.
+
+        Args:
+            source: Assembly source code (str) or raw bytes (List[int])
+        """
+        if isinstance(source, str):
+            # Assembly source code
+            code = self.assembler.assemble(source)
+            self.load_machine_code(code)
+            # Also load data bytes from .byte directives
+            for addr, value in self.assembler.data_bytes.items():
+                addr_bits = [(addr >> i) & 1 for i in range(8)]
+                value_bits = [(value >> i) & 1 for i in range(8)]
+                self.cpu.datapath.memory.write(addr_bits, value_bits, 1)
+        else:
+            # Raw bytes - load directly into memory
+            for addr, byte_val in enumerate(source):
+                addr_bits = [(addr >> i) & 1 for i in range(8)]
+                value_bits = [(byte_val >> i) & 1 for i in range(8)]
+                self.cpu.datapath.memory.write(addr_bits, value_bits, 1)
 
     def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
         """Load machine code into memory."""

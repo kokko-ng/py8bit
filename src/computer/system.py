@@ -20,13 +20,15 @@ class Computer:
         self.cpu = CPU()
         self.assembler = Assembler()
 
-    def load_program(self, source: str) -> None:
-        """Assemble and load a program.
+    def load_program(self, source) -> None:
+        """Load a program from source code or raw bytes.
 
         Args:
-            source: Assembly source code
+            source: Assembly source code (str) or raw bytes (List[int])
         """
         # TODO: Implement program loading
+        # If source is a string, assemble it first
+        # If source is a list of bytes, load directly into memory
         ...
 
     def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
