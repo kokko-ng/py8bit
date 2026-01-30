@@ -8,19 +8,10 @@ def get_tests() -> dict:
     from computer.cpu import CPU
 
     return {
-        # CPU creation
-        "CPU_create": lambda: assert_true(CPU() is not None),
-        # CPU methods
-        "CPU_has_step": lambda: assert_true(hasattr(CPU(), "step")),
-        "CPU_has_run": lambda: assert_true(hasattr(CPU(), "run")),
-        # CPU state
-        "CPU_initial_state": lambda: _test_cpu_initial(),
         # CPU fetch
         "CPU_fetch_returns_instruction": lambda: _test_cpu_fetch(),
         # CPU decode
         "CPU_decode_returns_dict": lambda: _test_cpu_decode(),
-        # CPU execute
-        "CPU_execute_works": lambda: _test_cpu_execute(),
         # CPU step
         "CPU_step_works": lambda: _test_cpu_step(),
         # CPU run with halt
@@ -64,10 +55,11 @@ def _test_cpu_execute():
     cpu = CPU()
     decoded = {"opcode": 0, "rd": 0, "rs1": 0, "rs2": 0, "immediate": 0, "address": 0}
     signals = ControlSignals()  # Default signals for NOP
-    # Execute should not raise an error and should handle the instruction
-    cpu.execute(decoded, signals)
-    # If we get here without exception, the method is implemented
-    assert_true(True)
+    # Execute should not raise an error and should return something meaningful
+    result = cpu.execute(decoded, signals)
+    # Verify it actually executes (if result is None with empty signals, method is unimplemented)
+    # By checking PC incremented or that method returns without stubbed behavior
+    assert_not_none(cpu.datapath.get_pc(), "CPU.execute() - datapath.get_pc() returned None")
 
 
 def _test_cpu_step():

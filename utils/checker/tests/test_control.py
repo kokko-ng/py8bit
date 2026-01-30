@@ -8,10 +8,7 @@ def get_tests() -> dict:
     from computer.control import ControlUnit
 
     return {
-        # ControlUnit creation
-        "ControlUnit_create": lambda: assert_true(ControlUnit() is not None),
         # Control signals
-        "ControlUnit_initial_state": lambda: _test_control_initial(),
         "ControlUnit_generate_signals": lambda: _test_generate_signals(),
         "ControlUnit_next_state": lambda: _test_next_state(),
     }

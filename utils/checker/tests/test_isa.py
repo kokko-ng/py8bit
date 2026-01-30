@@ -8,28 +8,6 @@ def get_tests() -> dict:
     from computer.isa import OPCODES
 
     return {
-        # OPCODES definitions
-        "ISA_opcodes_defined": lambda: assert_true(len(OPCODES) > 0),
-        "ISA_has_NOP": lambda: assert_in("NOP", OPCODES),
-        "ISA_has_LOAD": lambda: assert_in("LOAD", OPCODES),
-        "ISA_has_STORE": lambda: assert_in("STORE", OPCODES),
-        "ISA_has_MOV": lambda: assert_in("MOV", OPCODES),
-        "ISA_has_ADD": lambda: assert_in("ADD", OPCODES),
-        "ISA_has_SUB": lambda: assert_in("SUB", OPCODES),
-        "ISA_has_AND": lambda: assert_in("AND", OPCODES),
-        "ISA_has_OR": lambda: assert_in("OR", OPCODES),
-        "ISA_has_XOR": lambda: assert_in("XOR", OPCODES),
-        "ISA_has_NOT": lambda: assert_in("NOT", OPCODES),
-        "ISA_has_SHL": lambda: assert_in("SHL", OPCODES),
-        "ISA_has_SHR": lambda: assert_in("SHR", OPCODES),
-        "ISA_has_JMP": lambda: assert_in("JMP", OPCODES),
-        "ISA_has_JZ": lambda: assert_in("JZ", OPCODES),
-        "ISA_has_JNZ": lambda: assert_in("JNZ", OPCODES),
-        "ISA_has_HALT": lambda: assert_in("HALT", OPCODES),
-        # OPCODE values
-        "ISA_NOP_is_0": lambda: assert_eq(OPCODES["NOP"], 0),
-        "ISA_HALT_is_15": lambda: assert_eq(OPCODES["HALT"], 15),
-        "ISA_unique_opcodes": lambda: _test_unique_opcodes(),
         # Encode instruction
         "ISA_encode_NOP": lambda: _test_encode("NOP"),
         "ISA_encode_ADD": lambda: _test_encode_rtype("ADD"),

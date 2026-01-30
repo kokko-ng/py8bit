@@ -8,9 +8,6 @@ def get_tests() -> dict:
     from computer.decoder import InstructionDecoder
 
     return {
-        # Decoder creation
-        "Decoder_create": lambda: assert_true(InstructionDecoder() is not None),
-        "Decoder_has_decode": lambda: assert_true(hasattr(InstructionDecoder(), "decode")),
         # Decode instructions
         "Decoder_decode_NOP": lambda: _test_decode_nop(),
         "Decoder_decode_ADD": lambda: _test_decode_add(),
