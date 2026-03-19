@@ -62,7 +62,7 @@ def check(component_name: str, exercise: str | None = None, verbose: bool = Fals
     passed, failed, errors, results = run_tests(test_cases, exercise)
     display_results(component_name, exercise, passed, failed, errors, verbose, results)
 
-    return failed == 0 and errors == 0
+    return (passed + failed + errors) > 0 and failed == 0 and errors == 0
 
 
 def check_all() -> bool:

@@ -41,13 +41,13 @@ python3 -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install dependencies
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 
 # Start Jupyter Notebook
 jupyter notebook
 ```
 
-This will open Jupyter in your browser. Navigate to the `notebooks/` folder and start with `01_logic_gates.ipynb`.
+Open `notebooks/01_logic_gates.ipynb`, run the setup cell, then work through the notebooks in order.
 
 ### Project Structure
 
@@ -55,7 +55,6 @@ This will open Jupyter in your browser. Navigate to the `notebooks/` folder and 
 py8bit/
 ├── notebooks/           # 16 educational notebooks
 ├── src/computer/        # Student module stubs
-├── solutions/           # Reference implementations
 ├── programs/            # Sample assembly programs
 ├── utils/               # Helper utilities (including test checker)
 └── requirements.txt
@@ -71,9 +70,7 @@ py8bit/
 
 3. **Complete exercises** - Write your code directly in the notebook cells
 
-4. **Save to module** - Once your code works in the notebook, copy it to the corresponding file in `src/computer/`. For example:
-   - From notebook: Copy your `AND()` function
-   - To file: Paste into `src/computer/gates.py` (replacing the `...`)
+4. **Save to module** - Copy the working code into the matching file in `src/computer/`.
 
 5. **Validate** - Run the validation cell in the notebook:
    ```python
@@ -81,9 +78,7 @@ py8bit/
    check('gates')  # Tests your gates.py implementation
    ```
 
-6. **Debug** - If tests fail, review the error messages and fix your code
-
-7. **Get help if stuck** - Reference implementations are in the `solutions/` folder
+6. **Debug** - If tests fail, review the error messages and fix your code.
 
 ## Checking Your Work
 
@@ -94,7 +89,7 @@ from utils.checker import check
 check('gates')  # Run tests for the gates module
 ```
 
-This runs hidden tests that verify your implementation without revealing the test code.
+This runs the checker for that module and prints the failing cases, if any.
 
 ## Sample Programs
 
