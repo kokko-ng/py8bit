@@ -4,9 +4,12 @@ Decodes 16-bit instructions into their component fields
 and instruction type.
 """
 
-from typing import Dict, List
+# NOTE: Generated from solutions/decoder.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from computer.isa import OPCODE_NAMES, bits_to_int_n  # noqa: F401
+from typing import List, Dict
+from computer.isa import OPCODE_NAMES, bits_to_int_n
 
 
 class InstructionDecoder:
@@ -22,7 +25,6 @@ class InstructionDecoder:
             Dictionary with decoded fields
         """
         # TODO: Implement instruction decoding
-        # Convert bits to integer
         ...
 
     def get_instruction_type(self, opcode: int) -> str:

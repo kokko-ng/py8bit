@@ -25,10 +25,13 @@ N-type (NOP, HALT, MOV, NOT, SHL, SHR):
 - Bits 11-0:  Depends on instruction
 """
 
+# NOTE: Generated from solutions/isa.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 from typing import List, Dict
 
 
-# Opcode definitions
 OPCODES = {
     "NOP": 0b0000,
     "LOAD": 0b0001,
@@ -48,8 +51,17 @@ OPCODES = {
     "HALT": 0b1111,
 }
 
-# Reverse lookup
 OPCODE_NAMES = {v: k for k, v in OPCODES.items()}
+
+
+def int_to_bits_n(value: int, n: int) -> List[int]:
+    """Convert integer to n-bit list (LSB first)."""
+    return [(value >> i) & 1 for i in range(n)]
+
+
+def bits_to_int_n(bits: List[int]) -> int:
+    """Convert bit list to integer."""
+    return sum(bit << i for i, bit in enumerate(bits))
 
 
 def encode_instruction(opcode: str, rd: int = 0, rs1: int = 0, rs2_imm: int = 0) -> List[int]:
@@ -85,11 +97,22 @@ def decode_instruction(instruction: List[int]) -> Dict:
     ...
 
 
-def int_to_bits_n(value: int, n: int) -> List[int]:
-    """Convert integer to n-bit list (LSB first)."""
-    return [(value >> i) & 1 for i in range(n)]
+def disassemble(instruction: List[int]) -> str:
+    """Convert a 16-bit instruction back into assembly text.
 
+    This is the inverse of the assembler's job. Examples:
 
-def bits_to_int_n(bits: List[int]) -> int:
-    """Convert bit list to integer."""
-    return sum(bit << i for i, bit in enumerate(bits))
+    - ``ADD R0, R1, R2``   (R-type: three registers)
+    - ``MOV R1, R2``       (two registers)
+    - ``LOAD R1, 0x10``    (I-type: register and 8-bit address in hex)
+    - ``JMP 0x0C``         (J-type: 8-bit target address in hex)
+    - ``NOP`` / ``HALT``   (no operands)
+
+    Args:
+        instruction: 16-bit instruction (LSB at index 0)
+
+    Returns:
+        Assembly text for the instruction
+    """
+    # TODO: Implement disassembly: turn 16 bits back into assembly text
+    ...

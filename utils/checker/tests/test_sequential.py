@@ -5,7 +5,7 @@ from ..helpers import assert_eq
 
 def get_tests() -> dict:
     """Return all test cases for sequential circuits."""
-    from computer.sequential import SRLatch, GatedSRLatch, DLatch, DFlipFlop, JKFlipFlop, TFlipFlop
+    from computer.sequential import GatedSRLatch, DLatch
 
     return {
         # SR Latch

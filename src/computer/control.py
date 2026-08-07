@@ -15,13 +15,24 @@ Design note - single-cycle control:
     conceptual exercise.
 """
 
-from typing import Dict
+# NOTE: Generated from solutions/control.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
 
+from typing import Dict
 from computer.clock import ControlSignals
 
 
 class ControlUnit:
-    """CPU Control Unit - maps decoded instructions to control signals."""
+    """CPU Control Unit - maps decoded instructions to control signals.
+
+    This is a single-cycle design: ``CPU.step()`` performs fetch and decode
+    itself and calls ``generate_signals`` exactly once per instruction, so
+    all signals for that instruction's execution are asserted at once. The
+    FETCH/DECODE/EXECUTE/WRITEBACK states model how a multi-cycle CPU would
+    sequence its work; ``next_state`` walks that cycle as a conceptual
+    exercise.
+    """
 
     # Conceptual CPU phases (see next_state)
     FETCH = "FETCH"
@@ -70,7 +81,7 @@ class ControlUnit:
         Returns:
             New state name
         """
-        # TODO: Implement state machine
+        # TODO: Implement the conceptual state machine
         ...
 
     def reset(self) -> None:

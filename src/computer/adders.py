@@ -12,9 +12,12 @@ Components:
 Bit representation: Lists with LSB at index 0.
 """
 
-from typing import List, Tuple
+# NOTE: Generated from solutions/adders.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from computer.gates import AND, NOT, OR, XOR  # noqa: F401
+from typing import List, Tuple
+from computer.gates import AND, OR, XOR, NOT
 
 
 def half_adder(a: int, b: int) -> Tuple[int, int]:
@@ -38,7 +41,7 @@ def half_adder(a: int, b: int) -> Tuple[int, int]:
     Returns:
         Tuple of (sum, carry)
     """
-    # TODO: Implement half adder
+    # TODO: Implement the half adder
     ...
 
 
@@ -68,7 +71,7 @@ def full_adder(a: int, b: int, cin: int) -> Tuple[int, int]:
     Returns:
         Tuple of (sum, carry_out)
     """
-    # TODO: Implement full adder using two half adders
+    # TODO: Implement the full adder using two half adders
     ...
 
 
@@ -92,7 +95,7 @@ def ripple_carry_adder_8bit(a: List[int], b: List[int], cin: int = 0) -> Tuple[L
         b = [1,1,0,0,0,0,0,0] (3 in binary, LSB first)
         result = [0,0,0,1,0,0,0,0] (8 in binary, LSB first)
     """
-    # TODO: Implement 8-bit ripple carry adder
+    # TODO: Implement the 8-bit ripple carry adder
     ...
 
 
@@ -119,7 +122,7 @@ def subtractor_8bit(a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
         Signed overflow occurs when adding two positive numbers gives negative,
         or adding two negative numbers gives positive.
     """
-    # TODO: Implement 8-bit subtractor
+    # TODO: Implement the 8-bit subtractor
     ...
 
 

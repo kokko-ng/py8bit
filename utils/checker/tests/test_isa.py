@@ -5,8 +5,6 @@ from ..helpers import assert_eq, assert_len, assert_not_none, bits_to_int
 
 def get_tests() -> dict:
     """Return all test cases for ISA."""
-    from computer.isa import OPCODES
-
     return {
         # Opcode table
         "ISA_opcodes_unique": lambda: _test_unique_opcodes(),
@@ -18,7 +16,26 @@ def get_tests() -> dict:
         # Decode instruction
         "ISA_decode_NOP": lambda: _test_decode_nop(),
         "ISA_encode_decode_roundtrip": lambda: _test_roundtrip(),
+        # Disassembler
+        "ISA_disassemble_no_operands": lambda: _test_disassemble("NOP", {}, "NOP"),
+        "ISA_disassemble_HALT": lambda: _test_disassemble("HALT", {}, "HALT"),
+        "ISA_disassemble_ADD": lambda: _test_disassemble("ADD", {"rd": 0, "rs1": 1, "rs2_imm": 2}, "ADD R0, R1, R2"),
+        "ISA_disassemble_MOV": lambda: _test_disassemble("MOV", {"rd": 1, "rs1": 2}, "MOV R1, R2"),
+        "ISA_disassemble_LOAD": lambda: _test_disassemble("LOAD", {"rd": 1, "rs2_imm": 0x10}, "LOAD R1, 0x10"),
+        "ISA_disassemble_STORE": lambda: _test_disassemble("STORE", {"rd": 0, "rs2_imm": 0x12}, "STORE R0, 0x12"),
+        "ISA_disassemble_JMP": lambda: _test_disassemble("JMP", {"rs2_imm": 12}, "JMP 0x0C"),
     }
+
+
+def _test_disassemble(opcode, kwargs, expected):
+    """Encoding then disassembling must reproduce canonical assembly text."""
+    from computer.isa import disassemble, encode_instruction
+
+    encoded = encode_instruction(opcode, **kwargs)
+    assert_not_none(encoded, "encode_instruction() returned None")
+    result = disassemble(encoded)
+    assert_not_none(result, "disassemble() returned None - implement the function")
+    assert_eq(result, expected, f"disassemble() should render {opcode} as {expected!r}")
 
 
 def _test_unique_opcodes():

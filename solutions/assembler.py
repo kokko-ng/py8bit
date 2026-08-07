@@ -1,11 +1,14 @@
-"""Assembler - Solution File."""
+"""Assembler.
+
+Converts assembly language to machine code.
+"""
 
 from typing import List, Dict, Optional
 from solutions.isa import encode_instruction
 
 
 class Assembler:
-    """Two-pass assembler."""
+    """Two-pass assembler for our 8-bit CPU."""
 
     def __init__(self):
         """Initialize assembler state."""
@@ -14,7 +17,14 @@ class Assembler:
         self.data_bytes: Dict[int, int] = {}  # addr -> value
 
     def assemble(self, source: str) -> List[List[int]]:
-        """Assemble source code to machine code."""
+        """Assemble source code to machine code.
+
+        Args:
+            source: Assembly source code
+
+        Returns:
+            List of 16-bit instructions (each as list of bits)
+        """
         self.symbol_table = {}
         self.errors = []
         self.data_bytes = {}
@@ -22,7 +32,14 @@ class Assembler:
         return self.second_pass(parsed_lines)
 
     def first_pass(self, source: str) -> List[Dict]:
-        """First pass: build symbol table and parse lines."""
+        """First pass: build symbol table and parse lines.
+
+        Args:
+            source: Assembly source code
+
+        Returns:
+            List of parsed line dictionaries
+        """
         parsed_lines = []
         address = 0
 
@@ -50,7 +67,14 @@ class Assembler:
         return parsed_lines
 
     def second_pass(self, parsed_lines: List[Dict]) -> List[List[int]]:
-        """Second pass: generate machine code."""
+        """Second pass: generate machine code.
+
+        Args:
+            parsed_lines: Output from first pass
+
+        Returns:
+            List of 16-bit instructions
+        """
         machine_code = []
 
         for parsed in parsed_lines:
@@ -82,7 +106,14 @@ class Assembler:
         return machine_code
 
     def parse_line(self, line: str) -> Optional[Dict]:  # type: ignore[type-arg]
-        """Parse a single line of assembly."""
+        """Parse a single line of assembly.
+
+        Args:
+            line: Assembly line
+
+        Returns:
+            Dictionary with opcode, operands, label, or None for empty/comment
+        """
         line = line.split(";")[0].strip()
         if not line:
             return None

@@ -13,6 +13,10 @@ Your Task:
 Complete the implementation of each gate function below.
 """
 
+# NOTE: Generated from solutions/gates.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 
 def NOT(a: int) -> int:
     """Logical NOT gate (inverter).
@@ -31,7 +35,7 @@ def NOT(a: int) -> int:
     Returns:
         Inverted bit (0 or 1)
     """
-    # TODO: Implement NOT gate
+    # TODO: Implement the NOT gate
     ...
 
 
@@ -55,7 +59,7 @@ def AND(a: int, b: int) -> int:
     Returns:
         Result bit (0 or 1)
     """
-    # TODO: Implement AND gate
+    # TODO: Implement the AND gate
     ...
 
 
@@ -79,7 +83,7 @@ def OR(a: int, b: int) -> int:
     Returns:
         Result bit (0 or 1)
     """
-    # TODO: Implement OR gate
+    # TODO: Implement the OR gate
     ...
 
 
@@ -104,7 +108,7 @@ def NAND(a: int, b: int) -> int:
     Returns:
         Result bit (0 or 1)
     """
-    # TODO: Implement NAND gate using AND and NOT
+    # TODO: Implement the NAND gate by composing AND and NOT
     ...
 
 
@@ -129,7 +133,7 @@ def NOR(a: int, b: int) -> int:
     Returns:
         Result bit (0 or 1)
     """
-    # TODO: Implement NOR gate using OR and NOT
+    # TODO: Implement the NOR gate by composing OR and NOT
     ...
 
 
@@ -153,7 +157,7 @@ def XOR(a: int, b: int) -> int:
     Returns:
         Result bit (0 or 1)
     """
-    # TODO: Implement XOR gate
+    # TODO: Implement the XOR gate
     ...
 
 
@@ -177,5 +181,5 @@ def XNOR(a: int, b: int) -> int:
     Returns:
         Result bit (0 or 1)
     """
-    # TODO: Implement XNOR gate using XOR and NOT
+    # TODO: Implement the XNOR gate by composing XOR and NOT
     ...

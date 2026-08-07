@@ -1,8 +1,16 @@
-"""Full System - Solution File."""
+"""Full System - Complete 8-bit Computer.
+
+The complete computer system integrating:
+- CPU
+- Assembler
+- Memory initialization
+- I/O (simulated)
+"""
 
 from typing import List, Dict
 from solutions.cpu import CPU
 from solutions.assembler import Assembler
+from solutions.isa import disassemble
 
 
 class Computer:
@@ -36,7 +44,12 @@ class Computer:
                 self.cpu.datapath.memory.write(addr_bits, value_bits, 1)
 
     def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
-        """Load machine code into memory."""
+        """Load raw machine code into memory.
+
+        Args:
+            code: List of 16-bit instructions
+            start_addr: Starting address
+        """
         # Convert 16-bit instructions to bytes and load
         for i, instruction in enumerate(code):
             addr = start_addr + i * 2
@@ -49,22 +62,74 @@ class Computer:
             self.cpu.datapath.memory.write(addr_bits, high_byte, 1)
 
     def run(self, max_cycles: int = 1000, debug: bool = False) -> Dict:
-        """Run the computer until HALT or max cycles."""
+        """Run the loaded program until HALT or max_cycles.
+
+        Args:
+            max_cycles: Maximum cycles to execute
+            debug: If True, print the trace_step() line for each instruction
+                (PC, disassembled instruction, register changes)
+
+        Returns:
+            Final system state (see dump_state)
+        """
         cycles = 0
-        while cycles < max_cycles:
+        while cycles < max_cycles and not self.cpu.halted:
             if debug:
-                print(f"Cycle {cycles}: PC={self._format_bits(self.cpu.datapath.get_pc())}")
-            if not self.cpu.step():
+                trace = self.trace_step()
+                if trace:
+                    print(trace)
+            elif not self.cpu.step():
                 break
             cycles += 1
         return self.dump_state()
+
+    def trace_step(self) -> str:
+        """Execute one instruction and return a one-line trace of what it did.
+
+        The trace shows the PC, the disassembled instruction, and every
+        register that changed, e.g.::
+
+            PC=0x04 | ADD R0, R1, R2     | R0: 0 -> 8 | Z=0 C=0
+
+        This given helper powers ``run(debug=True)``.
+
+        Returns:
+            Trace line, or an empty string if the CPU is already halted
+        """
+        if self.cpu.halted:
+            return ""
+        pc = self._bits_to_int(self.cpu.datapath.get_pc())
+        instruction = self.cpu.datapath.fetch_instruction()
+        before = self._register_snapshot()
+        self.cpu.step()
+        after = self._register_snapshot()
+
+        line = f"PC=0x{pc:02X} | {disassemble(instruction):<18}"
+        changes = [f"{reg}: {before[reg]} -> {after[reg]}" for reg in before if before[reg] != after[reg]]
+        if changes:
+            line += " | " + ", ".join(changes)
+        flags = self.cpu.datapath.flags
+        line += f" | Z={flags['Z']} C={flags['C']}"
+        return line
+
+    def _register_snapshot(self) -> Dict[str, int]:
+        """Read all eight registers as integers."""
+        snapshot = {}
+        for i in range(8):
+            addr = [(i >> j) & 1 for j in range(3)]
+            snapshot[f"R{i}"] = self._bits_to_int(self.cpu.datapath.reg_file.read(addr))
+        return snapshot
 
     def reset(self) -> None:
         """Reset the computer to initial state."""
         self.cpu.reset()
 
     def dump_state(self) -> Dict:
-        """Get current computer state."""
+        """Get complete system state for debugging.
+
+        Returns:
+            Dictionary with CPU state, register values, memory dump
+        """
         state = self.cpu.get_state()
         state["registers"] = {}
         for i in range(8):
@@ -81,6 +146,10 @@ class Computer:
             val = self.cpu.datapath.reg_file.read(addr)
             lines.append(f"R{i}: {self._bits_to_int(val):3d} (0x{self._bits_to_int(val):02X})")
         return "\n".join(lines)
+
+    def dump_memory(self, start: int = 0, end: int = 32) -> str:
+        """Get formatted memory dump."""
+        return self.cpu.datapath.memory.dump(start, end)
 
     def _bits_to_int(self, bits: List[int]) -> int:
         return sum(bit << i for i, bit in enumerate(bits))

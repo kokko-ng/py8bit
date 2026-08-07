@@ -21,16 +21,18 @@ Flags:
 - V (Overflow): Signed overflow occurred
 """
 
-from typing import Dict, List, Tuple
+# NOTE: Generated from solutions/alu.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from computer.adders import ripple_carry_adder_8bit, subtractor_8bit  # noqa: F401
-from computer.gates import AND, NOT, OR, XOR  # noqa: F401
+from typing import List, Tuple, Dict
+from computer.gates import AND, OR, XOR, NOT
+from computer.adders import ripple_carry_adder_8bit, subtractor_8bit
 
 
 class ALU:
     """8-bit Arithmetic Logic Unit."""
 
-    # Opcode definitions
     OP_ADD = [0, 0, 0, 0]
     OP_SUB = [1, 0, 0, 0]
     OP_AND = [0, 1, 0, 0]
@@ -54,10 +56,7 @@ class ALU:
             - result: 8-bit result (LSB at index 0)
             - flags: Dictionary with keys 'Z', 'C', 'N', 'V'
         """
-        # TODO: Implement ALU
-        # 1. Decode opcode and perform the operation
-        # 2. Calculate flags based on the result
-        # 3. Return (result, flags)
+        # TODO: Implement the ALU: dispatch on opcode, compute result and flags
         ...
 
     def _add(self, a: List[int], b: List[int]) -> Tuple[List[int], int]:
@@ -92,12 +91,12 @@ class ALU:
 
     def _shl(self, a: List[int]) -> Tuple[List[int], int]:
         """Shift left by 1. Returns (result, carry_out)."""
-        # TODO: Implement shift left
+        # TODO: Implement shift left (MSB becomes the carry)
         ...
 
     def _shr(self, a: List[int]) -> Tuple[List[int], int]:
         """Shift right by 1. Returns (result, carry_out)."""
-        # TODO: Implement shift right
+        # TODO: Implement shift right (LSB becomes the carry)
         ...
 
     def _calculate_flags(self, result: List[int], carry: int, overflow: int) -> Dict[str, int]:
@@ -111,5 +110,5 @@ class ALU:
         Returns:
             Dictionary with Z, C, N, V flags
         """
-        # TODO: Implement flag calculation
+        # TODO: Implement flag calculation (Z, C, N, V)
         ...

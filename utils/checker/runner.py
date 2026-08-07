@@ -1,6 +1,5 @@
 """Test runner utilities for the checker."""
 
-import traceback
 
 
 class TestResult:

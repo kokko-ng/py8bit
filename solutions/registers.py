@@ -1,4 +1,12 @@
-"""Registers - Solution File."""
+"""Registers - Multi-bit Storage Elements.
+
+Registers are groups of flip-flops that store multi-bit values.
+They are fundamental for holding data in the CPU.
+
+Components:
+- Register8: 8-bit register
+- RegisterFile: Collection of registers with addressing
+"""
 
 from typing import List
 from solutions.sequential import DFlipFlop
@@ -12,7 +20,16 @@ class Register8:
         self.bits = [DFlipFlop() for _ in range(8)]
 
     def clock(self, data: List[int], enable: int, clk: int) -> List[int]:
-        """Update register on clock edge when enabled."""
+        """Update register on clock edge when enabled.
+
+        Args:
+            data: 8-bit input data (LSB at index 0)
+            enable: Write enable signal
+            clk: Clock signal
+
+        Returns:
+            Current register value
+        """
         if enable == 1 and clk == 1:
             # Cycle clock low first to ensure rising edge detection works
             for i in range(8):
@@ -28,7 +45,11 @@ class Register8:
 
 
 class RegisterFile:
-    """Register file - collection of registers with addressing."""
+    """Register file - collection of registers with addressing.
+
+    Contains 8 registers addressable by 3-bit address.
+    Supports simultaneous read of 2 registers and write of 1.
+    """
 
     def __init__(self, num_registers: int = 8):
         """Initialize register file."""
@@ -40,7 +61,14 @@ class RegisterFile:
         return sum(bit << i for i, bit in enumerate(addr))
 
     def read(self, addr: List[int]) -> List[int]:
-        """Read from a register."""
+        """Read from a register.
+
+        Args:
+            addr: 3-bit register address (LSB at index 0)
+
+        Returns:
+            8-bit register value
+        """
         idx = self._addr_to_index(addr)
         if idx < self.num_registers:
             return self.registers[idx].read()
@@ -49,8 +77,11 @@ class RegisterFile:
     def write(self, addr: List[int], data: List[int], enable: int, clk: int) -> None:
         """Write to a register.
 
-        To ensure proper edge-triggered behavior, we pulse the clock
-        by first setting it low, then high.
+        Args:
+            addr: 3-bit register address
+            data: 8-bit data to write
+            enable: Write enable signal
+            clk: Clock signal
         """
         if enable == 1:
             idx = self._addr_to_index(addr)
@@ -60,5 +91,13 @@ class RegisterFile:
                 self.registers[idx].clock(data, 1, 1)  # Clock high (rising edge)
 
     def read_two(self, addr1: List[int], addr2: List[int]) -> tuple:
-        """Read from two registers simultaneously."""
+        """Read from two registers simultaneously.
+
+        Args:
+            addr1: First register address
+            addr2: Second register address
+
+        Returns:
+            Tuple of (value1, value2)
+        """
         return (self.read(addr1), self.read(addr2))

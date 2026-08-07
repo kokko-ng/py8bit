@@ -4,6 +4,10 @@ The clock coordinates all CPU operations. Control signals
 direct data flow through the CPU.
 """
 
+# NOTE: Generated from solutions/clock.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 
 class Clock:
     """CPU Clock generator."""
@@ -11,7 +15,7 @@ class Clock:
     def __init__(self):
         """Initialize clock."""
         self.cycle = 0
-        self.state = 0  # 0 = low, 1 = high
+        self.state = 0
 
     def tick(self) -> int:
         """Advance clock by one half-cycle.
@@ -19,21 +23,17 @@ class Clock:
         Returns:
             Current cycle number
         """
-        # TODO: Implement clock tick
-        # Toggle state between 0 and 1
-        # Increment cycle when state goes from 1 to 0
+        # TODO: Implement the clock tick
         ...
 
     def reset(self) -> None:
         """Reset clock to initial state."""
-        # TODO: Implement clock reset
-        # Reset cycle and state to 0
+        # TODO: Implement the clock reset
         ...
 
     def get_state(self) -> int:
         """Get current clock state (0 or 1)."""
         # TODO: Implement get_state
-        # Return current clock state (0 or 1)
         ...
 
 
@@ -42,39 +42,26 @@ class ControlSignals:
 
     def __init__(self):
         """Initialize control signals to default values."""
-        # Program counter controls
-        self.pc_load = 0  # Load PC with new value
-        self.pc_inc = 0  # Increment PC
-        self.pc_reset = 0  # Reset PC to 0
-
-        # Memory controls
-        self.mem_read = 0  # Read from memory
-        self.mem_write = 0  # Write to memory
-
-        # Register file controls
-        self.reg_write = 0  # Write to register
-        self.reg_read_a = 0  # Read register for A operand
-        self.reg_read_b = 0  # Read register for B operand
-
-        # ALU controls
-        self.alu_op = [0, 0, 0, 0]  # ALU operation code
-
-        # Instruction register
-        self.ir_load = 0  # Load instruction register
-
-        # Data path controls
-        self.alu_src_b = 0  # 0=register, 1=immediate
-        self.reg_dst = 0  # Register destination select
-        self.mem_to_reg = 0  # 0=ALU result, 1=memory data
+        self.pc_load = 0
+        self.pc_inc = 0
+        self.pc_reset = 0
+        self.mem_read = 0
+        self.mem_write = 0
+        self.reg_write = 0
+        self.reg_read_a = 0
+        self.reg_read_b = 0
+        self.alu_op = [0, 0, 0, 0]
+        self.ir_load = 0
+        self.alu_src_b = 0
+        self.reg_dst = 0
+        self.mem_to_reg = 0
 
     def reset(self) -> None:
-        """Reset all control signals to 0."""
-        # TODO: Implement control signals reset
-        # Reset all signals to their initial values
+        """Reset all control signals to default values."""
+        # TODO: Reset every control signal to its default value
         ...
 
     def to_dict(self) -> dict:
         """Convert to dictionary for debugging."""
-        # TODO: Implement to_dict
-        # Return a dictionary with all control signal values
+        # TODO: Implement to_dict for debugging
         ...

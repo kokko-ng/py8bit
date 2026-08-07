@@ -1,4 +1,8 @@
-"""Clock and Control Signals - Solution File."""
+"""Clock and Control Signals.
+
+The clock coordinates all CPU operations. Control signals
+direct data flow through the CPU.
+"""
 
 
 class Clock:
@@ -10,7 +14,11 @@ class Clock:
         self.state = 0
 
     def tick(self) -> int:
-        """Advance clock by one half-cycle."""
+        """Advance clock by one half-cycle.
+
+        Returns:
+            Current cycle number
+        """
         self.state = 1 - self.state
         if self.state == 0:
             self.cycle += 1
@@ -22,7 +30,7 @@ class Clock:
         self.state = 0
 
     def get_state(self) -> int:
-        """Get current clock state."""
+        """Get current clock state (0 or 1)."""
         return self.state
 
 

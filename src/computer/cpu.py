@@ -3,6 +3,10 @@
 The CPU integrates all components and executes the fetch-decode-execute cycle.
 """
 
+# NOTE: Generated from solutions/cpu.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 from typing import List, Dict
 from computer.datapath import DataPath
 from computer.control import ControlUnit
@@ -66,7 +70,7 @@ class CPU:
         Returns:
             True if CPU is still running, False if halted
         """
-        # TODO: Implement single step
+        # TODO: Implement a single fetch-decode-execute step
         ...
 
     def run(self, max_cycles: int = 1000) -> int:
@@ -78,7 +82,7 @@ class CPU:
         Returns:
             Number of cycles executed
         """
-        # TODO: Implement run loop
+        # TODO: Implement the run loop
         ...
 
     def get_state(self) -> Dict:

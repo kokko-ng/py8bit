@@ -1,12 +1,10 @@
 """Test cases for counters."""
 
-from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
     """Return all test cases for counters."""
-    from computer.counters import BinaryCounter8, ProgramCounter
-
     return {
         # BinaryCounter8
         "BinaryCounter8_count_one": lambda: _test_counter8_count_one(),

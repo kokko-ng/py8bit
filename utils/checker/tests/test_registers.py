@@ -1,12 +1,10 @@
 """Test cases for registers."""
 
-from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
     """Return all test cases for registers."""
-    from computer.registers import Register8, RegisterFile
-
     return {
         # Register8
         "Register8_load_value": lambda: _test_register_load(),

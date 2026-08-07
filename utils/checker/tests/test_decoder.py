@@ -5,8 +5,6 @@ from ..helpers import assert_eq, assert_true, bits_to_int, int_to_bits
 
 def get_tests() -> dict:
     """Return all test cases for decoder."""
-    from computer.decoder import InstructionDecoder
-
     return {
         # Decode instructions
         "Decoder_decode_NOP": lambda: _test_decode_nop(),

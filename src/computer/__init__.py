@@ -9,6 +9,10 @@ Bit Representation:
 - Example: decimal 5 = [1, 0, 1, 0, 0, 0, 0, 0] (binary 00000101, LSB first)
 """
 
+# NOTE: Generated from solutions/__init__.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 from typing import List
 
 

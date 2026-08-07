@@ -4,9 +4,12 @@ Counters increment their value on each clock cycle.
 Essential for the Program Counter in the CPU.
 """
 
-from typing import List
+# NOTE: Generated from solutions/counters.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from computer.adders import ripple_carry_adder_8bit  # noqa: F401
+from typing import List
+from computer.adders import ripple_carry_adder_8bit
 
 
 class BinaryCounter8:
@@ -27,7 +30,7 @@ class BinaryCounter8:
         Returns:
             Current count value
         """
-        # TODO: Implement binary counter
+        # TODO: Implement the binary counter
         ...
 
     def read(self) -> List[int]:
@@ -64,8 +67,7 @@ class ProgramCounter:
         Returns:
             Current PC value
         """
-        # TODO: Implement program counter
-        # Priority: reset > load > increment
+        # TODO: Implement the program counter
         ...
 
     def read(self) -> List[int]:

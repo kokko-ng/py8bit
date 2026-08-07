@@ -1,4 +1,14 @@
-"""Data Path - Solution File."""
+"""Data Path.
+
+The data path connects all CPU components:
+- Program Counter
+- Memory
+- Register File
+- ALU
+- Instruction Register
+
+It routes data between components based on control signals.
+"""
 
 from typing import List, Dict
 from solutions.counters import ProgramCounter
@@ -9,7 +19,7 @@ from solutions.clock import ControlSignals
 
 
 class DataPath:
-    """CPU Data Path."""
+    """CPU Data Path - connects all components."""
 
     def __init__(self):
         """Initialize data path components."""
@@ -21,7 +31,12 @@ class DataPath:
         self.flags = {"Z": 0, "C": 0, "N": 0, "V": 0}
 
     def execute_cycle(self, signals: ControlSignals, decoded: Dict) -> None:
-        """Execute one clock cycle based on control signals."""
+        """Execute one clock cycle based on control signals.
+
+        Args:
+            signals: Control signals for this cycle
+            decoded: Decoded instruction fields
+        """
         # Get register addresses from decoded instruction
         rd = decoded.get("rd_bits", [0, 0, 0])[:3]
         rs1 = decoded.get("rs1_bits", [0, 0, 0])[:3]
@@ -64,7 +79,11 @@ class DataPath:
             self.pc.clock(load=0, load_value=[0] * 8, increment=1, reset=0, clk=1)
 
     def fetch_instruction(self) -> List[int]:
-        """Fetch instruction at current PC."""
+        """Fetch instruction at current PC.
+
+        Returns:
+            16-bit instruction
+        """
         pc_val = self.pc.read()
         # Fetch two bytes for 16-bit instruction
         low_byte = self.memory.read(pc_val)
@@ -84,7 +103,7 @@ class DataPath:
         return self.pc.read()
 
     def set_pc(self, value: List[int]) -> None:
-        """Set PC value for jumps."""
+        """Set PC value (for jumps)."""
         self.pc.clock(load=1, load_value=value, increment=0, reset=0, clk=1)
 
     def increment_pc(self) -> None:

@@ -5,8 +5,6 @@ from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits
 
 def get_tests() -> dict:
     """Return all test cases for datapath."""
-    from computer.datapath import DataPath
-
     return {
         # DataPath initial state
         "DataPath_initial_pc": lambda: _test_datapath_initial_pc(),

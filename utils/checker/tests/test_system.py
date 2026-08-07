@@ -5,8 +5,6 @@ from ..helpers import assert_eq, assert_not_none, int_to_bits
 
 def get_tests() -> dict:
     """Return all test cases for system integration."""
-    from computer.system import Computer
-
     return {
         # System execution
         "System_run_add_program": lambda: _test_system_add_program(),
@@ -15,6 +13,8 @@ def get_tests() -> dict:
         # Assembly-source loading
         "System_load_program_loads_data_section": lambda: _test_system_loads_data_section(),
         "System_runs_assembly_source": lambda: _test_system_runs_assembly_source(),
+        # Debug tracing
+        "System_debug_trace": lambda: _test_system_debug_trace(),
     }
 
 
@@ -54,6 +54,25 @@ def _test_system_runs_assembly_source():
     state = comp.run(max_cycles=100)
     assert_not_none(state, "Computer.run() returned None")
     assert_eq(state["registers"]["R0"], 8, "The assembled ADD program should compute 5 + 3 = 8 in R0")
+
+
+def _test_system_debug_trace():
+    """run(debug=True) must print a disassembled trace with register changes."""
+    import contextlib
+    import io
+
+    from ..helpers import assert_true
+    from computer.system import Computer
+
+    comp = Computer()
+    comp.load_program(ADD_SOURCE)
+    buffer = io.StringIO()
+    with contextlib.redirect_stdout(buffer):
+        state = comp.run(max_cycles=100, debug=True)
+    output = buffer.getvalue()
+    assert_eq(state["registers"]["R0"], 8, "Debug mode must not change program behavior")
+    assert_true("ADD R0, R1, R2" in output, "Debug trace should show the disassembled ADD instruction")
+    assert_true("R0: 0 -> 8" in output, "Debug trace should show the R0 register change")
 
 
 def _test_system_add_program():

@@ -8,6 +8,10 @@ Components:
 - RegisterFile: Collection of registers with addressing
 """
 
+# NOTE: Generated from solutions/registers.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 from typing import List
 from computer.sequential import DFlipFlop
 
@@ -30,13 +34,12 @@ class Register8:
         Returns:
             Current register value
         """
-        # TODO: Implement 8-bit register
-        # Only update bits if enable=1 on clock edge
+        # TODO: Implement the 8-bit register (one D flip-flop per bit)
         ...
 
     def read(self) -> List[int]:
         """Read current register value."""
-        # TODO: Return current values of all flip-flops
+        # TODO: Return the current values of all flip-flops
         ...
 
 
@@ -65,7 +68,7 @@ class RegisterFile:
         Returns:
             8-bit register value
         """
-        # TODO: Implement register read using address
+        # TODO: Implement register read using the 3-bit address
         ...
 
     def write(self, addr: List[int], data: List[int], enable: int, clk: int) -> None:
@@ -78,7 +81,6 @@ class RegisterFile:
             clk: Clock signal
         """
         # TODO: Implement register write
-        # Decode address and write to selected register
         ...
 
     def read_two(self, addr1: List[int], addr2: List[int]) -> tuple:

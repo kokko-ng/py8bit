@@ -1,4 +1,7 @@
-"""CPU - Solution File."""
+"""CPU - Central Processing Unit.
+
+The CPU integrates all components and executes the fetch-decode-execute cycle.
+"""
 
 from typing import List, Dict
 from solutions.datapath import DataPath
@@ -8,7 +11,7 @@ from solutions.clock import Clock
 
 
 class CPU:
-    """8-bit CPU."""
+    """8-bit CPU - integrates datapath and control."""
 
     def __init__(self):
         """Initialize CPU components."""
@@ -27,15 +30,31 @@ class CPU:
         self.current_instruction = None
 
     def fetch(self) -> List[int]:
-        """Fetch instruction at current PC."""
+        """Fetch instruction from memory.
+
+        Returns:
+            16-bit instruction
+        """
         return self.datapath.fetch_instruction()
 
     def decode(self, instruction: List[int]) -> Dict:
-        """Decode an instruction."""
+        """Decode instruction.
+
+        Args:
+            instruction: 16-bit instruction
+
+        Returns:
+            Decoded instruction fields
+        """
         return self.decoder.decode(instruction)
 
     def execute(self, decoded: Dict, signals) -> None:
-        """Execute a decoded instruction."""
+        """Execute instruction.
+
+        Args:
+            decoded: Decoded instruction fields
+            signals: Control signals for this instruction
+        """
         if decoded.get("opcode_name") == "HALT":
             self.halted = True
             return
@@ -43,7 +62,11 @@ class CPU:
         self.datapath.execute_cycle(signals, decoded)
 
     def step(self) -> bool:
-        """Execute one instruction cycle."""
+        """Execute one complete instruction.
+
+        Returns:
+            True if CPU is still running, False if halted
+        """
         if self.halted:
             return False
 
@@ -83,14 +106,21 @@ class CPU:
         return not self.halted
 
     def run(self, max_cycles: int = 1000) -> int:
-        """Run until HALT or max cycles."""
+        """Run until HALT or max cycles reached.
+
+        Args:
+            max_cycles: Maximum cycles to execute
+
+        Returns:
+            Number of cycles executed
+        """
         cycles = 0
         while cycles < max_cycles and self.step():
             cycles += 1
         return cycles
 
     def get_state(self) -> Dict:
-        """Get current CPU state."""
+        """Get current CPU state for debugging."""
         return {
             "pc": self.datapath.get_pc(),
             "flags": self.datapath.flags.copy(),

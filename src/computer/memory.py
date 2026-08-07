@@ -6,6 +6,10 @@ Our RAM has:
 - 8-bit data width
 """
 
+# NOTE: Generated from solutions/memory.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 from typing import List
 
 
@@ -41,7 +45,7 @@ class RAM:
             data: 8-bit data to write
             enable: Write enable (1 to write)
         """
-        # TODO: Implement memory write
+        # TODO: Implement memory write (only when enable == 1)
         ...
 
     def load_program(self, program: List[List[int]], start_addr: int = 0) -> None:

@@ -1,12 +1,10 @@
 """Test cases for memory."""
 
-from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_not_none, int_to_bits, bits_to_int
 
 
 def get_tests() -> dict:
     """Return all test cases for memory."""
-    from computer.memory import RAM
-
     return {
         # RAM read/write
         "RAM_write_read_addr0": lambda: _test_ram_addr(0),

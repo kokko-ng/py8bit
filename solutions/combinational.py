@@ -1,4 +1,17 @@
-"""Combinational Circuits - Solution File."""
+"""Combinational Circuits - Data Routing and Selection.
+
+This module contains combinational circuits built from logic gates.
+These circuits perform data routing, selection, and encoding operations
+that are essential for building more complex computer components.
+
+Components in this module:
+- Multiplexers (MUX): Select one of multiple inputs based on control signals
+- Demultiplexers (DEMUX): Route one input to one of multiple outputs
+- Decoders: Convert binary input to one-hot output
+- Encoders: Convert one-hot input to binary output
+
+All circuits use the gates from the gates module.
+"""
 
 from typing import List, Tuple
 
@@ -7,12 +20,50 @@ from solutions.gates import AND, OR, NOT
 
 
 def mux_2to1(a: int, b: int, sel: int) -> int:
-    """2-to-1 Multiplexer."""
+    """2-to-1 Multiplexer.
+
+    Selects between two inputs based on the select signal.
+    - When sel=0, output is a
+    - When sel=1, output is b
+
+    Truth Table:
+        sel | OUT
+        ----|-----
+         0  |  a
+         1  |  b
+
+    Args:
+        a: First input (selected when sel=0)
+        b: Second input (selected when sel=1)
+        sel: Select signal (0 or 1)
+
+    Returns:
+        Selected input value
+    """
     return OR(AND(a, NOT(sel)), AND(b, sel))
 
 
 def mux_4to1(inputs: List[int], sel: List[int]) -> int:
-    """4-to-1 Multiplexer using tree of 2-to-1 muxes."""
+    """4-to-1 Multiplexer.
+
+    Selects one of four inputs based on two select signals.
+    sel[0] is the LSB, sel[1] is the MSB.
+
+    Selection:
+        sel[1] | sel[0] | OUT
+        -------|--------|-------
+          0    |   0    | inputs[0]
+          0    |   1    | inputs[1]
+          1    |   0    | inputs[2]
+          1    |   1    | inputs[3]
+
+    Args:
+        inputs: List of 4 input values
+        sel: List of 2 select bits [sel0, sel1]
+
+    Returns:
+        Selected input value
+    """
     # First level: select between pairs
     mux01 = mux_2to1(inputs[0], inputs[1], sel[0])
     mux23 = mux_2to1(inputs[2], inputs[3], sel[0])
@@ -21,7 +72,18 @@ def mux_4to1(inputs: List[int], sel: List[int]) -> int:
 
 
 def mux_8to1(inputs: List[int], sel: List[int]) -> int:
-    """8-to-1 Multiplexer using tree of 4-to-1 muxes."""
+    """8-to-1 Multiplexer.
+
+    Selects one of eight inputs based on three select signals.
+    sel[0] is the LSB.
+
+    Args:
+        inputs: List of 8 input values
+        sel: List of 3 select bits [sel0, sel1, sel2]
+
+    Returns:
+        Selected input value
+    """
     # First level: two 4-to-1 muxes
     mux_low = mux_4to1(inputs[0:4], sel[0:2])
     mux_high = mux_4to1(inputs[4:8], sel[0:2])
@@ -30,14 +92,36 @@ def mux_8to1(inputs: List[int], sel: List[int]) -> int:
 
 
 def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
-    """1-to-2 Demultiplexer."""
+    """1-to-2 Demultiplexer.
+
+    Routes one input to one of two outputs based on the select signal.
+    - When sel=0, output is (data, 0)
+    - When sel=1, output is (0, data)
+
+    Args:
+        data: Input data bit
+        sel: Select signal (0 or 1)
+
+    Returns:
+        Tuple of (out0, out1)
+    """
     out0 = AND(data, NOT(sel))
     out1 = AND(data, sel)
     return (out0, out1)
 
 
 def demux_1to4(data: int, sel: List[int]) -> List[int]:
-    """1-to-4 Demultiplexer."""
+    """1-to-4 Demultiplexer.
+
+    Routes one input to one of four outputs based on two select signals.
+
+    Args:
+        data: Input data bit
+        sel: List of 2 select bits [sel0, sel1]
+
+    Returns:
+        List of 4 output values [out0, out1, out2, out3]
+    """
     # Decode the select lines
     not_sel0 = NOT(sel[0])
     not_sel1 = NOT(sel[1])
@@ -51,7 +135,25 @@ def demux_1to4(data: int, sel: List[int]) -> List[int]:
 
 
 def decoder_2to4(sel: List[int]) -> List[int]:
-    """2-to-4 Decoder."""
+    """2-to-4 Decoder.
+
+    Converts a 2-bit binary input to a 4-bit one-hot output.
+    Exactly one output will be 1.
+
+    Truth Table:
+        sel[1] | sel[0] | out[3] out[2] out[1] out[0]
+        -------|--------|---------------------------
+          0    |   0    |   0      0      0      1
+          0    |   1    |   0      0      1      0
+          1    |   0    |   0      1      0      0
+          1    |   1    |   1      0      0      0
+
+    Args:
+        sel: List of 2 input bits [sel0, sel1]
+
+    Returns:
+        List of 4 output bits (one-hot encoded)
+    """
     not_sel0 = NOT(sel[0])
     not_sel1 = NOT(sel[1])
 
@@ -64,7 +166,17 @@ def decoder_2to4(sel: List[int]) -> List[int]:
 
 
 def decoder_3to8(sel: List[int]) -> List[int]:
-    """3-to-8 Decoder."""
+    """3-to-8 Decoder.
+
+    Converts a 3-bit binary input to an 8-bit one-hot output.
+    Exactly one output will be 1.
+
+    Args:
+        sel: List of 3 input bits [sel0, sel1, sel2]
+
+    Returns:
+        List of 8 output bits (one-hot encoded)
+    """
     not_sel0 = NOT(sel[0])
     not_sel1 = NOT(sel[1])
     not_sel2 = NOT(sel[2])
@@ -82,7 +194,25 @@ def decoder_3to8(sel: List[int]) -> List[int]:
 
 
 def encoder_4to2(inputs: List[int]) -> List[int]:
-    """4-to-2 Priority Encoder."""
+    """4-to-2 Priority Encoder.
+
+    Encodes a 4-bit one-hot (or priority) input to a 2-bit binary output.
+    If multiple inputs are high, the highest index wins (priority encoding).
+
+    Examples:
+        [1,0,0,0] -> [0,0] (index 0)
+        [0,1,0,0] -> [1,0] (index 1)
+        [0,0,1,0] -> [0,1] (index 2)
+        [0,0,0,1] -> [1,1] (index 3)
+        [1,1,0,0] -> [1,0] (index 1 wins over 0)
+        [1,1,1,1] -> [1,1] (index 3 wins over all)
+
+    Args:
+        inputs: List of 4 input bits
+
+    Returns:
+        List of 2 output bits [out0, out1] representing the binary index
+    """
     # Priority encoder: higher index takes precedence
     out1 = OR(inputs[2], inputs[3])
     # out0 is 1 when highest active is 1 or 3 (but 2 takes priority over 1)
@@ -91,7 +221,21 @@ def encoder_4to2(inputs: List[int]) -> List[int]:
 
 
 def encoder_8to3(inputs: List[int]) -> List[int]:
-    """8-to-3 Priority Encoder."""
+    """8-to-3 Priority Encoder.
+
+    Encodes an 8-bit input to a 3-bit binary output.
+    The output represents the index of the highest active input.
+
+    Examples:
+        Only inputs[5]=1 -> [1,0,1] (binary 5)
+        All inputs active -> [1,1,1] (index 7 wins)
+
+    Args:
+        inputs: List of 8 input bits
+
+    Returns:
+        List of 3 output bits [out0, out1, out2]
+    """
     # Priority encoder: higher index takes precedence
     any_upper = OR(OR(inputs[4], inputs[5]), OR(inputs[6], inputs[7]))
 

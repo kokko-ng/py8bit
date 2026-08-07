@@ -3,9 +3,12 @@
 Converts assembly language to machine code.
 """
 
-from typing import Dict, List, Optional
+# NOTE: Generated from solutions/assembler.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from computer.isa import encode_instruction  # noqa: F401
+from typing import List, Dict, Optional
+from computer.isa import encode_instruction
 
 
 class Assembler:
@@ -26,7 +29,7 @@ class Assembler:
         Returns:
             List of 16-bit instructions (each as list of bits)
         """
-        # TODO: Implement assembler
+        # TODO: Implement the two-pass assembler
         ...
 
     def first_pass(self, source: str) -> List[Dict]:
@@ -38,7 +41,7 @@ class Assembler:
         Returns:
             List of parsed line dictionaries
         """
-        # TODO: Implement first pass
+        # TODO: Implement the first pass (labels and directives)
         ...
 
     def second_pass(self, parsed_lines: List[Dict]) -> List[List[int]]:
@@ -50,10 +53,10 @@ class Assembler:
         Returns:
             List of 16-bit instructions
         """
-        # TODO: Implement second pass
+        # TODO: Implement the second pass (machine code)
         ...
 
-    def parse_line(self, line: str) -> Optional[Dict]:
+    def parse_line(self, line: str) -> Optional[Dict]:  # type: ignore[type-arg]
         """Parse a single line of assembly.
 
         Args:
@@ -63,30 +66,15 @@ class Assembler:
             Dictionary with opcode, operands, label, or None for empty/comment
         """
         # TODO: Implement line parsing
-        # Remove comments and strip whitespace
-        ...
-
-    def parse_operand(self, operand: str) -> tuple:
-        """Parse an operand string.
-
-        Args:
-            operand: Operand string (e.g., 'R0', '0x10', 'label')
-
-        Returns:
-            Tuple of (type, value) where type is 'reg', 'imm', or 'label'
-        """
-        # TODO: Implement operand parsing
         ...
 
     def _parse_reg(self, operand: str) -> int:
-        """Parse a register operand."""
         operand = operand.strip().upper()
         if operand.startswith("R"):
             return int(operand[1:])
         return 0
 
     def _parse_value(self, operand: str) -> int:
-        """Parse an immediate value or label."""
         operand = operand.strip()
         if operand in self.symbol_table:
             return self.symbol_table[operand]

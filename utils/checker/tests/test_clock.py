@@ -5,8 +5,6 @@ from ..helpers import assert_eq, assert_true
 
 def get_tests() -> dict:
     """Return all test cases for clock."""
-    from computer.clock import Clock
-
     return {
         # Clock tick
         "Clock_tick_goes_high": lambda: _test_clock_tick_high(),

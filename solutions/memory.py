@@ -1,4 +1,10 @@
-"""Memory - Solution File."""
+"""Memory - RAM (Random Access Memory).
+
+RAM allows reading and writing data at any address.
+Our RAM has:
+- 256 bytes (8-bit address space)
+- 8-bit data width
+"""
 
 from typing import List
 
@@ -16,21 +22,39 @@ class RAM:
         return sum(bit << i for i, bit in enumerate(address))
 
     def read(self, address: List[int]) -> List[int]:
-        """Read data from memory at address."""
+        """Read from memory.
+
+        Args:
+            address: 8-bit address (LSB at index 0)
+
+        Returns:
+            8-bit data at address
+        """
         idx = self._addr_to_index(address)
         if 0 <= idx < self.size:
             return self.memory[idx].copy()
         return [0] * 8
 
     def write(self, address: List[int], data: List[int], enable: int) -> None:
-        """Write data to memory at address when enabled."""
+        """Write to memory.
+
+        Args:
+            address: 8-bit address
+            data: 8-bit data to write
+            enable: Write enable (1 to write)
+        """
         if enable == 1:
             idx = self._addr_to_index(address)
             if 0 <= idx < self.size:
                 self.memory[idx] = data.copy()
 
     def load_program(self, program: List[List[int]], start_addr: int = 0) -> None:
-        """Load a program into memory."""
+        """Load a program into memory.
+
+        Args:
+            program: List of 8-bit values
+            start_addr: Starting address
+        """
         for i, byte in enumerate(program):
             addr = start_addr + i
             if addr < self.size:

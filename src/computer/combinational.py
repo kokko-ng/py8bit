@@ -13,9 +13,14 @@ Components in this module:
 All circuits use the gates from the gates module.
 """
 
+# NOTE: Generated from solutions/combinational.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 from typing import List, Tuple
 
-from computer.gates import AND, NOT, OR  # noqa: F401
+# Import gates from the solutions module for testing
+from computer.gates import AND, OR, NOT
 
 
 def mux_2to1(a: int, b: int, sel: int) -> int:
@@ -39,7 +44,7 @@ def mux_2to1(a: int, b: int, sel: int) -> int:
     Returns:
         Selected input value
     """
-    # TODO: Implement 2-to-1 MUX using AND, OR, NOT gates
+    # TODO: Implement the 2-to-1 MUX using AND, OR, NOT gates
     ...
 
 
@@ -64,7 +69,7 @@ def mux_4to1(inputs: List[int], sel: List[int]) -> int:
     Returns:
         Selected input value
     """
-    # TODO: Implement 4-to-1 MUX using 2-to-1 MUXes
+    # TODO: Implement the 4-to-1 MUX using 2-to-1 MUXes
     ...
 
 
@@ -81,7 +86,7 @@ def mux_8to1(inputs: List[int], sel: List[int]) -> int:
     Returns:
         Selected input value
     """
-    # TODO: Implement 8-to-1 MUX
+    # TODO: Implement the 8-to-1 MUX
     ...
 
 
@@ -99,7 +104,7 @@ def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
     Returns:
         Tuple of (out0, out1)
     """
-    # TODO: Implement 1-to-2 DEMUX
+    # TODO: Implement the 1-to-2 DEMUX
     ...
 
 
@@ -115,7 +120,7 @@ def demux_1to4(data: int, sel: List[int]) -> List[int]:
     Returns:
         List of 4 output values [out0, out1, out2, out3]
     """
-    # TODO: Implement 1-to-4 DEMUX
+    # TODO: Implement the 1-to-4 DEMUX
     ...
 
 
@@ -139,7 +144,7 @@ def decoder_2to4(sel: List[int]) -> List[int]:
     Returns:
         List of 4 output bits (one-hot encoded)
     """
-    # TODO: Implement 2-to-4 decoder
+    # TODO: Implement the 2-to-4 decoder
     ...
 
 
@@ -155,7 +160,7 @@ def decoder_3to8(sel: List[int]) -> List[int]:
     Returns:
         List of 8 output bits (one-hot encoded)
     """
-    # TODO: Implement 3-to-8 decoder
+    # TODO: Implement the 3-to-8 decoder
     ...
 
 
@@ -179,7 +184,7 @@ def encoder_4to2(inputs: List[int]) -> List[int]:
     Returns:
         List of 2 output bits [out0, out1] representing the binary index
     """
-    # TODO: Implement 4-to-2 priority encoder
+    # TODO: Implement the 4-to-2 priority encoder
     ...
 
 
@@ -199,5 +204,5 @@ def encoder_8to3(inputs: List[int]) -> List[int]:
     Returns:
         List of 3 output bits [out0, out1, out2]
     """
-    # TODO: Implement 8-to-3 priority encoder
+    # TODO: Implement the 8-to-3 priority encoder
     ...

@@ -5,8 +5,6 @@ from ..helpers import assert_true, assert_not_none
 
 def get_tests() -> dict:
     """Return all test cases for assembler."""
-    from computer.assembler import Assembler
-
     return {
         # Assemble instructions
         "Assembler_NOP": lambda: _test_assemble_nop(),
@@ -114,4 +112,6 @@ def _test_assemble_comments():
     program = """NOP ; This is a comment
 HALT"""
     result = asm.assemble(program)
-    assert_true(result is not None and len(result) >= 2, "assemble() with comments should return at least 2 instructions")
+    assert_true(
+        result is not None and len(result) >= 2, "assemble() with comments should return at least 2 instructions"
+    )

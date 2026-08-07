@@ -10,7 +10,11 @@ Components:
 - JK Flip-Flop: Versatile edge-triggered element
 """
 
-from computer.gates import AND, NOR, NOT  # noqa: F401
+# NOTE: Generated from solutions/sequential.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
+from computer.gates import AND, NOT, NOR
 
 
 class SRLatch:
@@ -38,7 +42,7 @@ class SRLatch:
         Returns:
             Current Q output
         """
-        # TODO: Implement SR latch using cross-coupled NOR gates
+        # TODO: Implement the SR latch using cross-coupled NOR gates
         ...
 
 
@@ -60,8 +64,7 @@ class GatedSRLatch:
         Returns:
             Current Q output
         """
-        # TODO: Implement gated SR latch
-        # Only update when enable=1
+        # TODO: Implement the gated SR latch
         ...
 
 
@@ -86,9 +89,7 @@ class DLatch:
         Returns:
             Current Q output
         """
-        # TODO: Implement D latch
-        # When enable=1: Q = D
-        # When enable=0: Q = Q (hold)
+        # TODO: Implement the D latch
         ...
 
 
@@ -114,8 +115,7 @@ class DFlipFlop:
         Returns:
             Current Q output
         """
-        # TODO: Implement D flip-flop
-        # Only update Q on rising edge (when clk goes from 0 to 1)
+        # TODO: Implement the D flip-flop (edge-triggered)
         ...
 
     def read(self) -> int:
@@ -148,7 +148,7 @@ class JKFlipFlop:
         Returns:
             Current Q output
         """
-        # TODO: Implement JK flip-flop
+        # TODO: Implement the JK flip-flop
         ...
 
     def read(self) -> int:
@@ -173,7 +173,7 @@ class TFlipFlop:
         Returns:
             Current Q output
         """
-        # TODO: Implement using JK flip-flop
+        # TODO: Implement using the JK flip-flop
         ...
 
     def read(self) -> int:

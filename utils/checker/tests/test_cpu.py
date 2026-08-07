@@ -5,8 +5,6 @@ from ..helpers import assert_eq, assert_true, assert_not_none
 
 def get_tests() -> dict:
     """Return all test cases for CPU."""
-    from computer.cpu import CPU
-
     return {
         # CPU initial state
         "CPU_initial_state": lambda: _test_cpu_initial(),

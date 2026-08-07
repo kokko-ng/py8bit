@@ -10,6 +10,10 @@ The data path connects all CPU components:
 It routes data between components based on control signals.
 """
 
+# NOTE: Generated from solutions/datapath.py by scripts/generate_stubs.py.
+# Write your implementations in the '# TODO' bodies below.
+# (Maintainers: edit the solution file, not this one, then regenerate.)
+
 from typing import List, Dict
 from computer.counters import ProgramCounter
 from computer.memory import RAM
@@ -27,7 +31,7 @@ class DataPath:
         self.memory = RAM()
         self.reg_file = RegisterFile()
         self.alu = ALU()
-        self.ir = [0] * 16  # Instruction register (16-bit)
+        self.ir = [0] * 16
         self.flags = {"Z": 0, "C": 0, "N": 0, "V": 0}
 
     def execute_cycle(self, signals: ControlSignals, decoded: Dict) -> None:
