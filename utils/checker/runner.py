@@ -1,7 +1,6 @@
 """Test runner utilities for the checker."""
 
 
-
 class TestResult:
     """Result of a single test."""
 

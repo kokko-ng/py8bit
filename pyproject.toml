@@ -19,12 +19,20 @@ classifiers = [
     "Topic :: Education",
     "Topic :: System :: Hardware",
 ]
-dependencies = []
+# Keep in sync with requirements.txt (the documented learner install path)
+dependencies = [
+    "jupyter>=1.1",
+    "notebook>=7.5",
+]
 
 [project.optional-dependencies]
 dev = [
-    "jupyter>=1.1",
-    "notebook>=7.5",
+    "ruff>=0.14",
+    "mypy>=1.19",
+    "pre-commit>=4.0",
+    "nbclient>=0.10",
+    "nbformat>=5.10",
+    "ipykernel>=6.29",
 ]
 
 [tool.mypy]

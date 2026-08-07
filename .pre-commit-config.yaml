@@ -11,3 +11,17 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies: []
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.8.1
+    hooks:
+      - id: nbstripout
+
+  - repo: local
+    hooks:
+      - id: stub-freshness
+        name: generated stubs match solutions
+        entry: python scripts/generate_stubs.py --check
+        language: system
+        pass_filenames: false
+        files: ^(solutions/|src/computer/|scripts/generate_stubs\.py)
