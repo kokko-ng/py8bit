@@ -6,7 +6,7 @@
 
     LOAD R1, num_a    ; R1 = first operand (5)
     LOAD R2, num_b    ; R2 = second operand (3)
-    MOV R0, R0        ; R0 = 0 (result accumulator)
+    XOR R0, R0, R0    ; R0 = 0 (XOR with itself always yields 0 - the classic zeroing idiom)
     LOAD R3, one      ; R3 = 1 (for decrementing)
 
 loop:

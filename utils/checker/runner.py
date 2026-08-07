@@ -1,18 +1,29 @@
 """Test runner utilities for the checker."""
 
+import traceback
+
 
 class TestResult:
     """Result of a single test."""
 
-    def __init__(self, name: str, passed: bool, error: str | None = None):
-        """Initialize test result."""
+    def __init__(self, name: str, passed: bool, error: str | None = None, is_error: bool = False):
+        """Initialize test result.
+
+        Args:
+            name: Test name
+            passed: Whether the test passed
+            error: Failure or exception message
+            is_error: True when the test raised an unexpected exception
+                (rather than a plain assertion failure)
+        """
         self.name = name
         self.passed = passed
         self.error = error
+        self.is_error = is_error
 
     def __repr__(self):
         """Return string representation."""
-        status = "PASS" if self.passed else "FAIL"
+        status = "PASS" if self.passed else ("ERROR" if self.is_error else "FAIL")
         return f"TestResult({self.name}: {status})"
 
 
@@ -24,7 +35,7 @@ def run_test(name: str, test_fn) -> TestResult:
     except AssertionError as e:
         return TestResult(name, False, str(e) if str(e) else "Assertion failed")
     except Exception as e:
-        return TestResult(name, False, f"{type(e).__name__}: {e}")
+        return TestResult(name, False, f"{type(e).__name__}: {e}", is_error=True)
 
 
 def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
@@ -52,7 +63,7 @@ def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
 
         if result.passed:
             passed += 1
-        elif result.error and ("Error" in result.error or "Exception" in result.error):
+        elif result.is_error:
             errors += 1
         else:
             failed += 1
@@ -76,35 +87,31 @@ def display_results(
         print("\nNo tests found matching the criteria.")
         return
 
-    if errors > 0:
-        print(f"\nERROR: {errors} test(s) could not run")
-        print("This usually means there's a syntax error or import issue.")
-        if verbose:
-            for result in results:
-                if result.error and ("Error" in result.error or "Exception" in result.error):
-                    print(f"  - {result.name}: {result.error}")
-        else:
-            print("Run with verbose=True for more details.")
-        return
-
-    if failed == 0:
+    if failed == 0 and errors == 0:
         print(f"\nAll {passed} test(s) PASSED!")
         print("Great work! Your implementation is correct.")
-    else:
-        print(f"\n{failed} test(s) FAILED, {passed} test(s) passed")
-        print("\n" + "-" * 50)
-        print("FAILED TESTS:")
-        print("-" * 50)
-        for result in results:
-            if not result.passed:
-                print(f"\n  TEST: {result.name}")
-                if result.error:
-                    print(f"  ERROR: {result.error}")
-                else:
-                    print("  ERROR: (no error message)")
-        print("\n" + "-" * 50)
-        if verbose:
-            print("\nHints:")
-            print("- Double-check your logic against the truth table")
-            print("- Make sure you're using the correct bit representation (0 and 1)")
-            print("- Verify input/output types match the specification")
+        return
+
+    print(f"\n{failed + errors} test(s) FAILED, {passed} test(s) passed")
+    print("\n" + "-" * 50)
+    print("FAILED TESTS:")
+    print("-" * 50)
+    for result in results:
+        if result.passed:
+            continue
+        print(f"\n  TEST: {result.name}")
+        if result.error:
+            print(f"  {'RAISED' if result.is_error else 'ERROR'}: {result.error}")
+        else:
+            print("  ERROR: (no error message)")
+    print("\n" + "-" * 50)
+
+    if errors > 0:
+        print("\nSome tests raised exceptions (marked RAISED above).")
+        print("A TypeError or AttributeError about None usually means a function")
+        print("it depends on isn't implemented yet or returns the wrong type.")
+    if verbose:
+        print("\nHints:")
+        print("- Double-check your logic against the truth table or spec")
+        print("- Make sure you're using the correct bit representation (0 and 1, LSB at index 0)")
+        print("- Verify input/output types match the specification")

@@ -26,23 +26,23 @@ These programs can be assembled and run once you've completed notebooks 15 (Asse
 
 From notebook 16 or a Python script:
 ```python
-from computer.assembler import Assembler
 from computer.system import Computer
 
-# Load and assemble
-assembler = Assembler()
-with open('../programs/add_two_numbers.asm') as f:
-    program = assembler.assemble(f.read())
-
-# Run on computer
 computer = Computer()
-computer.load_machine_code(program)
+with open('../programs/add_two_numbers.asm') as f:
+    computer.load_program(f.read())  # assembles code AND loads the .byte data section
 computer.run()
 
 # Check results
 state = computer.dump_state()
 print(f"Result in R0: {state['registers']['R0']}")
 ```
+
+> **Important:** always use `Computer.load_program(source)` for assembly source.
+> Calling `Assembler.assemble()` yourself and passing the result to
+> `load_machine_code()` loads only the instructions - the `.byte` data section
+> would be silently skipped, and programs that read their operands from memory
+> would compute all zeros.
 
 ## Instruction Set Reference
 
