@@ -4,12 +4,18 @@ This module provides a `check()` function that runs inline tests for a component
 and displays friendly pass/fail messages.
 
 Usage:
-    from utils.checker import check, check_all
+    from utils.checker import check, check_all, progress
 
     check('gates')              # Run all gate tests
     check('gates', 'AND')       # Run only AND gate tests
     check('gates', verbose=True) # Show detailed error messages
     check_all()                 # Run all tests for all components
+    progress()                  # Show a per-notebook progress table
+
+Command line:
+    python -m utils.checker              # run everything (exit code 0/1)
+    python -m utils.checker gates        # check one component
+    python -m utils.checker --progress   # progress table
 """
 
 import sys
@@ -23,7 +29,28 @@ sys.path.insert(0, str(project_root / "src"))
 from .runner import run_tests, display_results
 from .tests import COMPONENT_TESTS
 
-__all__ = ["check", "check_all", "COMPONENT_TESTS"]
+__all__ = ["check", "check_all", "progress", "COMPONENT_TESTS"]
+
+# Course order: notebook number -> checker component
+NOTEBOOK_COMPONENTS = [
+    ("01_logic_gates", "gates"),
+    ("02_combinational_circuits", "combinational"),
+    ("03_adders", "adders"),
+    ("04_alu", "alu"),
+    ("05_latches_flipflops", "sequential"),
+    ("06_registers", "registers"),
+    ("07_counters", "counters"),
+    ("08_memory", "memory"),
+    ("09_clock_control", "clock"),
+    ("10_isa", "isa"),
+    ("11_instruction_decoder", "decoder"),
+    ("12_control_unit", "control"),
+    ("13_datapath", "datapath"),
+    ("14_cpu", "cpu"),
+    ("15_assembler", "assembler"),
+    ("16_full_system", "system"),
+    ("16_full_system (bonus)", "programs"),
+]
 
 
 def check(component_name: str, exercise: str | None = None, verbose: bool = False) -> bool:
@@ -109,3 +136,41 @@ def check_all() -> bool:
         if failed_components:
             print(f"\nFailed components: {', '.join(failed_components)}")
         return False
+
+
+def progress() -> bool:
+    """Show a per-notebook progress table for the whole course.
+
+    Runs every component's tests quietly and prints one line per notebook
+    with a pass/fail marker, so you can see at a glance how far you've come.
+
+    Returns:
+        True if every component passes, False otherwise
+    """
+    print("\n" + "=" * 56)
+    print("COURSE PROGRESS")
+    print("=" * 56)
+
+    all_done = True
+    done_count = 0
+    for notebook, component in NOTEBOOK_COMPONENTS:
+        try:
+            test_cases = COMPONENT_TESTS[component]()
+            passed, failed, errors, _ = run_tests(test_cases)
+            complete = failed == 0 and errors == 0 and passed > 0
+        except Exception:
+            passed, failed, errors, complete = 0, 0, 1, False
+
+        marker = "[x]" if complete else "[ ]"
+        detail = f"{passed} passed" if complete else f"{passed} passed, {failed + errors} to go"
+        print(f"  {marker} {notebook:<28} {component:<14} {detail}")
+        all_done &= complete
+        done_count += complete
+
+    print("-" * 56)
+    total = len(NOTEBOOK_COMPONENTS)
+    if all_done:
+        print(f"  All {total} stages complete - you built a computer!")
+    else:
+        print(f"  {done_count}/{total} stages complete. Keep going!")
+    return all_done
