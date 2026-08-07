@@ -16,6 +16,7 @@ from .test_datapath import get_tests as get_datapath_tests
 from .test_cpu import get_tests as get_cpu_tests
 from .test_assembler import get_tests as get_assembler_tests
 from .test_system import get_tests as get_system_tests
+from .test_programs import get_tests as get_programs_tests
 
 # Component to test function mapping
 COMPONENT_TESTS = {
@@ -35,6 +36,7 @@ COMPONENT_TESTS = {
     "cpu": get_cpu_tests,
     "assembler": get_assembler_tests,
     "system": get_system_tests,
+    "programs": get_programs_tests,
 }
 
 __all__ = ["COMPONENT_TESTS"]

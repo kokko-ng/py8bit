@@ -8,6 +8,8 @@ def get_tests() -> dict:
     from computer.isa import OPCODES
 
     return {
+        # Opcode table
+        "ISA_opcodes_unique": lambda: _test_unique_opcodes(),
         # Encode instruction
         "ISA_encode_NOP": lambda: _test_encode("NOP"),
         "ISA_encode_ADD": lambda: _test_encode_rtype("ADD"),

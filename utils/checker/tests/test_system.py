@@ -12,7 +12,48 @@ def get_tests() -> dict:
         "System_run_add_program": lambda: _test_system_add_program(),
         "System_run_mov_program": lambda: _test_system_mov_program(),
         "System_run_memory_program": lambda: _test_system_memory_program(),
+        # Assembly-source loading
+        "System_load_program_loads_data_section": lambda: _test_system_loads_data_section(),
+        "System_runs_assembly_source": lambda: _test_system_runs_assembly_source(),
     }
+
+
+ADD_SOURCE = """
+    LOAD R1, 0x10
+    LOAD R2, 0x11
+    ADD R0, R1, R2
+    HALT
+
+.org 0x10
+    .byte 5
+    .byte 3
+"""
+
+
+def _test_system_loads_data_section():
+    """load_program must place .byte directives into memory (regression test).
+
+    Loading only the assembled instructions and dropping the data section
+    makes every data-driven program silently compute zeros.
+    """
+    from ..helpers import bits_to_int
+    from computer.system import Computer
+
+    comp = Computer()
+    comp.load_program(ADD_SOURCE)
+    assert_eq(bits_to_int(comp.cpu.datapath.memory.read(int_to_bits(0x10, 8))), 5, ".byte 5 must be at address 0x10")
+    assert_eq(bits_to_int(comp.cpu.datapath.memory.read(int_to_bits(0x11, 8))), 3, ".byte 3 must be at address 0x11")
+
+
+def _test_system_runs_assembly_source():
+    """Assembling and running source end-to-end must produce the right result."""
+    from computer.system import Computer
+
+    comp = Computer()
+    comp.load_program(ADD_SOURCE)
+    state = comp.run(max_cycles=100)
+    assert_not_none(state, "Computer.run() returned None")
+    assert_eq(state["registers"]["R0"], 8, "The assembled ADD program should compute 5 + 3 = 8 in R0")
 
 
 def _test_system_add_program():

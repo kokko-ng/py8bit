@@ -10,6 +10,7 @@ def get_tests() -> dict:
     return {
         # DataPath initial state
         "DataPath_initial_pc": lambda: _test_datapath_initial_pc(),
+        "DataPath_initial_flags": lambda: _test_datapath_initial_flags(),
         # DataPath PC operations
         "DataPath_set_pc": lambda: _test_datapath_set_pc(),
         "DataPath_increment_pc": lambda: _test_datapath_increment_pc(),
