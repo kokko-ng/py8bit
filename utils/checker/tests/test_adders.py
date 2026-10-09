@@ -1,11 +1,12 @@
 """Test cases for adders."""
 
-from ..helpers import assert_eq, assert_isinstance, assert_len, assert_not_none, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_isinstance, assert_len, assert_not_none, bits_to_int, int_to_bits
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for adders."""
-    from computer.adders import half_adder, full_adder, twos_complement
+    from computer.adders import full_adder, half_adder, twos_complement
 
     return {
         # Half adder - complete truth table

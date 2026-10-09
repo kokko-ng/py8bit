@@ -10,7 +10,7 @@ Components:
 - JK Flip-Flop: Versatile edge-triggered element
 """
 
-from solutions.gates import AND, NOT, NOR
+from solutions.gates import AND, NOR, NOT
 
 
 class SRLatch:
@@ -23,7 +23,7 @@ class SRLatch:
     Invalid state: S=1 and R=1 simultaneously
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize SR latch with default state."""
         self.q = 0
         self.q_bar = 1
@@ -51,7 +51,7 @@ class SRLatch:
 class GatedSRLatch:
     """Gated SR Latch - SR latch with enable signal."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize gated SR latch."""
         self.sr_latch = SRLatch()
 
@@ -78,7 +78,7 @@ class DLatch:
     When enable is low, it holds its previous value.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize D latch."""
         self.q = 0
 
@@ -104,7 +104,7 @@ class DFlipFlop:
     on the rising edge of the clock.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize D flip-flop."""
         self.q = 0
         self._prev_clk = 0
@@ -139,7 +139,7 @@ class JKFlipFlop:
     J=1, K=1: Toggle (Q = NOT Q)
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize JK flip-flop."""
         self.q = 0
         self._prev_clk = 0
@@ -176,7 +176,7 @@ class JKFlipFlop:
 class TFlipFlop:
     """T (Toggle) Flip-Flop - toggles on each clock when T=1."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize T flip-flop."""
         self.jk = JKFlipFlop()
 

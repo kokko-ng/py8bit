@@ -8,18 +8,17 @@ Components:
 - RegisterFile: Collection of registers with addressing
 """
 
-from typing import List
 from solutions.sequential import DFlipFlop
 
 
 class Register8:
     """8-bit register built from D flip-flops."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize 8-bit register."""
         self.bits = [DFlipFlop() for _ in range(8)]
 
-    def clock(self, data: List[int], enable: int, clk: int) -> List[int]:
+    def clock(self, data: list[int], enable: int, clk: int) -> list[int]:
         """Update register on clock edge when enabled.
 
         Args:
@@ -39,7 +38,7 @@ class Register8:
                 self.bits[i].clock(data[i], 1)
         return self.read()
 
-    def read(self) -> List[int]:
+    def read(self) -> list[int]:
         """Read current register value."""
         return [self.bits[i].read() for i in range(8)]
 
@@ -56,11 +55,11 @@ class RegisterFile:
         self.registers = [Register8() for _ in range(num_registers)]
         self.num_registers = num_registers
 
-    def _addr_to_index(self, addr: List[int]) -> int:
+    def _addr_to_index(self, addr: list[int]) -> int:
         """Convert bit address to integer index."""
         return sum(bit << i for i, bit in enumerate(addr))
 
-    def read(self, addr: List[int]) -> List[int]:
+    def read(self, addr: list[int]) -> list[int]:
         """Read from a register.
 
         Args:
@@ -74,7 +73,7 @@ class RegisterFile:
             return self.registers[idx].read()
         return [0] * 8
 
-    def write(self, addr: List[int], data: List[int], enable: int, clk: int) -> None:
+    def write(self, addr: list[int], data: list[int], enable: int, clk: int) -> None:
         """Write to a register.
 
         Args:
@@ -90,7 +89,7 @@ class RegisterFile:
                 self.registers[idx].clock(data, 1, 0)  # Clock low
                 self.registers[idx].clock(data, 1, 1)  # Clock high (rising edge)
 
-    def read_two(self, addr1: List[int], addr2: List[int]) -> tuple:
+    def read_two(self, addr1: list[int], addr2: list[int]) -> tuple[list[int], list[int]]:
         """Read from two registers simultaneously.
 
         Args:

@@ -13,10 +13,8 @@ Bit Representation:
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List
 
-
-def int_to_bits(value: int, num_bits: int = 8) -> List[int]:
+def int_to_bits(value: int, num_bits: int = 8) -> list[int]:
     """Convert an integer to a list of bits (LSB at index 0).
 
     Args:
@@ -40,7 +38,7 @@ def int_to_bits(value: int, num_bits: int = 8) -> List[int]:
     return [(value >> i) & 1 for i in range(num_bits)]
 
 
-def bits_to_int(bits: List[int], signed: bool = False) -> int:
+def bits_to_int(bits: list[int], signed: bool = False) -> int:
     """Convert a list of bits (LSB at index 0) to an integer.
 
     Args:
@@ -63,7 +61,7 @@ def bits_to_int(bits: List[int], signed: bool = False) -> int:
     return result
 
 
-def bits_to_hex(bits: List[int]) -> str:
+def bits_to_hex(bits: list[int]) -> str:
     """Convert a list of bits to a hexadecimal string.
 
     Args:
@@ -77,7 +75,7 @@ def bits_to_hex(bits: List[int]) -> str:
     return f"0x{value:0{num_hex_digits}X}"
 
 
-def bits_to_bin(bits: List[int]) -> str:
+def bits_to_bin(bits: list[int]) -> str:
     """Convert a list of bits to a binary string (MSB first for readability).
 
     Args:

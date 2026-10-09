@@ -1,9 +1,10 @@
 """Test cases for counters."""
 
-from ..helpers import assert_eq, assert_not_none, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_not_none, bits_to_int, int_to_bits
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for counters."""
     return {
         # BinaryCounter8

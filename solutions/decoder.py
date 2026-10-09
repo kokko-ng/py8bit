@@ -4,14 +4,15 @@ Decodes 16-bit instructions into their component fields
 and instruction type.
 """
 
-from typing import List, Dict
+from typing import Any
+
 from solutions.isa import OPCODE_NAMES, bits_to_int_n
 
 
 class InstructionDecoder:
     """Decodes instructions into control signals."""
 
-    def decode(self, instruction: List[int]) -> Dict:
+    def decode(self, instruction: list[int]) -> dict[str, Any]:
         """Decode a 16-bit instruction.
 
         Args:
@@ -58,9 +59,9 @@ class InstructionDecoder:
         """
         if opcode == 0 or opcode == 15:  # NOP, HALT
             return "N"
-        elif opcode in [1, 2]:  # LOAD, STORE
+        if opcode in [1, 2]:  # LOAD, STORE
             return "I"
-        elif opcode in [12, 13, 14]:  # JMP, JZ, JNZ
+        if opcode in [12, 13, 14]:  # JMP, JZ, JNZ
             return "J"
-        else:  # ALU operations, MOV, NOT, SHL, SHR
-            return "R"
+        # ALU operations, MOV, NOT, SHL, SHR
+        return "R"

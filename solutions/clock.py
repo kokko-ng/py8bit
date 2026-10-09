@@ -4,11 +4,13 @@ The clock coordinates all CPU operations. Control signals
 direct data flow through the CPU.
 """
 
+from typing import Any
+
 
 class Clock:
     """CPU Clock generator."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize clock."""
         self.cycle = 0
         self.state = 0
@@ -37,7 +39,7 @@ class Clock:
 class ControlSignals:
     """Container for all CPU control signals."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize control signals to default values."""
         self.pc_load = 0
         self.pc_inc = 0
@@ -69,7 +71,7 @@ class ControlSignals:
         self.reg_dst = 0
         self.mem_to_reg = 0
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for debugging."""
         return {
             "pc_load": self.pc_load,

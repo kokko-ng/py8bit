@@ -5,34 +5,39 @@ on:
     branches: [main]
   pull_request:
 
-jobs:
-  lint:
-    name: Lint & type-check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install tools
-        run: pip install "ruff==0.14.10" "mypy==1.19.1"
-      - name: Ruff lint
-        run: ruff check .
-      - name: Ruff format
-        run: ruff format --check .
-      - name: Mypy
-        run: mypy src utils scripts
+permissions:
+  contents: read
 
-  stubs-fresh:
-    name: Generated stubs match solutions
+jobs:
+  pre-commit:
+    name: pre-commit (lint, format, types, stubs, hygiene)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Check stub freshness
-        run: python scripts/generate_stubs.py --check
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Install pre-commit
+        run: pip install "pre-commit==4.3.0"
+      - name: Run all hooks
+        run: pre-commit run --all-files --show-diff-on-failure
+
+  commit-messages:
+    name: Conventional commit messages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check every commit message with commitizen
+        run: pipx run --spec commitizen==4.19.2 cz check --rev-range HEAD
 
   test-solutions:
     name: Full test suite vs solutions (py${{ matrix.python-version }})

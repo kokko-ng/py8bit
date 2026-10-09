@@ -1,10 +1,15 @@
 """Test runner utilities for the checker."""
 
+from collections.abc import Callable
+
+# A component's test cases: test name -> zero-argument test function
+TestCases = dict[str, Callable[[], object]]
+
 
 class TestResult:
     """Result of a single test."""
 
-    def __init__(self, name: str, passed: bool, error: str | None = None, is_error: bool = False):
+    def __init__(self, name: str, passed: bool, error: str | None = None, is_error: bool = False) -> None:
         """Initialize test result.
 
         Args:
@@ -19,13 +24,13 @@ class TestResult:
         self.error = error
         self.is_error = is_error
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return string representation."""
         status = "PASS" if self.passed else ("ERROR" if self.is_error else "FAIL")
         return f"TestResult({self.name}: {status})"
 
 
-def run_test(name: str, test_fn) -> TestResult:
+def run_test(name: str, test_fn: Callable[[], object]) -> TestResult:
     """Run a single test function and return the result."""
     try:
         test_fn()
@@ -36,7 +41,7 @@ def run_test(name: str, test_fn) -> TestResult:
         return TestResult(name, False, f"{type(e).__name__}: {e}", is_error=True)
 
 
-def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
+def run_tests(test_cases: TestCases, exercise: str | None = None) -> tuple[int, int, int, list[TestResult]]:
     """Run a set of test cases and return (passed, failed, errors, results).
 
     Args:
@@ -46,7 +51,7 @@ def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
     Returns:
         Tuple of (passed_count, failed_count, error_count, results_list)
     """
-    results = []
+    results: list[TestResult] = []
     passed = 0
     failed = 0
     errors = 0
@@ -70,8 +75,14 @@ def run_tests(test_cases: dict, exercise: str | None = None) -> tuple:
 
 
 def display_results(
-    component: str, exercise: str | None, passed: int, failed: int, errors: int, verbose: bool, results: list
-):
+    component: str,
+    exercise: str | None,
+    passed: int,
+    failed: int,
+    errors: int,
+    verbose: bool,
+    results: list[TestResult],
+) -> None:
     """Display test results in a user-friendly format."""
     title = f"Testing: {component}"
     if exercise:

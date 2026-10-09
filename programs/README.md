@@ -29,7 +29,7 @@ From notebook 16 or a Python script:
 from computer.system import Computer
 
 computer = Computer()
-with open('../programs/add_two_numbers.asm') as f:
+with open("../programs/add_two_numbers.asm") as f:
     computer.load_program(f.read())  # assembles code AND loads the .byte data section
 computer.run()
 

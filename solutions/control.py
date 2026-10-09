@@ -15,7 +15,8 @@ Design note - single-cycle control:
     conceptual exercise.
 """
 
-from typing import Dict
+from typing import Any
+
 from solutions.clock import ControlSignals
 
 
@@ -36,12 +37,12 @@ class ControlUnit:
     EXECUTE = "EXECUTE"
     WRITEBACK = "WRITEBACK"
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize control unit."""
         self.state = self.FETCH
         self.signals = ControlSignals()
 
-    def generate_signals(self, decoded: Dict, flags: Dict) -> ControlSignals:
+    def generate_signals(self, decoded: dict[str, Any], flags: dict[str, int]) -> ControlSignals:
         """Generate the control signals needed to execute one instruction.
 
         Start from a clean slate (``self.signals.reset()``), then assert the

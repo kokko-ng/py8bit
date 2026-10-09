@@ -10,18 +10,19 @@ The data path connects all CPU components:
 It routes data between components based on control signals.
 """
 
-from typing import List, Dict
+from typing import Any
+
+from solutions.alu import ALU
+from solutions.clock import ControlSignals
 from solutions.counters import ProgramCounter
 from solutions.memory import RAM
 from solutions.registers import RegisterFile
-from solutions.alu import ALU
-from solutions.clock import ControlSignals
 
 
 class DataPath:
     """CPU Data Path - connects all components."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize data path components."""
         self.pc = ProgramCounter()
         self.memory = RAM()
@@ -30,7 +31,7 @@ class DataPath:
         self.ir = [0] * 16
         self.flags = {"Z": 0, "C": 0, "N": 0, "V": 0}
 
-    def execute_cycle(self, signals: ControlSignals, decoded: Dict) -> None:
+    def execute_cycle(self, signals: ControlSignals, decoded: dict[str, Any]) -> None:
         """Execute one clock cycle based on control signals.
 
         Args:
@@ -78,7 +79,7 @@ class DataPath:
         elif signals.pc_inc:
             self.pc.clock(load=0, load_value=[0] * 8, increment=1, reset=0, clk=1)
 
-    def fetch_instruction(self) -> List[int]:
+    def fetch_instruction(self) -> list[int]:
         """Fetch instruction at current PC.
 
         Returns:
@@ -94,15 +95,15 @@ class DataPath:
         high_byte = self.memory.read(pc_plus)
         return low_byte + high_byte
 
-    def load_instruction(self, instruction: List[int]) -> None:
+    def load_instruction(self, instruction: list[int]) -> None:
         """Load instruction into IR."""
         self.ir = instruction.copy()
 
-    def get_pc(self) -> List[int]:
+    def get_pc(self) -> list[int]:
         """Get current PC value."""
         return self.pc.read()
 
-    def set_pc(self, value: List[int]) -> None:
+    def set_pc(self, value: list[int]) -> None:
         """Set PC value (for jumps)."""
         self.pc.clock(load=1, load_value=value, increment=0, reset=0, clk=1)
 

@@ -7,20 +7,21 @@ Converts assembly language to machine code.
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List, Dict, Optional
+from typing import Any
+
 from computer.isa import encode_instruction
 
 
 class Assembler:
     """Two-pass assembler for our 8-bit CPU."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize assembler state."""
-        self.symbol_table: Dict[str, int] = {}
-        self.errors: List[str] = []
-        self.data_bytes: Dict[int, int] = {}  # addr -> value
+        self.symbol_table: dict[str, int] = {}
+        self.errors: list[str] = []
+        self.data_bytes: dict[int, int] = {}  # addr -> value
 
-    def assemble(self, source: str) -> List[List[int]]:
+    def assemble(self, source: str) -> list[list[int]]:
         """Assemble source code to machine code.
 
         Args:
@@ -32,7 +33,7 @@ class Assembler:
         # TODO: Implement the two-pass assembler
         ...
 
-    def first_pass(self, source: str) -> List[Dict]:
+    def first_pass(self, source: str) -> list[dict[str, Any]]:
         """First pass: build symbol table and parse lines.
 
         Args:
@@ -44,7 +45,7 @@ class Assembler:
         # TODO: Implement the first pass (labels and directives)
         ...
 
-    def second_pass(self, parsed_lines: List[Dict]) -> List[List[int]]:
+    def second_pass(self, parsed_lines: list[dict[str, Any]]) -> list[list[int]]:
         """Second pass: generate machine code.
 
         Args:
@@ -56,7 +57,7 @@ class Assembler:
         # TODO: Implement the second pass (machine code)
         ...
 
-    def parse_line(self, line: str) -> Optional[Dict]:  # type: ignore[type-arg]
+    def parse_line(self, line: str) -> dict | None:  # type: ignore[type-arg]
         """Parse a single line of assembly.
 
         Args:
@@ -78,6 +79,6 @@ class Assembler:
         operand = operand.strip()
         if operand in self.symbol_table:
             return self.symbol_table[operand]
-        if operand.startswith("0x") or operand.startswith("0X"):
+        if operand.startswith(("0x", "0X")):
             return int(operand, 16)
         return int(operand)

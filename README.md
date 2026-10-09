@@ -62,16 +62,18 @@ Each notebook teaches the theory; your implementations live in the module files 
 
    ```python
    from utils.checker import check
-   check('gates')          # test the whole module
-   check('gates', 'NAND')  # test one exercise
-   check('gates', verbose=True)  # extra hints
+
+   check("gates")  # test the whole module
+   check("gates", "NAND")  # test one exercise
+   check("gates", verbose=True)  # extra hints
    ```
 
 ### Tracking Progress
 
 ```python
 from utils.checker import progress
-progress()   # per-notebook [x]/[ ] table for the whole course
+
+progress()  # per-notebook [x]/[ ] table for the whole course
 ```
 
 Or from the command line (great for a quick status check without Jupyter):
@@ -186,7 +188,16 @@ python scripts/generate_stubs.py           # regenerate stubs after editing solu
 python scripts/generate_stubs.py --check   # CI freshness check
 ```
 
-CI (GitHub Actions) lints, type-checks, verifies stub freshness, runs the full test suite against the solutions (including assembling and running every sample program), and executes all 16 notebooks headlessly.
+Install the git hooks once per clone:
+
+```bash
+pip install pre-commit
+pre-commit install   # installs the pre-commit and commit-msg hooks
+```
+
+They run ruff, mypy (strict), the stub freshness check, gitleaks and file hygiene checks on every commit, and commitizen enforces [Conventional Commit](https://www.conventionalcommits.org/) messages (`feat: ...`, `fix: ...`, `docs: ...`).
+
+CI (GitHub Actions) runs the same hooks on all files, checks every commit message, runs the full test suite against the solutions (including assembling and running every sample program), and executes all 16 notebooks headlessly.
 
 ## License
 

@@ -7,24 +7,25 @@ The CPU integrates all components and executes the fetch-decode-execute cycle.
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List, Dict
-from computer.datapath import DataPath
+from typing import Any
+
+from computer.clock import Clock, ControlSignals
 from computer.control import ControlUnit
+from computer.datapath import DataPath
 from computer.decoder import InstructionDecoder
-from computer.clock import Clock
 
 
 class CPU:
     """8-bit CPU - integrates datapath and control."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize CPU components."""
         self.datapath = DataPath()
         self.control = ControlUnit()
         self.decoder = InstructionDecoder()
         self.clock = Clock()
         self.halted = False
-        self.current_instruction = None
+        self.current_instruction: dict[str, Any] | None = None
 
     def reset(self) -> None:
         """Reset CPU to initial state."""
@@ -33,7 +34,7 @@ class CPU:
         self.halted = False
         self.current_instruction = None
 
-    def fetch(self) -> List[int]:
+    def fetch(self) -> list[int]:
         """Fetch instruction from memory.
 
         Returns:
@@ -42,7 +43,7 @@ class CPU:
         # TODO: Implement fetch
         ...
 
-    def decode(self, instruction: List[int]) -> Dict:
+    def decode(self, instruction: list[int]) -> dict[str, Any]:
         """Decode instruction.
 
         Args:
@@ -54,7 +55,7 @@ class CPU:
         # TODO: Implement decode
         ...
 
-    def execute(self, decoded: Dict, signals) -> None:
+    def execute(self, decoded: dict[str, Any], signals: ControlSignals) -> None:
         """Execute instruction.
 
         Args:
@@ -85,7 +86,7 @@ class CPU:
         # TODO: Implement the run loop
         ...
 
-    def get_state(self) -> Dict:
+    def get_state(self) -> dict[str, Any]:
         """Get current CPU state for debugging."""
         return {
             "pc": self.datapath.get_pc(),

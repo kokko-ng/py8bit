@@ -4,18 +4,17 @@ Counters increment their value on each clock cycle.
 Essential for the Program Counter in the CPU.
 """
 
-from typing import List
 from solutions.adders import ripple_carry_adder_8bit
 
 
 class BinaryCounter8:
     """8-bit binary counter."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize binary counter."""
         self.count = [0] * 8
 
-    def clock(self, enable: int = 1, reset: int = 0, clk: int = 1) -> List[int]:
+    def clock(self, enable: int = 1, reset: int = 0, clk: int = 1) -> list[int]:
         """Increment counter on clock.
 
         Args:
@@ -33,7 +32,7 @@ class BinaryCounter8:
             self.count, _ = ripple_carry_adder_8bit(self.count, one)
         return self.count.copy()
 
-    def read(self) -> List[int]:
+    def read(self) -> list[int]:
         """Read current counter value."""
         return self.count.copy()
 
@@ -48,11 +47,11 @@ class ProgramCounter:
     - Reset to 0 (on startup)
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize program counter."""
         self.value = [0] * 8
 
-    def clock(self, load: int, load_value: List[int], increment: int, reset: int, clk: int) -> List[int]:
+    def clock(self, load: int, load_value: list[int], increment: int, reset: int, clk: int) -> list[int]:
         """Update PC on clock edge.
 
         Priority: reset > load > increment
@@ -76,6 +75,6 @@ class ProgramCounter:
             self.value, _ = ripple_carry_adder_8bit(self.value, one)
         return self.value.copy()
 
-    def read(self) -> List[int]:
+    def read(self) -> list[int]:
         """Read current PC value."""
         return self.value.copy()

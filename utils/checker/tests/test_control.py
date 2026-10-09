@@ -7,9 +7,10 @@ conceptual model of how multi-cycle CPUs sequence their work.
 """
 
 from ..helpers import assert_eq, assert_isinstance, assert_not_none
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for control unit."""
     from computer.control import ControlUnit  # noqa: F401  (fail fast on import errors)
 

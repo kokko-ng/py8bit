@@ -140,11 +140,11 @@ GENERATED_NOTE = (
 )
 
 
-def find_functions(tree):
+def find_functions(tree: ast.AST) -> dict[str, ast.FunctionDef | ast.AsyncFunctionDef]:
     """Map qualified name -> FunctionDef node."""
-    found = {}
+    found: dict[str, ast.FunctionDef | ast.AsyncFunctionDef] = {}
 
-    def visit(node, prefix=""):
+    def visit(node: ast.AST, prefix: str = "") -> None:
         for child in ast.iter_child_nodes(node):
             if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 found[prefix + child.name] = child
@@ -155,7 +155,7 @@ def find_functions(tree):
     return found
 
 
-def module_docstring_end(tree):
+def module_docstring_end(tree: ast.Module) -> int:
     """Return the 1-based end line of the module docstring, or 0."""
     if (
         tree.body
@@ -163,11 +163,11 @@ def module_docstring_end(tree):
         and isinstance(tree.body[0].value, ast.Constant)
         and isinstance(tree.body[0].value.value, str)
     ):
-        return tree.body[0].end_lineno
+        return tree.body[0].end_lineno or 0
     return 0
 
 
-def stub_out(source: str, exercises: dict, note: str) -> str:
+def stub_out(source: str, exercises: dict[str, str], note: str) -> str:
     """Replace exercise function bodies with TODO stubs and add the header note."""
     tree = ast.parse(source)
     lines = source.splitlines()
@@ -198,7 +198,7 @@ def stub_out(source: str, exercises: dict, note: str) -> str:
         lines[start:end] = block
 
     doc_end = module_docstring_end(tree)
-    lines[doc_end:doc_end] = [""] + note.splitlines()
+    lines[doc_end:doc_end] = ["", *note.splitlines()]
 
     text = "\n".join(lines) + "\n"
     text = text.replace("from solutions.", "from computer.").replace("from solutions import", "from computer import")
@@ -208,7 +208,7 @@ def stub_out(source: str, exercises: dict, note: str) -> str:
     return text
 
 
-def generate() -> dict:
+def generate() -> dict[str, str]:
     """Return {relative path -> generated stub text} for all modules."""
     out = {}
     for sol_path in sorted(SOLUTIONS.glob("*.py")):

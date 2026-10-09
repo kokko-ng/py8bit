@@ -1,11 +1,12 @@
 """Test cases for logic gates."""
 
 from ..helpers import assert_eq, assert_isinstance
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for gates."""
-    from computer.gates import NOT, AND, OR, NAND, NOR, XOR, XNOR
+    from computer.gates import AND, NAND, NOR, NOT, OR, XNOR, XOR
 
     return {
         # NOT gate - complete truth table
@@ -74,7 +75,7 @@ def get_tests() -> dict:
 
 def _test_demorgan_nand():
     """Test De Morgan's law: NAND(a,b) = OR(NOT(a), NOT(b))."""
-    from computer.gates import NOT, OR, NAND
+    from computer.gates import NAND, NOT, OR
 
     for a in [0, 1]:
         for b in [0, 1]:
@@ -83,7 +84,7 @@ def _test_demorgan_nand():
 
 def _test_demorgan_nor():
     """Test De Morgan's law: NOR(a,b) = AND(NOT(a), NOT(b))."""
-    from computer.gates import NOT, AND, NOR
+    from computer.gates import AND, NOR, NOT
 
     for a in [0, 1]:
         for b in [0, 1]:

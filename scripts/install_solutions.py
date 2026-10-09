@@ -25,7 +25,7 @@ SOLUTIONS = REPO / "solutions"
 STUBS = REPO / "src" / "computer"
 
 
-def available_modules() -> list:
+def available_modules() -> list[str]:
     """List installable module names."""
     return sorted(p.stem for p in SOLUTIONS.glob("*.py") if p.stem != "__init__")
 

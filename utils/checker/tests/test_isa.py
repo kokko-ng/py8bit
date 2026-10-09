@@ -1,9 +1,10 @@
 """Test cases for ISA (Instruction Set Architecture)."""
 
 from ..helpers import assert_eq, assert_len, assert_not_none, bits_to_int
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for ISA."""
     return {
         # Opcode table
@@ -106,7 +107,7 @@ def _test_decode_nop():
 
 def _test_roundtrip():
     """Test encode/decode roundtrip."""
-    from computer.isa import encode_instruction, decode_instruction
+    from computer.isa import decode_instruction, encode_instruction
 
     cases = [
         ("NOP", {}),

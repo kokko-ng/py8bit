@@ -1,9 +1,10 @@
 """Test cases for clock."""
 
 from ..helpers import assert_eq, assert_true
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for clock."""
     return {
         # Clock tick

@@ -35,7 +35,7 @@ def main() -> int:
         try:
             client.execute()
             print(f"PASS {path.name}")
-        except Exception as exc:  # noqa: BLE001 - report and continue to the next notebook
+        except Exception as exc:
             print(f"FAIL {path.name}: {str(exc)[:800]}")
             failed.append(path.name)
 
