@@ -8,14 +8,15 @@ and instruction type.
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List, Dict
+from typing import Any
+
 from computer.isa import OPCODE_NAMES, bits_to_int_n
 
 
 class InstructionDecoder:
     """Decodes instructions into control signals."""
 
-    def decode(self, instruction: List[int]) -> Dict:
+    def decode(self, instruction: list[int]) -> dict[str, Any]:
         """Decode a 16-bit instruction.
 
         Args:

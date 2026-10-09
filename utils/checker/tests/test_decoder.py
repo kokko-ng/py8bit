@@ -1,9 +1,10 @@
 """Test cases for instruction decoder."""
 
 from ..helpers import assert_eq, assert_true, bits_to_int, int_to_bits
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for decoder."""
     return {
         # Decode instructions

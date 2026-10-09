@@ -1,9 +1,10 @@
 """Test cases for CPU."""
 
-from ..helpers import assert_eq, assert_true, assert_not_none
+from ..helpers import assert_eq, assert_not_none, assert_true
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for CPU."""
     return {
         # CPU initial state
@@ -153,6 +154,7 @@ def _test_cpu_step():
 def _test_cpu_run_halts():
     """Test CPU run method stops on HALT instruction."""
     from computer.cpu import CPU
+
     from ..helpers import int_to_bits
 
     cpu = CPU()

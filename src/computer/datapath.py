@@ -14,18 +14,19 @@ It routes data between components based on control signals.
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List, Dict
+from typing import Any
+
+from computer.alu import ALU
+from computer.clock import ControlSignals
 from computer.counters import ProgramCounter
 from computer.memory import RAM
 from computer.registers import RegisterFile
-from computer.alu import ALU
-from computer.clock import ControlSignals
 
 
 class DataPath:
     """CPU Data Path - connects all components."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize data path components."""
         self.pc = ProgramCounter()
         self.memory = RAM()
@@ -34,7 +35,7 @@ class DataPath:
         self.ir = [0] * 16
         self.flags = {"Z": 0, "C": 0, "N": 0, "V": 0}
 
-    def execute_cycle(self, signals: ControlSignals, decoded: Dict) -> None:
+    def execute_cycle(self, signals: ControlSignals, decoded: dict[str, Any]) -> None:
         """Execute one clock cycle based on control signals.
 
         Args:
@@ -44,7 +45,7 @@ class DataPath:
         # TODO: Implement data path execution
         ...
 
-    def fetch_instruction(self) -> List[int]:
+    def fetch_instruction(self) -> list[int]:
         """Fetch instruction at current PC.
 
         Returns:
@@ -53,15 +54,15 @@ class DataPath:
         # TODO: Implement instruction fetch
         ...
 
-    def load_instruction(self, instruction: List[int]) -> None:
+    def load_instruction(self, instruction: list[int]) -> None:
         """Load instruction into IR."""
         self.ir = instruction.copy()
 
-    def get_pc(self) -> List[int]:
+    def get_pc(self) -> list[int]:
         """Get current PC value."""
         return self.pc.read()
 
-    def set_pc(self, value: List[int]) -> None:
+    def set_pc(self, value: list[int]) -> None:
         """Set PC value (for jumps)."""
         self.pc.clock(load=1, load_value=value, increment=0, reset=0, clk=1)
 

@@ -12,11 +12,10 @@ Components:
 Bit representation: Lists with LSB at index 0.
 """
 
-from typing import List, Tuple
-from solutions.gates import AND, OR, XOR, NOT
+from solutions.gates import AND, NOT, OR, XOR
 
 
-def half_adder(a: int, b: int) -> Tuple[int, int]:
+def half_adder(a: int, b: int) -> tuple[int, int]:
     """Half Adder - adds two single bits.
 
     A half adder computes the sum and carry of two single-bit inputs.
@@ -42,7 +41,7 @@ def half_adder(a: int, b: int) -> Tuple[int, int]:
     return (sum_bit, carry)
 
 
-def full_adder(a: int, b: int, cin: int) -> Tuple[int, int]:
+def full_adder(a: int, b: int, cin: int) -> tuple[int, int]:
     """Full Adder - adds two single bits plus a carry input.
 
     A full adder handles three inputs: two bits to add and a carry from
@@ -77,7 +76,7 @@ def full_adder(a: int, b: int, cin: int) -> Tuple[int, int]:
     return (sum2, cout)
 
 
-def ripple_carry_adder_8bit(a: List[int], b: List[int], cin: int = 0) -> Tuple[List[int], int]:
+def ripple_carry_adder_8bit(a: list[int], b: list[int], cin: int = 0) -> tuple[list[int], int]:
     """8-bit Ripple Carry Adder.
 
     Adds two 8-bit numbers using a chain of full adders.
@@ -107,7 +106,7 @@ def ripple_carry_adder_8bit(a: List[int], b: List[int], cin: int = 0) -> Tuple[L
     return (result, carry)
 
 
-def subtractor_8bit(a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
+def subtractor_8bit(a: list[int], b: list[int]) -> tuple[list[int], int, int]:
     """8-bit Subtractor using two's complement.
 
     Computes a - b using the identity: a - b = a + (~b) + 1
@@ -148,7 +147,7 @@ def subtractor_8bit(a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
     return (result, borrow, overflow)
 
 
-def twos_complement(bits: List[int]) -> List[int]:
+def twos_complement(bits: list[int]) -> list[int]:
     """Compute the two's complement of an 8-bit number.
 
     Two's complement = NOT(bits) + 1

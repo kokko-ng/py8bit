@@ -17,10 +17,8 @@ All circuits use the gates from the gates module.
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List, Tuple
-
 # Import gates from the solutions module for testing
-from computer.gates import AND, OR, NOT
+from computer.gates import AND, NOT, OR
 
 
 def mux_2to1(a: int, b: int, sel: int) -> int:
@@ -48,7 +46,7 @@ def mux_2to1(a: int, b: int, sel: int) -> int:
     ...
 
 
-def mux_4to1(inputs: List[int], sel: List[int]) -> int:
+def mux_4to1(inputs: list[int], sel: list[int]) -> int:
     """4-to-1 Multiplexer.
 
     Selects one of four inputs based on two select signals.
@@ -73,7 +71,7 @@ def mux_4to1(inputs: List[int], sel: List[int]) -> int:
     ...
 
 
-def mux_8to1(inputs: List[int], sel: List[int]) -> int:
+def mux_8to1(inputs: list[int], sel: list[int]) -> int:
     """8-to-1 Multiplexer.
 
     Selects one of eight inputs based on three select signals.
@@ -90,7 +88,7 @@ def mux_8to1(inputs: List[int], sel: List[int]) -> int:
     ...
 
 
-def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
+def demux_1to2(data: int, sel: int) -> tuple[int, int]:
     """1-to-2 Demultiplexer.
 
     Routes one input to one of two outputs based on the select signal.
@@ -108,7 +106,7 @@ def demux_1to2(data: int, sel: int) -> Tuple[int, int]:
     ...
 
 
-def demux_1to4(data: int, sel: List[int]) -> List[int]:
+def demux_1to4(data: int, sel: list[int]) -> list[int]:
     """1-to-4 Demultiplexer.
 
     Routes one input to one of four outputs based on two select signals.
@@ -124,7 +122,7 @@ def demux_1to4(data: int, sel: List[int]) -> List[int]:
     ...
 
 
-def decoder_2to4(sel: List[int]) -> List[int]:
+def decoder_2to4(sel: list[int]) -> list[int]:
     """2-to-4 Decoder.
 
     Converts a 2-bit binary input to a 4-bit one-hot output.
@@ -148,7 +146,7 @@ def decoder_2to4(sel: List[int]) -> List[int]:
     ...
 
 
-def decoder_3to8(sel: List[int]) -> List[int]:
+def decoder_3to8(sel: list[int]) -> list[int]:
     """3-to-8 Decoder.
 
     Converts a 3-bit binary input to an 8-bit one-hot output.
@@ -164,7 +162,7 @@ def decoder_3to8(sel: List[int]) -> List[int]:
     ...
 
 
-def encoder_4to2(inputs: List[int]) -> List[int]:
+def encoder_4to2(inputs: list[int]) -> list[int]:
     """4-to-2 Priority Encoder.
 
     Encodes a 4-bit one-hot (or priority) input to a 2-bit binary output.
@@ -188,7 +186,7 @@ def encoder_4to2(inputs: List[int]) -> List[int]:
     ...
 
 
-def encoder_8to3(inputs: List[int]) -> List[int]:
+def encoder_8to3(inputs: list[int]) -> list[int]:
     """8-to-3 Priority Encoder.
 
     Encodes an 8-bit input to a 3-bit binary output.

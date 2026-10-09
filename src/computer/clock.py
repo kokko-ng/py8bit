@@ -8,11 +8,13 @@ direct data flow through the CPU.
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
+from typing import Any
+
 
 class Clock:
     """CPU Clock generator."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize clock."""
         self.cycle = 0
         self.state = 0
@@ -40,7 +42,7 @@ class Clock:
 class ControlSignals:
     """Container for all CPU control signals."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize control signals to default values."""
         self.pc_load = 0
         self.pc_inc = 0
@@ -61,7 +63,7 @@ class ControlSignals:
         # TODO: Reset every control signal to its default value
         ...
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for debugging."""
         # TODO: Implement to_dict for debugging
         ...

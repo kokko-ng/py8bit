@@ -1,9 +1,10 @@
 """Test cases for datapath."""
 
-from ..helpers import assert_eq, assert_true, assert_not_none, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_not_none, assert_true, bits_to_int, int_to_bits
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for datapath."""
     return {
         # DataPath initial state
@@ -84,15 +85,15 @@ def _test_datapath_fetch():
 
 def _test_datapath_alu_add():
     """Test datapath ALU add operation."""
-    from computer.datapath import DataPath
     from computer.alu import ALU
+    from computer.datapath import DataPath
 
     dp = DataPath()
     a = int_to_bits(10, 8)
     b = int_to_bits(5, 8)
     output = dp.alu(a, b, ALU.OP_ADD)
     assert_not_none(output, "DataPath.alu() returned None")
-    result, flags = output
+    result, _flags = output
     assert_eq(bits_to_int(result), 15)
 
 

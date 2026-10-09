@@ -26,10 +26,10 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
-from .runner import run_tests, display_results
+from .runner import display_results, run_tests
 from .tests import COMPONENT_TESTS
 
-__all__ = ["check", "check_all", "progress", "COMPONENT_TESTS"]
+__all__ = ["COMPONENT_TESTS", "check", "check_all", "progress"]
 
 # Course order: notebook number -> checker component
 NOTEBOOK_COMPONENTS = [
@@ -129,13 +129,12 @@ def check_all() -> bool:
     if total_failed == 0 and total_errors == 0:
         print(f"All {total_passed} tests passed!")
         return True
-    else:
-        print(f"Passed: {total_passed}")
-        print(f"Failed: {total_failed}")
-        print(f"Errors: {total_errors}")
-        if failed_components:
-            print(f"\nFailed components: {', '.join(failed_components)}")
-        return False
+    print(f"Passed: {total_passed}")
+    print(f"Failed: {total_failed}")
+    print(f"Errors: {total_errors}")
+    if failed_components:
+        print(f"\nFailed components: {', '.join(failed_components)}")
+    return False
 
 
 def progress() -> bool:

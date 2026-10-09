@@ -29,8 +29,7 @@ N-type (NOP, HALT, MOV, NOT, SHL, SHR):
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List, Dict
-
+from typing import Any
 
 OPCODES = {
     "NOP": 0b0000,
@@ -54,17 +53,17 @@ OPCODES = {
 OPCODE_NAMES = {v: k for k, v in OPCODES.items()}
 
 
-def int_to_bits_n(value: int, n: int) -> List[int]:
+def int_to_bits_n(value: int, n: int) -> list[int]:
     """Convert integer to n-bit list (LSB first)."""
     return [(value >> i) & 1 for i in range(n)]
 
 
-def bits_to_int_n(bits: List[int]) -> int:
+def bits_to_int_n(bits: list[int]) -> int:
     """Convert bit list to integer."""
     return sum(bit << i for i, bit in enumerate(bits))
 
 
-def encode_instruction(opcode: str, rd: int = 0, rs1: int = 0, rs2_imm: int = 0) -> List[int]:
+def encode_instruction(opcode: str, rd: int = 0, rs1: int = 0, rs2_imm: int = 0) -> list[int]:
     """Encode an instruction into 16 bits.
 
     Args:
@@ -84,7 +83,7 @@ def encode_instruction(opcode: str, rd: int = 0, rs1: int = 0, rs2_imm: int = 0)
     ...
 
 
-def decode_instruction(instruction: List[int]) -> Dict:
+def decode_instruction(instruction: list[int]) -> dict[str, Any]:
     """Decode a 16-bit instruction.
 
     Args:
@@ -97,7 +96,7 @@ def decode_instruction(instruction: List[int]) -> Dict:
     ...
 
 
-def disassemble(instruction: List[int]) -> str:
+def disassemble(instruction: list[int]) -> str:
     """Convert a 16-bit instruction back into assembly text.
 
     This is the inverse of the assembler's job. Examples:

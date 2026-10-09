@@ -27,27 +27,57 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "ruff>=0.14",
-    "mypy>=1.19",
+    "ruff>=0.16",
+    "mypy>=2.4",
     "pre-commit>=4.0",
+    "commitizen>=4.19",
     "nbclient>=0.10",
     "nbformat>=5.10",
     "ipykernel>=6.29",
 ]
 
 [tool.mypy]
+python_version = "3.10"
+strict = true
 ignore_missing_imports = true
+warn_unreachable = true
 
 [[tool.mypy.overrides]]
 # Student stub files have intentionally empty function bodies
 module = "computer.*"
 disable_error_code = ["empty-body"]
 
+[[tool.mypy.overrides]]
+# Checker test cases are small zero-argument closures and table-driven helpers;
+# their bodies are still type-checked (check_untyped_defs), only the
+# per-function annotation requirement is relaxed.
+module = "utils.checker.tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+disallow_untyped_calls = false
+
 [tool.ruff]
 line-length = 120
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "D"]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "D",    # pydocstyle
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+    "SIM",  # flake8-simplify
+    "C4",   # flake8-comprehensions
+    "PIE",  # flake8-pie
+    "RET",  # flake8-return
+    "RUF",  # ruff-specific rules
+]
+ignore = [
+    "SIM108",  # ternary rewrites hurt readability in teaching code
+    "PIE790",  # stub bodies are intentionally docstring + '...'
+]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -55,8 +85,12 @@ convention = "google"
 [tool.ruff.lint.per-file-ignores]
 # Generated stubs import what the solution uses; the '...' bodies don't use them yet
 "src/computer/*.py" = ["F401"]
-# Notebooks need imports after path setup and have different conventions
-"notebooks/*.ipynb" = ["E402", "E702", "W291", "W293", "F841", "D100", "D102", "D107", "D205", "D415"]
+# Notebooks: imports after path setup, teaching conventions; held to the original
+# E/F/W/D baseline only so the ruff hook never rewrites them
+"notebooks/*.ipynb" = [
+    "E402", "E702", "W291", "W293", "F841", "D100", "D102", "D107", "D205", "D415",
+    "I", "B", "UP", "SIM", "C4", "PIE", "RET", "RUF",
+]
 # Checker needs imports after path modification
 "utils/checker/__init__.py" = ["E402"]
 # Test files - allow missing module and function docstrings

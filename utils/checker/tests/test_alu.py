@@ -1,9 +1,10 @@
 """Test cases for ALU."""
 
-from ..helpers import assert_eq, assert_not_none, int_to_bits, bits_to_int
+from ..helpers import assert_eq, assert_not_none, bits_to_int, int_to_bits
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for ALU."""
     from computer.alu import ALU
 
@@ -104,7 +105,7 @@ def _test_alu_sub_borrow(alu):
     b = int_to_bits(5, 8)
     output = alu(a, b, ALU.OP_SUB)
     assert_not_none(output, "ALU returned None")
-    result, flags = output
+    result, _flags = output
     assert_eq(bits_to_int(result), 254)  # -2 in unsigned
 
 

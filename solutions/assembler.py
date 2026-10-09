@@ -3,20 +3,21 @@
 Converts assembly language to machine code.
 """
 
-from typing import List, Dict, Optional
+from typing import Any
+
 from solutions.isa import encode_instruction
 
 
 class Assembler:
     """Two-pass assembler for our 8-bit CPU."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize assembler state."""
-        self.symbol_table: Dict[str, int] = {}
-        self.errors: List[str] = []
-        self.data_bytes: Dict[int, int] = {}  # addr -> value
+        self.symbol_table: dict[str, int] = {}
+        self.errors: list[str] = []
+        self.data_bytes: dict[int, int] = {}  # addr -> value
 
-    def assemble(self, source: str) -> List[List[int]]:
+    def assemble(self, source: str) -> list[list[int]]:
         """Assemble source code to machine code.
 
         Args:
@@ -31,7 +32,7 @@ class Assembler:
         parsed_lines = self.first_pass(source)
         return self.second_pass(parsed_lines)
 
-    def first_pass(self, source: str) -> List[Dict]:
+    def first_pass(self, source: str) -> list[dict[str, Any]]:
         """First pass: build symbol table and parse lines.
 
         Args:
@@ -66,7 +67,7 @@ class Assembler:
 
         return parsed_lines
 
-    def second_pass(self, parsed_lines: List[Dict]) -> List[List[int]]:
+    def second_pass(self, parsed_lines: list[dict[str, Any]]) -> list[list[int]]:
         """Second pass: generate machine code.
 
         Args:
@@ -96,16 +97,15 @@ class Assembler:
                 if len(operands) >= 2:
                     rd = self._parse_reg(operands[0])
                     rs2_imm = self._parse_value(operands[1])
-            elif opcode in ["JMP", "JZ", "JNZ"]:
-                if len(operands) >= 1:
-                    rs2_imm = self._parse_value(operands[0])
+            elif opcode in ["JMP", "JZ", "JNZ"] and len(operands) >= 1:
+                rs2_imm = self._parse_value(operands[0])
 
             instruction = encode_instruction(opcode, rd, rs1, rs2_imm)
             machine_code.append(instruction)
 
         return machine_code
 
-    def parse_line(self, line: str) -> Optional[Dict]:  # type: ignore[type-arg]
+    def parse_line(self, line: str) -> dict | None:  # type: ignore[type-arg]
         """Parse a single line of assembly.
 
         Args:
@@ -118,7 +118,7 @@ class Assembler:
         if not line:
             return None
 
-        result: Dict = {}  # type: ignore[type-arg]
+        result: dict = {}  # type: ignore[type-arg]
 
         # Check for label
         if ":" in line:
@@ -154,6 +154,6 @@ class Assembler:
         operand = operand.strip()
         if operand in self.symbol_table:
             return self.symbol_table[operand]
-        if operand.startswith("0x") or operand.startswith("0X"):
+        if operand.startswith(("0x", "0X")):
             return int(operand, 16)
         return int(operand)

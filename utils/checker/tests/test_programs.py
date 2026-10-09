@@ -8,11 +8,12 @@ and the CPU together, and assert the results each program's header documents.
 from pathlib import Path
 
 from ..helpers import assert_eq, assert_not_none, bits_to_int, int_to_bits
+from ..runner import TestCases
 
 PROGRAMS_DIR = Path(__file__).resolve().parents[3] / "programs"
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all end-to-end program tests."""
     from computer.system import Computer  # noqa: F401  (fail fast on import errors)
 
@@ -51,13 +52,13 @@ def _test_add_two_numbers():
 
 def _test_multiply():
     """multiply.asm: 5 * 3 via repeated addition -> R0 = 15."""
-    comp, state = _run_program("multiply")
+    _comp, state = _run_program("multiply")
     assert_eq(state["registers"]["R0"], 15, "multiply.asm documents R0 = 15 (5 x 3)")
 
 
 def _test_fibonacci():
     """fibonacci.asm: 7 iterations -> R1 = 21."""
-    comp, state = _run_program("fibonacci")
+    _comp, state = _run_program("fibonacci")
     assert_eq(state["registers"]["R1"], 21, "fibonacci.asm documents R1 = 21 after 7 iterations")
 
 

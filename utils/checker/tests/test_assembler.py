@@ -1,9 +1,10 @@
 """Test cases for assembler."""
 
-from ..helpers import assert_true, assert_not_none
+from ..helpers import assert_not_none, assert_true
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for assembler."""
     return {
         # Assemble instructions

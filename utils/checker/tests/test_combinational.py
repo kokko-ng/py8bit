@@ -1,19 +1,20 @@
 """Test cases for combinational circuits."""
 
 from ..helpers import assert_eq
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for combinational circuits."""
     from computer.combinational import (
+        decoder_2to4,
+        demux_1to2,
+        demux_1to4,
+        encoder_4to2,
+        encoder_8to3,
         mux_2to1,
         mux_4to1,
         mux_8to1,
-        demux_1to2,
-        demux_1to4,
-        decoder_2to4,
-        encoder_4to2,
-        encoder_8to3,
     )
 
     return {

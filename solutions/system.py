@@ -7,25 +7,26 @@ The complete computer system integrating:
 - I/O (simulated)
 """
 
-from typing import List, Dict
-from solutions.cpu import CPU
+from typing import Any
+
 from solutions.assembler import Assembler
+from solutions.cpu import CPU
 from solutions.isa import disassemble
 
 
 class Computer:
     """Complete 8-bit computer system."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize computer with CPU and assembler."""
         self.cpu = CPU()
         self.assembler = Assembler()
 
-    def load_program(self, source) -> None:
+    def load_program(self, source: str | list[int]) -> None:
         """Load a program from source code or raw bytes.
 
         Args:
-            source: Assembly source code (str) or raw bytes (List[int])
+            source: Assembly source code (str) or raw bytes (list[int])
         """
         if isinstance(source, str):
             # Assembly source code
@@ -43,7 +44,7 @@ class Computer:
                 value_bits = [(byte_val >> i) & 1 for i in range(8)]
                 self.cpu.datapath.memory.write(addr_bits, value_bits, 1)
 
-    def load_machine_code(self, code: List[List[int]], start_addr: int = 0) -> None:
+    def load_machine_code(self, code: list[list[int]], start_addr: int = 0) -> None:
         """Load raw machine code into memory.
 
         Args:
@@ -61,7 +62,7 @@ class Computer:
             addr_bits = [((addr + 1) >> j) & 1 for j in range(8)]
             self.cpu.datapath.memory.write(addr_bits, high_byte, 1)
 
-    def run(self, max_cycles: int = 1000, debug: bool = False) -> Dict:
+    def run(self, max_cycles: int = 1000, debug: bool = False) -> dict[str, Any]:
         """Run the loaded program until HALT or max_cycles.
 
         Args:
@@ -112,7 +113,7 @@ class Computer:
         line += f" | Z={flags['Z']} C={flags['C']}"
         return line
 
-    def _register_snapshot(self) -> Dict[str, int]:
+    def _register_snapshot(self) -> dict[str, int]:
         """Read all eight registers as integers."""
         snapshot = {}
         for i in range(8):
@@ -124,7 +125,7 @@ class Computer:
         """Reset the computer to initial state."""
         self.cpu.reset()
 
-    def dump_state(self) -> Dict:
+    def dump_state(self) -> dict[str, Any]:
         """Get complete system state for debugging.
 
         Returns:
@@ -151,9 +152,9 @@ class Computer:
         """Get formatted memory dump."""
         return self.cpu.datapath.memory.dump(start, end)
 
-    def _bits_to_int(self, bits: List[int]) -> int:
+    def _bits_to_int(self, bits: list[int]) -> int:
         return sum(bit << i for i, bit in enumerate(bits))
 
-    def _format_bits(self, bits: List[int]) -> str:
+    def _format_bits(self, bits: list[int]) -> str:
         val = self._bits_to_int(bits)
         return f"{val:3d} (0x{val:02X})"

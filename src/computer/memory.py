@@ -10,8 +10,6 @@ Our RAM has:
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List
-
 
 class RAM:
     """256-byte RAM with 8-bit addressing."""
@@ -21,11 +19,11 @@ class RAM:
         self.size = size
         self.memory = [[0] * 8 for _ in range(size)]
 
-    def _addr_to_index(self, address: List[int]) -> int:
+    def _addr_to_index(self, address: list[int]) -> int:
         """Convert bit address to integer index."""
         return sum(bit << i for i, bit in enumerate(address))
 
-    def read(self, address: List[int]) -> List[int]:
+    def read(self, address: list[int]) -> list[int]:
         """Read from memory.
 
         Args:
@@ -37,7 +35,7 @@ class RAM:
         # TODO: Implement memory read
         ...
 
-    def write(self, address: List[int], data: List[int], enable: int) -> None:
+    def write(self, address: list[int], data: list[int], enable: int) -> None:
         """Write to memory.
 
         Args:
@@ -48,7 +46,7 @@ class RAM:
         # TODO: Implement memory write (only when enable == 1)
         ...
 
-    def load_program(self, program: List[List[int]], start_addr: int = 0) -> None:
+    def load_program(self, program: list[list[int]], start_addr: int = 0) -> None:
         """Load a program into memory.
 
         Args:

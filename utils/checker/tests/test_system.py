@@ -1,9 +1,10 @@
 """Test cases for full system integration."""
 
 from ..helpers import assert_eq, assert_not_none, int_to_bits
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for system integration."""
     return {
         # System execution
@@ -36,8 +37,9 @@ def _test_system_loads_data_section():
     Loading only the assembled instructions and dropping the data section
     makes every data-driven program silently compute zeros.
     """
-    from ..helpers import bits_to_int
     from computer.system import Computer
+
+    from ..helpers import bits_to_int
 
     comp = Computer()
     comp.load_program(ADD_SOURCE)
@@ -61,8 +63,9 @@ def _test_system_debug_trace():
     import contextlib
     import io
 
-    from ..helpers import assert_true
     from computer.system import Computer
+
+    from ..helpers import assert_true
 
     comp = Computer()
     comp.load_program(ADD_SOURCE)

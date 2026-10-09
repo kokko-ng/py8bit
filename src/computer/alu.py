@@ -25,25 +25,26 @@ Flags:
 # Write your implementations in the '# TODO' bodies below.
 # (Maintainers: edit the solution file, not this one, then regenerate.)
 
-from typing import List, Tuple, Dict
-from computer.gates import AND, OR, XOR, NOT
+from typing import ClassVar
+
 from computer.adders import ripple_carry_adder_8bit, subtractor_8bit
+from computer.gates import AND, NOT, OR, XOR
 
 
 class ALU:
     """8-bit Arithmetic Logic Unit."""
 
-    OP_ADD = [0, 0, 0, 0]
-    OP_SUB = [1, 0, 0, 0]
-    OP_AND = [0, 1, 0, 0]
-    OP_OR = [1, 1, 0, 0]
-    OP_XOR = [0, 0, 1, 0]
-    OP_NOT = [1, 0, 1, 0]
-    OP_SHL = [0, 1, 1, 0]
-    OP_SHR = [1, 1, 1, 0]
-    OP_CMP = [0, 0, 0, 1]
+    OP_ADD: ClassVar[list[int]] = [0, 0, 0, 0]
+    OP_SUB: ClassVar[list[int]] = [1, 0, 0, 0]
+    OP_AND: ClassVar[list[int]] = [0, 1, 0, 0]
+    OP_OR: ClassVar[list[int]] = [1, 1, 0, 0]
+    OP_XOR: ClassVar[list[int]] = [0, 0, 1, 0]
+    OP_NOT: ClassVar[list[int]] = [1, 0, 1, 0]
+    OP_SHL: ClassVar[list[int]] = [0, 1, 1, 0]
+    OP_SHR: ClassVar[list[int]] = [1, 1, 1, 0]
+    OP_CMP: ClassVar[list[int]] = [0, 0, 0, 1]
 
-    def __call__(self, a: List[int], b: List[int], opcode: List[int]) -> Tuple[List[int], Dict[str, int]]:
+    def __call__(self, a: list[int], b: list[int], opcode: list[int]) -> tuple[list[int], dict[str, int]]:
         """Execute an ALU operation.
 
         Args:
@@ -59,47 +60,47 @@ class ALU:
         # TODO: Implement the ALU: dispatch on opcode, compute result and flags
         ...
 
-    def _add(self, a: List[int], b: List[int]) -> Tuple[List[int], int]:
+    def _add(self, a: list[int], b: list[int]) -> tuple[list[int], int]:
         """Perform addition. Returns (result, carry)."""
         # TODO: Implement using ripple_carry_adder_8bit
         ...
 
-    def _sub(self, a: List[int], b: List[int]) -> Tuple[List[int], int, int]:
+    def _sub(self, a: list[int], b: list[int]) -> tuple[list[int], int, int]:
         """Perform subtraction. Returns (result, borrow, overflow)."""
         # TODO: Implement using subtractor_8bit
         ...
 
-    def _and(self, a: List[int], b: List[int]) -> List[int]:
+    def _and(self, a: list[int], b: list[int]) -> list[int]:
         """Perform bitwise AND."""
         # TODO: Implement bitwise AND
         ...
 
-    def _or(self, a: List[int], b: List[int]) -> List[int]:
+    def _or(self, a: list[int], b: list[int]) -> list[int]:
         """Perform bitwise OR."""
         # TODO: Implement bitwise OR
         ...
 
-    def _xor(self, a: List[int], b: List[int]) -> List[int]:
+    def _xor(self, a: list[int], b: list[int]) -> list[int]:
         """Perform bitwise XOR."""
         # TODO: Implement bitwise XOR
         ...
 
-    def _not(self, a: List[int]) -> List[int]:
+    def _not(self, a: list[int]) -> list[int]:
         """Perform bitwise NOT."""
         # TODO: Implement bitwise NOT
         ...
 
-    def _shl(self, a: List[int]) -> Tuple[List[int], int]:
+    def _shl(self, a: list[int]) -> tuple[list[int], int]:
         """Shift left by 1. Returns (result, carry_out)."""
         # TODO: Implement shift left (MSB becomes the carry)
         ...
 
-    def _shr(self, a: List[int]) -> Tuple[List[int], int]:
+    def _shr(self, a: list[int]) -> tuple[list[int], int]:
         """Shift right by 1. Returns (result, carry_out)."""
         # TODO: Implement shift right (LSB becomes the carry)
         ...
 
-    def _calculate_flags(self, result: List[int], carry: int, overflow: int) -> Dict[str, int]:
+    def _calculate_flags(self, result: list[int], carry: int, overflow: int) -> dict[str, int]:
         """Calculate status flags.
 
         Args:

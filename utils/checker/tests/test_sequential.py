@@ -1,11 +1,12 @@
 """Test cases for sequential circuits."""
 
 from ..helpers import assert_eq
+from ..runner import TestCases
 
 
-def get_tests() -> dict:
+def get_tests() -> TestCases:
     """Return all test cases for sequential circuits."""
-    from computer.sequential import GatedSRLatch, DLatch
+    from computer.sequential import DLatch, GatedSRLatch
 
     return {
         # SR Latch
